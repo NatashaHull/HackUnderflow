@@ -9,7 +9,6 @@
   padding-left: 45px;
   width: 70%;
   padding-bottom: 30px;
-  border-bottom: 1px solid #cccccc;
 }
 
 .question-title {
@@ -17,6 +16,10 @@
   padding: 5px;
   border-bottom: 1px solid #cccccc;
   margin: 10px auto;
+}
+
+.answer {
+  border-bottom: 1px solid #cccccc;  
 }
 
 .answer-header {
