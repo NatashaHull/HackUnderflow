@@ -5,6 +5,6 @@ HackUnderflow::Application.routes.draw do
   resources :questions do
     resources :answers, :only => [:create]
   end
-  
-  resources :answers, :only => [:update, :destroy]
+
+  resources :answers, :only => [:edit, :update, :destroy]
 end

@@ -1,4 +1,4 @@
-class Answers < ActiveRecord::Base
+class Answer < ActiveRecord::Base
   attr_accessible :body, :question_id
 
   validates_presence_of :body, :question_id, :user_id

@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_filter :require_current_user!
-  before_filter :require_answer_owner!
+  before_filter :require_answer_owner!, :except => [:create]
 
   def create
     @answer = Answer.new(params[:answer])
@@ -19,7 +19,7 @@ class AnswersController < ApplicationController
 
   def update
     if @answer.update_attributes(params[:answer])
-      redirect_to @answer
+      redirect_to question_url(@answer.question_id)
     else
       flash.now[:errors] = @answer.errors.full_messages
       render :edit

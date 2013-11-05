@@ -4,3 +4,19 @@
 <div class="question">
   <pre class="question-body"><%= @question.body %></pre>
 </div>
+
+<div class="answers">
+  <h5 class="answer-header">
+    <%= pluralize(@question.answers.count, "Answer") %>
+  </h5>
+  <% @question.answers.each do |answer| %>
+    <div class="answer">
+      <pre class="answer-body"><%= answer.body %></pre>
+    </div>
+  <% end %>
+</div>
+
+<h5 class="answer-title">Your Answer</h5>
+<div class="new-answers-form">
+  <%= render 'answers/form', :type => "new" %>
+</div>

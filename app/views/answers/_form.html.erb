@@ -1,0 +1,21 @@
+<% if type == "new" %>
+  <% action = question_answers_url(@question) %>
+  <% method = "post" %>
+  <% button = "Post Your Answer" %>
+<% else %>
+  <% action = answer_url(@answer) %>
+  <% method = "put" %>
+  <% button = "Update Your Answer" %>
+<% end %>
+<form action="<%= action %>" method="post" class="answers-form">
+  <input type="hidden" name="_method" value="<%= method %>">
+
+  <input type="hidden" name="authenticity_token"
+         value="<%= form_authenticity_token %>">
+
+  <label for="answer_body"></label>
+  <textarea name="answer[body]" id="answer_body"
+  rows="20" cols="20"><%= @answer.body %></textarea>
+
+  <input type="submit" value="<%= button %>" class="submit-button">
+</form>

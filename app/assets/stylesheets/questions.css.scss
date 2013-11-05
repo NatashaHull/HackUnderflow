@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 /* Show View */
 
-.question {
+.question, .answer {
   margin: 30px auto;
   margin-left: 55px;
   padding-left: 45px;
@@ -16,5 +16,19 @@
   width: 90%;
   padding: 5px;
   border-bottom: 1px solid #cccccc;
+  margin: 10px auto;
+}
+
+.answer-header {
+  width: 70%;
+  padding: 5px;
+  border-bottom: 1px solid #cccccc;
+  margin: 10px auto;
+  margin-left: 55px;
+}
+
+.answer-title {
+  width: 90%;
+  padding: 5px;
   margin: 10px auto;
 }
