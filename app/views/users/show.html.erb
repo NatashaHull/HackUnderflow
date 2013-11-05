@@ -1,11 +1,11 @@
-<h1 class="centered-header"><%= current_user.username.capitalize %></h1>
-<% unless current_user.questions.empty? %>
+<h1 class="centered-header"><%= @user.username.capitalize %></h1>
+<% unless @user.questions.empty? %>
   <div class="questions-list">
     <h5 class="profile-header">
-      <%= pluralize(current_user.questions.count, "Question") %>
+      <%= pluralize(@user.questions.count, "Question") %>
     </h5>
     <ul>
-      <% current_user.questions.each do |question| %>
+      <% @user.questions.each do |question| %>
         <li class="questionLi"><%= link_to question.title, question %></li>
       <% end %>
     </ul>
