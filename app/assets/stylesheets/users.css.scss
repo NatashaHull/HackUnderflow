@@ -105,7 +105,12 @@
   color: white;
 }
 
-.questions-list .questionLi {
+.profile-list {
+  float: left;
+  width: 500px;
+}
+
+.profile-list .profileLi {
   border-top: 1px solid #cccccc;
   margin: 50px auto;
   margin-top: 0px;
@@ -115,5 +120,5 @@
 }
 
 .profile-header {
-  margin-left: 160px;
+  margin-left: 75px;
 }
