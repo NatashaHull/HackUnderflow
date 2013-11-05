@@ -42,6 +42,22 @@ class User < ActiveRecord::Base
     self.save!
   end
 
+  def can_vote_up?
+    self.points >= 15
+  end
+  
+  def can_comment?
+    self.points >= 50
+  end
+  
+  def can_vote_down?
+    self.points >= 125
+  end
+  
+  def can_edit?
+    self.points >= 2000
+  end
+
   private
 
     def password_matches_confirmation
