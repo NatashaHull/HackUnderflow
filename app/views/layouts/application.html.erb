@@ -19,6 +19,11 @@
       <li>
       <%= link_to "Sign Out", session_url, :method => :delete %>
       </li>
+      <li class="divider"></li>
+      <li>
+        <%= link_to "Profile", current_user %>
+      </li>
+      <li class="divider"></li>
       <li>Hi <%= current_user.username.capitalize %></li>
       <li class="divider"></li>
     <% else %>
