@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   validates :password, :length => { :minimum => 6, :allow_nil => true }
   validate :password_matches_confirmation
 
+  has_many :questions
+
   def self.find_by_credentials(user_params)
     user = User.find_by_username(user_params[:username])
     return user if user.is_password?(user_params[:password])
@@ -45,15 +47,15 @@ class User < ActiveRecord::Base
   def can_vote_up?
     self.points >= 15
   end
-  
+
   def can_comment?
     self.points >= 50
   end
-  
+
   def can_vote_down?
     self.points >= 125
   end
-  
+
   def can_edit?
     self.points >= 2000
   end
