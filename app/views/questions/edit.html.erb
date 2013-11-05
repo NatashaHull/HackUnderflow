@@ -1,2 +1,9 @@
-<h1>Questions#edit</h1>
-<p>Find me in app/views/questions/edit.html.erb</p>
+<h1 class="centered-header">Edit "<%= @question.title %>"</h1>
+
+<form action="<%= question_url(@question) %>" method="post" class="questions-form">
+  <input type="hidden" name="_method" value="put">
+
+  <%= render 'form' %>
+
+  <input type="submit" value="Update Question" class="submit-button">
+</form>

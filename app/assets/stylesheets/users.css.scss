@@ -40,7 +40,7 @@
 }
 
 
-.users-form {
+.users-form, .questions-form {
   margin: auto;
   width: 70%;
 }
@@ -69,6 +69,22 @@
   font-size: 1.3em;
   width: 13em;
 }
+
+.questions-form #body {
+  width: 713px;
+  height: 200px;
+}
+
+.questions-form .submit-button {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 15px;
+  margin: 25%;
+  margin-top: 20px;
+  font-size: 1.5em;
+  width: 15em;
+}
+
 .submit-button:hover {
   background-color: black;
   color: white;
