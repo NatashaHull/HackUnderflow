@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_current_user!, :except => [:new, :create]
+  before_filter :require_current_user!, :only => [:edit, :update, :delete]
 
   def show
     @user = User.find(params[:id])
