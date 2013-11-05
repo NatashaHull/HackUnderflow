@@ -1,0 +1,9 @@
+<h1><%= current_user.username.capitalize %></h1>
+
+<% unless current_user.questions.empty? %>
+  <ul class="questions-list">
+    <% current_user.questions.each do |question| %>
+      <li><%= link_to question.title, question %></li>
+    <% end %>
+  </ul>
+<% end %>

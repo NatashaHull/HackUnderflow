@@ -1,2 +1,7 @@
 <h1>Questions#index</h1>
-<p>Find me in app/views/questions/index.html.erb</p>
+
+<ul>
+  <% @questions.each do |question| %>
+    <li><%= link_to question.title, question %></li>
+  <% end %>
+</ul>
