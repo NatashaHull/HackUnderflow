@@ -4,7 +4,10 @@ HackUnderflow::Application.routes.draw do
 
   resources :questions do
     resources :answers, :only => [:create]
+    resources :comments, :only => [:create]
   end
 
-  resources :answers, :only => [:edit, :update, :destroy]
+  resources :answers, :only => [:edit, :update, :destroy] do
+    resources :comments, :only => [:create]
+  end
 end
