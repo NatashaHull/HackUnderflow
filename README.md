@@ -9,7 +9,7 @@ This application is a clone of Stack Overflow. However, it is designed different
 * [Points](https://github.com/NatashaHull/HackUndderflow#points) (belonging to a User)
 * [Comments](https://github.com/NatashaHull/HackUndderflow#comments)
 * [Up and Down Voting](https://github.com/NatashaHull/HackUndderflow#voting) (On Questions and Answers By Users)
-* [Edit suggestions](https://github.com/NatashaHull/HackUndderflow##edit-suggestions) (By Users with enough points)
+* [Edit suggestions](https://github.com/NatashaHull/HackUndderflow#edit-suggestions) (By Users with enough points)
 
 Below is a list of advanced features I may add to this site:
 
