@@ -31,13 +31,11 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @question = @question
-
     if @question.update_attributes(params[:question])
       redirect_to @question
     else
       flash.now[:errors] = @question.errors.full_messages
-      render :new
+      render :edit
     end
   end
 
