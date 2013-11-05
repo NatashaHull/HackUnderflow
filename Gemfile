@@ -15,6 +15,7 @@ end
 
 gem 'jquery-rails'
 gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'figaro'
 
 group :development do
   gem 'better_errors'
