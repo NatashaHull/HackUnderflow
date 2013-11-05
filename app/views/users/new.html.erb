@@ -1,9 +1,9 @@
 <div class="content">
-  <form action="<%= users_url %>" method="post">
+  <form action="<%= users_url %>" method="post" class="users-form">
     <%= render 'shared/form' %>
 
     <label for="password_confirmation">Confirm Password</label>
-    <input type="text" name="user[password_confirmation]"
+    <input type="password" name="user[password_confirmation]"
            id="password_confirmation">
 
     <input type="submit" value="Create Account">

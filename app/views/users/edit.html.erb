@@ -1,0 +1,24 @@
+<div class="content">
+  <form action="<%= user_url(@user) %>" method="post" class="users-form">
+    <input type="hidden" name="_method" value="put">
+
+    <input type="hidden" name="authenticity_token"
+       value="<%= form_authenticity_token %>">
+
+    <label for="username">Username</label>
+    <input type="text" name="user[username]" id="username"
+           value="<%= @user.username %>">
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password">
+
+    <label for="password">New Password</label>
+    <input type="password" name="user[password]" id="password">
+
+    <label for="password_confirmation">Confirm New Password</label>
+    <input type="password" name="user[password_confirmation]"
+           id="password_confirmation">
+
+    <input type="submit" value="Create Account">
+  </form>
+</div>

@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
 
-    if @user.is_password?(params[:user][:password])
+    if @user.is_password?(params[:password])
       if @user.update_attributes(params[:user])
         redirect_to @user
       else
