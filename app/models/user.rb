@@ -1,3 +1,5 @@
+require 'bcrypt'
+
 class User < ActiveRecord::Base
   attr_accessible :username, :password, :password_confirmation
   attr_reader :password
