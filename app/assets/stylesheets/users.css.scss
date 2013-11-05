@@ -2,9 +2,31 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body {
-  font-family: 'Arial';
-  text-shadow: 1px;
+.top-bar {
+  width: 100%;
+  padding-top: 10px;
+}
+
+.top-bar .left {
+  width: 50%;
+}
+
+.top-bar .left li {
+  padding-left: 1em;
+  color: #2ba6cb;
+  float: left;
+  width: 30%;
+}
+
+.top-bar .right {
+  width: 50%;
+}
+
+.top-bar .right li {
+  padding-left: 1em;
+  color: #2ba6cb;
+  float: right;
+  width: 30%;
 }
 
 .centered-header {
@@ -20,15 +42,13 @@ body {
 .users-form label {
   padding: 5px;
   text-align: center;
-  display: block;
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 .users-form input {
   margin: auto;
   padding: 5px;
   display: block;
-  height: 2em;
   width: 20em;
   border-radius: 5px;
   font-size: .9em;
@@ -40,7 +60,7 @@ body {
   border-radius: 15px;
   margin: auto;
   margin-top: 20px;
-  font-size: 1.5em;
+  font-size: 1.3em;
   width: 13em;
 }
 .submit-button:hover {

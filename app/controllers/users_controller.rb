@@ -30,6 +30,7 @@ class UsersController < ApplicationController
 
     if @user.is_password?(params[:password])
       if @user.update_attributes(params[:user])
+        login_user!(@user)
         redirect_to @user
       else
         flash.now[:errors] = @user.errors.full_messages
