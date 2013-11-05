@@ -3,13 +3,13 @@
 ##App
 This application is a clone of Stack Overflow. However, it is designed differently, and will be a one page application. Below is basic overview of the features of this site:
 
-* Users
-* Questions
-* Answers (which may or may not be accepted)
-* Points (belonging to a User)
-* Comments
-* Up and Down Voting (On Questions and Answers By Users)
-* Edit suggestions (By Users with enough points)
+* [Users](https://github.com/NatashaHull/HackUndderflow#users)
+* [Questions](https://github.com/NatashaHull/HackUndderflow#questions)
+* [Answers](https://github.com/NatashaHull/HackUndderflow#answers) (which may or may not be accepted)
+* [Points](https://github.com/NatashaHull/HackUndderflow#points) (belonging to a User)
+* [Comments](https://github.com/NatashaHull/HackUndderflow#comments)
+* [Up and Down Voting](https://github.com/NatashaHull/HackUndderflow#voting) (On Questions and Answers By Users)
+* [Edit suggestions](https://github.com/NatashaHull/HackUndderflow##edit-suggestions) (By Users with enough points)
 
 Below is a list of advanced features I may add to this site:
 
@@ -53,6 +53,6 @@ If I get around to moderator and more advanced features, more methods will need 
 
 ##Comments
 
-##Up and Down Voting
+##Voting
 
-##Edit suggestions
+##Edit Suggestions
