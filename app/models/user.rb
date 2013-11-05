@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   validate :password_matches_confirmation
 
   has_many :questions
+  has_many :answers
 
   def self.find_by_credentials(user_params)
     user = User.find_by_username(user_params[:username])
