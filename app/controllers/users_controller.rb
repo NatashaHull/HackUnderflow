@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_filter :require_current_user!, :except => [:new, :create]
 
   def show
-    @user = current_user
   end
 
   def new
