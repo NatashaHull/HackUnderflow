@@ -1,4 +1,6 @@
 <div class="content">
+  <h1 class="centered-header">Edit Your Account</h1>
+
   <form action="<%= user_url(@user) %>" method="post" class="users-form">
     <input type="hidden" name="_method" value="put">
 
@@ -19,6 +21,6 @@
     <input type="password" name="user[password_confirmation]"
            id="password_confirmation">
 
-    <input type="submit" value="Create Account">
+    <input type="submit" value="Create Account" class="submit-button">
   </form>
 </div>
