@@ -57,3 +57,6 @@ The `answers` resource is even simpler than the `questions` resource. It only ha
 ##Voting
 
 ##Edit Suggestions
+
+##Credits
+I am not a designer. As a result I downloaded [Foundation's](http://foundation.zurb.com/) stylesheets and added them to my own CSS files.
