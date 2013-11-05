@@ -1,2 +1,11 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<div class="content">
+  <form action="<%= users_url %>" method="post">
+    <%= render 'shared/form' %>
+
+    <label for="password_confirmation">Confirm Password</label>
+    <input type="text" name="user[password_confirmation]"
+           id="password_confirmation">
+
+    <input type="submit" value="Create Account">
+  </form>
+</div>
