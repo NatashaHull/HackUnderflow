@@ -1,6 +1,6 @@
-<h1>Questions#index</h1>
+<h1>Questions</h1>
 
-<ul>
+<ul class="questions-list">
   <% @questions.each do |question| %>
     <li><%= link_to question.title, question %></li>
   <% end %>
