@@ -1,9 +1,11 @@
 <input type="hidden" name="authenticity_token"
        value="<%= form_authenticity_token %>">
 
-<label for="title">Title</label>
-<input type="text" name="question[title]"
-       value="<%= @question.title %>" id="title">
+<% if @question.user_id == current_user.id %>
+  <label for="title">Title</label>
+  <input type="text" name="question[title]"
+         value="<%= @question.title %>" id="title">
+<% end %>
 
 <label for="body">Body</label>
 <textarea name="question[body]" id="body" rows="50" cols="100">
