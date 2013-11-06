@@ -15,6 +15,13 @@ class User < ActiveRecord::Base
   has_many :answers
   has_many :comments
   has_many :votes
+  has_many :edit_suggestions
+  has_many :sugggested_question_edits,
+           :through => :questions,
+           :source => :edit_suggestions
+  has_many :sugggested_answer_edits,
+           :through => :answers,
+           :source => :edit_suggestions
 
   def self.find_by_credentials(user_params)
     user = User.find_by_username(user_params[:username])
@@ -63,6 +70,11 @@ class User < ActiveRecord::Base
 
   def can_edit?
     self.points >= 2000
+  end
+
+  #Edit Suggestion Compilation
+  def suggested_edits
+    sugggested_question_edits + sugggested_answer_edits
   end
 
   private

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131106004827) do
+ActiveRecord::Schema.define(:version => 20131106190049) do
 
   create_table "answers", :force => true do |t|
     t.string   "body"
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(:version => 20131106004827) do
   end
 
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "edit_suggestions", :force => true do |t|
+    t.string   "body"
+    t.integer  "user_id"
+    t.integer  "editable_id"
+    t.string   "editable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "edit_suggestions", ["user_id"], :name => "index_edit_suggestions_on_user_id"
 
   create_table "questions", :force => true do |t|
     t.string   "title"

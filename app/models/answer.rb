@@ -7,6 +7,7 @@ class Answer < ActiveRecord::Base
   belongs_to :question
   has_many :comments, :as => :commentable
   has_many :votes, :as => :voteable
+  has_many :edit_suggestions, :as => :editable
 
   def vote_counts
     votes = self.votes
