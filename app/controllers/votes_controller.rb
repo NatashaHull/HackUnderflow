@@ -17,7 +17,7 @@ class VotesController < ApplicationController
         "Question",
         current_user.id)
 
-      redirect_to @question
+      redirect_to question_url(params[:question_id])
     end
 
     def answer(dir)

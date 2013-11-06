@@ -21,7 +21,7 @@ class Vote < ActiveRecord::Base
       old_vote.destroy
     else
       old_vote.direction = dir
-      old_vote.save
+      old_vote.save!
     end
   end
 
@@ -31,7 +31,7 @@ class Vote < ActiveRecord::Base
     vote.voteable_id = v_id
     vote.voteable_type = v_type
     vote.user_id = u_id
-    vote.save
+    vote.save!
   end
 
   private
