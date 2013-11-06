@@ -21,7 +21,7 @@ class VotesController < ApplicationController
     end
 
     def answer(dir)
-      @answer = Question.find(params[:answer_id])
+      @answer = Answer.find(params[:answer_id])
       Vote.parse_vote_request(
         dir,
         params[:answer_id],

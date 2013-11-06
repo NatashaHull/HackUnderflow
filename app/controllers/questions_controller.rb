@@ -3,11 +3,12 @@ class QuestionsController < ApplicationController
   before_filter :require_question_owner!, :only => [:edit, :update, :destroy]
 
   def index
-    @questions = Question.all
+    @questions = Question.includes(:votes).all
   end
 
   def show
-    @question = Question.find(params[:id])
+    @question = Question.includes(:votes).find(params[:id])
+    @answers = @question.answers.includes(:votes)
     @answer = Answer.new
   end
 

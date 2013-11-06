@@ -3,11 +3,11 @@
 </h5>
 <div class="question">
   <div class="arrows">
-    <%= link_to "<div class=\"arrow-up\"></div>".html_safe,
-               question_upvote_url(@question), :method => :post %>
+    <a href="<%= question_upvote_url(@question) %>" data-method="post"
+         rel="nofollow" class="arrow-up"></a>
     <span class="votes"><%= @question.vote_counts %></span>
-    <%= link_to "<div class=\"arrow-down\"></div>".html_safe,
-               question_downvote_url(@question), :method => :post %>
+    <a href="<%= question_downvote_url(@question) %>" data-method="post"
+         rel="nofollow" class="arrow-down"></a>
   </div>
   <pre class="question-body"><%= @question.body %></pre>
   <a href="<%= edit_question_url(@question) %>" class="question-link">

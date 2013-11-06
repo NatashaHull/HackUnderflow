@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
   def new
     if params[:question_id]
       @question = Question.find(params[:question_id])
+      @answers = @question.answers.includes(:votes)
     else
       @answer = Answer.includes(:question).find(params[:answer_id])
       @question = @answer.question
@@ -27,8 +28,8 @@ class CommentsController < ApplicationController
         redirect_to @question
       else
         flash.now[:errors] = @comment.errors.full_messages
-        @answer = Answer.new
-        render 'questions/show'
+        @answers = @quesion.answers.includes(:votes)
+        render :new
       end
     end
 
@@ -42,7 +43,7 @@ class CommentsController < ApplicationController
       else
         flash.now[:errors] = @comment.errors.full_messages
         @question = @answer.question
-        render 'questions/show'
+        render :new
       end
     end
 end

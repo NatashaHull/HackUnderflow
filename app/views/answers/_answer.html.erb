@@ -1,11 +1,11 @@
 <div class="answer">
   <div class="arrows">
     <div class="arrows">
-    <%= link_to "<div class=\"arrow-up\"></div>".html_safe,
-               answer_upvote_url(answer), :method => :post %>
+      <a href="<%= answer_upvote_url(answer) %>" data-method="post"
+         rel="nofollow" class="arrow-up"></a>
     <span class="votes"><%= answer.vote_counts %></span>
-    <%= link_to "<div class=\"arrow-down\"></div>".html_safe,
-               answer_downvote_url(answer), :method => :post %>
+    <a href="<%= answer_downvote_url(answer) %>" data-method="post"
+         rel="nofollow" class="arrow-down"></a>
   </div>
   </div>
   <pre class="answer-body"><%= answer.body %></pre>
