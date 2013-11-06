@@ -66,7 +66,12 @@ Simply adding the polymorphic association was enough to take care of the model l
 Handling `routes` and `controllers` for this resource was more complicated. I ended up making a route for new comments and creating new comments under both the question route and the comments route. This led to my splitting up the controller action for creating a new comment into one of two private methods which either built the comment as a `question` or `answer` comment using either `params[:question_id]` or `params[:answer_id]`. This was not particularly difficult and it was fairly easy to adjust the new view accordingly as well.
 
 ##Voting
-This is where I started having to make more interesting decisions. Instead of splitting this out into two or four tables, I created one table that had a polymorphic association with `questions` and `answers` as well as a column for the `direction` of each vote. Since I wanted to make sure that a person could not vote more than once in the same direction, I needed to add a uniqueness validation (which wasn't too bad).
+This is where I started having to make more interesting decisions. Instead of splitting this out into two or four tables, I created one table that had a polymorphic association with `questions` and `answers` as well as a column for the `direction` of each vote. This caused the schema to be as follows:
+* id
+* direction
+* user_id
+* voteable_type
+* voteable_Id
 
 The bigger issue was figuring out how to make sure that a user could unvote if they clicked on the same arrow (voting is through arrows in the view) twice, in addition to being able to reverse their vote by clicking on the opposite arrow. Moreover, I wanted to make sure that the model did all the work. After trying a different method, I created a `parse_vote_request` class method for Votes that the controller calls when a user clicks on an arrow. This method takes in a `direction`, `voteable_type`, `voteable_id` and a `user_id`. It then tries to find any previous vote on the same object by the same user and adds, removes, and updates vote accordingly.
 
