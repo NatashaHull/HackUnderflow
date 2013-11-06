@@ -1,13 +1,17 @@
 class EditSuggestionsController < ApplicationController
-  before_filter :require_current_user!, :only => [:accept]
+  before_filter :require_current_user!, :except => [:show]
 
   def show
     @suggestion = EditSuggestion.find(params[:id])
   end
 
   def accept
-    @suggestion = EditSuggestion.find(params[:edit_suggestion_id])
     @suggestion.accept_edit
+    redirect_to @suggestion.question
+  end
+
+  def reject
+    @suggestion.destroy
     redirect_to @suggestion.question
   end
 

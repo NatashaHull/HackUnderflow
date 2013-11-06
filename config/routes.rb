@@ -19,5 +19,6 @@ HackUnderflow::Application.routes.draw do
 
   resources :edit_suggestions, :only => [:show] do
     put 'accept'
+    delete 'reject'
   end
 end

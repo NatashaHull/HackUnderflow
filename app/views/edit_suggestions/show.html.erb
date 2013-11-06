@@ -22,12 +22,22 @@
   </div>
 </div>
 
-<% if @suggestion.editable.user_id == current_user.id %>
-  <form action="<%= edit_suggestion_accept_url(@suggestion) %>"
-        method="post" class="suggestion-form">
-    <input type="hidden" name="_method" value="put">
-    <input type="hidden" name="authenticity_token"
-           value="<%= form_authenticity_token %>">
-    <input type="submit" class="submit-button" value="Accept Edit">
-  </form>
-<% end %>
+<%# if @suggestion.editable.user_id == current_user.id %>
+  <div class="suggestion-forms">
+    <form action="<%= edit_suggestion_accept_url(@suggestion) %>"
+          method="post" class="suggestion-form">
+      <input type="hidden" name="_method" value="put">
+      <input type="hidden" name="authenticity_token"
+             value="<%= form_authenticity_token %>">
+      <input type="submit" class="accept-button" value="Accept Edit">
+    </form>
+
+    <form action="<%= edit_suggestion_reject_url(@suggestion) %>"
+          method="post" class="suggestion-form">
+      <input type="hidden" name="_method" value="delete">
+      <input type="hidden" name="authenticity_token"
+             value="<%= form_authenticity_token %>">
+      <input type="submit" class="reject-button" value="Reject Edit">
+    </form>
+  </div>
+<%# end %>

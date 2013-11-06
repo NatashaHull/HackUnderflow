@@ -121,17 +121,35 @@
   width: 15em;
 }
 
-.suggestion-form .submit-button {
+.suggestion-forms {
+  margin: auto;
+  margin-left: 36%;
+  margin-right: 36%;
+}
+
+.suggestion-form .accept-button {
   background-color: white;
   border: 1px solid black;
   border-radius: 15px;
-  margin: 37%;
-  margin-top: 20px;
   font-size: 1em;
-  width: 15em;
+  width: 8em;
 }
 
-.submit-button:hover {
+.suggestion-form .reject-button {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 15px;
+  font-size: 1em;
+  width: 8em;
+}
+
+.suggestion-form {
+  margin-top: 20px;
+  float: left;
+  margin: 5px;
+}
+
+.submit-button:hover, .accept-button:hover, .reject-button:hover {
   background-color: black;
   color: white;
 }
