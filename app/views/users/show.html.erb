@@ -19,7 +19,39 @@
     </h5>
     <ul>
       <% @user.answers.each do |answer| %>
-        <li class="profileLi"><%= link_to answer.question.title, answer %></li>
+        <li class="profileLi">
+          <%= link_to answer.question.title, answer.question %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% unless @user.edit_suggestions.includes(:editable).empty? %>
+  <div class="profile-list">
+    <h5 class="profile-header">
+      <%= pluralize(@user.edit_suggestions.count, "Edit Suggestion") %>
+    </h5>
+    <ul>
+      <% @user.edit_suggestions.each do |edit_suggestion| %>
+        <li class="profileLi">
+          <%= link_to edit_suggestion.question.title, edit_suggestion %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% unless @user.suggested_edits.empty? %>
+  <div class="profile-list">
+    <h5 class="profile-header">
+      <%= pluralize(@user.suggested_edits.count, "Suggested Edit") %>
+    </h5>
+    <ul>
+      <% @user.suggested_edits.each do |suggested_edit| %>
+        <li class="profileLi">
+          <%= link_to suggested_edit.question.title, suggested_edit %>
+        </li>
       <% end %>
     </ul>
   </div>

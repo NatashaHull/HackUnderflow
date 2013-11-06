@@ -1,6 +1,4 @@
 HackUnderflow::Application.routes.draw do
-  get "edit_suggestions/show"
-
   resources :users, :except => [:index, :destroy]
   resource :session, :only => [:new, :create, :destroy]
 
@@ -18,4 +16,6 @@ HackUnderflow::Application.routes.draw do
     post 'upvote' => 'votes#up'
     post 'downvote' => 'votes#down'
   end
+
+  resources :edit_suggestions, :only => [:show]
 end
