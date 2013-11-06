@@ -35,7 +35,8 @@
     <ul>
       <% @user.edit_suggestions.each do |edit_suggestion| %>
         <li class="profileLi">
-          <%= link_to edit_suggestion.question.title, edit_suggestion %>
+          <%= link_to "#{edit_suggestion.question.title}: #{edit_suggestion.editable_type}",
+                edit_suggestion %>
         </li>
       <% end %>
     </ul>
@@ -50,7 +51,8 @@
     <ul>
       <% @user.suggested_edits.each do |suggested_edit| %>
         <li class="profileLi">
-          <%= link_to suggested_edit.question.title, suggested_edit %>
+          <%= link_to "#{suggested_edit.question.title}: #{suggested_edit.editable_type}",
+              suggested_edit %>
         </li>
       <% end %>
     </ul>

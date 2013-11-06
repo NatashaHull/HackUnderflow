@@ -1,2 +1,26 @@
-<h1>EditSuggestions#show</h1>
-<p>Find me in app/views/edit_suggestions/show.html.erb</p>
+<h1 class="centered-header">
+  <%= "#{@suggestion.question.title}: #{@suggestion.editable_type}" %>
+</h1>
+
+<div class="edit-bodies">
+  <div class="edit-compare-div">
+    <% @suggestion.editable.body.split("\n").each_with_index do |line, i| %>
+      <span class="edit-line"><%= "#{i+1} | #{line}" %></span>
+    <% end %>
+  </div>
+  <div class="edit-compare-div">
+    <% @suggestion.body.split("\n").each_with_index do |line, i| %>
+      <span class="edit-line"><%= "#{i+1} | #{line}" %></span>
+    <% end %>
+  </div>
+</div>
+
+<% if @suggestion.editable.user_id == current_user.id %>
+  <form action="<%= edit_suggestion_accept_url(@suggestion) %>"
+        method="post" class="suggestion-form">
+    <input type="hidden" name="_method" value="put">
+    <input type="hidden" name="authenticity_token"
+           value="<%= form_authenticity_token %>">
+    <input type="submit" class="submit-button" value="Accept Edit">
+  </form>
+<% end %>

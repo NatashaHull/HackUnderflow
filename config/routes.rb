@@ -17,5 +17,7 @@ HackUnderflow::Application.routes.draw do
     post 'downvote' => 'votes#down'
   end
 
-  resources :edit_suggestions, :only => [:show]
+  resources :edit_suggestions, :only => [:show] do
+    put 'accept'
+  end
 end
