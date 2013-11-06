@@ -38,23 +38,41 @@ In addition to the authentication methods necessary for each user, my model has 
 ###Points
 Points are the gatekeepers for the ability to do anything other than ask a question, or answer someone else's question. Methods for dealing with points in the `User` model include a basic method for adding points and several methods for checking if user has enough points to do a particular action:
 
-* add_points - This takes in a number of points as a parameter.
-* can_vote_up? (min 15 points)
-* can_comment? (min 50 points)
-* can_vote_down? (min 125 points)
-* can_edit? (min 2000)
+* `add_points` - This takes in a number of points as a parameter.
+* `can_vote_up?` (min 15 points)
+* `can_comment?` (min 50 points)
+* `can_vote_down?` (min 125 points)
+* `can_edit?` (min 2000)
 
 If I get around to moderator and more advanced features, more methods will need to be added to correspond to those extra features.
 
 ##Questions
-The `questions` resource is fairly simple compared to the user's resource (at least for now). The database only stores an id, a title, and a body. That said, from this point on, everything relates back to a question and a user, either directy (to the question itself) or inderection through an answer.
+The `questions` resource is fairly simple compared to the user's resource (at least for now). The database only stores an id, a title, and a body. That said, from this point on, everything relates back to a question and a user, either directy (to the question itself) or inderection through an answer. Moreover, questions end up having a number of methods to deal with Voting and Edit Suggestions. That are mentioned in those respective section below.
 
 ##Answers
-The `answers` resource is even simpler than the `questions` resource. It only has a body, an associated user, and an associated question. Answers are the last resource to generate any addition views (for the moment). Ideally, every question will have one or multiple answers. Even though every answer belongs to a question, all of the resources that follow can belong to either an answer or a question.
+The `answers` resource is even simpler than the `questions` resource. Answers only has a body, an associated user, and an associated question in their database table. Answers, like questions, can be voted on, commented on, and even edited by other users. Every added method that a question needs to deal with the following resources, an answer needs as well.
 
 ##Comments
+The `comments`, while storing a polymorhpic association, is very simple. Each row in the `comments` table has the following schema:
+
+* id
+* body
+* user_id
+* commentable_id
+* commentable_type
+
+Simply adding the polymorphic association was enough to take care of the model level of this resource.
+
+Handling `routes` and `controllers` for this resource was more complicated. I ended up making a route for new comments and creating new comments under both the question route and the comments route. This led to my splitting up the controller action for creating a new comment into one of two private methods which either built the comment as a `question` or `answer` comment using either `params[:question_id]` or `params[:answer_id]`. This was not particularly difficult and it was fairly easy to adjust the new view accordingly as well.
 
 ##Voting
+This is where I started having to make more interesting decisions. Instead of splitting this out into two or four tables, I created one table that had a polymorphic association with `questions` and `answers` as well as a column for the `direction` of each vote. Since I wanted to make sure that a person could not vote more than once in the same direction, I needed to add a uniqueness validation (which wasn't too bad).
+
+The bigger issue was figuring out how to make sure that a user could unvote if they clicked on the same arrow (voting is through arrows in the view) twice, in addition to being able to reverse their vote by clicking on the opposite arrow. Moreover, I wanted to make sure that the model did all the work. After trying a different method, I created a `parse_vote_request` class method for Votes that the controller calls when a user clicks on an arrow. This method takes in a `direction`, `voteable_type`, `voteable_id` and a `user_id`. It then tries to find any previous vote on the same object by the same user and adds, removes, and updates vote accordingly.
+
+Voting also required two different instance methods on `question` and `answer` objects. Those were:
+* `vote_counts`
+* `vote_direction_by_user` - This takes in a user_id and sees if and how the user voted on that object.
 
 ##Edit Suggestions
 
