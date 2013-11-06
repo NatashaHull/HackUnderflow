@@ -7,9 +7,11 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @question = Question.includes(:votes).find(params[:id])
-    @answers = @question.answers.includes(:votes)
-    @answer = Answer.new
+    ActiveRecord::Base.transaction do
+      @question = Question.includes(:votes).find(params[:id])
+      @answers = @question.answers.includes(:votes).includes(:comments)
+      @answer = Answer.new
+    end
   end
 
   def new

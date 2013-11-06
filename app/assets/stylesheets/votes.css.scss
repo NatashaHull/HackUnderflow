@@ -19,6 +19,15 @@
   border-bottom: 15px solid #cccccc;
 }
 
+.voted-up {
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid #FF9900;
+}
+
 .arrow-down {
   display: block;
   width: 0; 
@@ -26,6 +35,15 @@
   border-left: 15px solid transparent;
   border-right: 15px solid transparent; 
   border-top: 15px solid #cccccc;
+}
+
+.voted-down {
+  display: block;
+  width: 0; 
+  height: 0; 
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent; 
+  border-top: 15px solid #FF9900;
 }
 
 .votes {

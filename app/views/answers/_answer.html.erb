@@ -1,12 +1,14 @@
 <div class="answer">
   <div class="arrows">
-    <div class="arrows">
-      <a href="<%= answer_upvote_url(answer) %>" data-method="post"
-         rel="nofollow" class="arrow-up"></a>
+    <% direction = answer.vote_direction_by_user(current_user.id) %>
+      <a href="<%= answer_upvote_url(answer) %>"
+       data-method="post" rel="nofollow"
+       class="<%= direction == "up" ? "voted-up" : "arrow-up" %>"></a>
     <span class="votes"><%= answer.vote_counts %></span>
-    <a href="<%= answer_downvote_url(answer) %>" data-method="post"
-         rel="nofollow" class="arrow-down"></a>
-  </div>
+    <a href="<%= answer_downvote_url(answer) %>"
+       data-method="post" rel="nofollow"
+       class="<%= direction == "down" ? "voted-down" : "arrow-down" %>">
+    </a>
   </div>
   <pre class="answer-body"><%= answer.body %></pre>
   <a href="<%= edit_answer_url(answer) %>" class="answer-link">

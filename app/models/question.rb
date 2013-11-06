@@ -17,11 +17,11 @@ class Question < ActiveRecord::Base
     count
   end
 
-  def vote_by_user(id)
+  def vote_direction_by_user(id)
     self.votes.each do |vote|
       return vote.direction if vote.user_id == id
     end
-    
+
     false
   end
 end

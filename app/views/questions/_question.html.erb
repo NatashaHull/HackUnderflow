@@ -3,11 +3,15 @@
 </h5>
 <div class="question">
   <div class="arrows">
-    <a href="<%= question_upvote_url(@question) %>" data-method="post"
-         rel="nofollow" class="arrow-up"></a>
+    <% direction = @question.vote_direction_by_user(current_user.id) %>
+    <a href="<%= question_upvote_url(@question) %>"
+       data-method="post" rel="nofollow"
+       class="<%= direction == "up" ? "voted-up" : "arrow-up" %>"></a>
     <span class="votes"><%= @question.vote_counts %></span>
-    <a href="<%= question_downvote_url(@question) %>" data-method="post"
-         rel="nofollow" class="arrow-down"></a>
+    <a href="<%= question_downvote_url(@question) %>"
+       data-method="post" rel="nofollow"
+       class="<%= direction == "down" ? "voted-down" : "arrow-down" %>">
+    </a>
   </div>
   <pre class="question-body"><%= @question.body %></pre>
   <a href="<%= edit_question_url(@question) %>" class="question-link">
