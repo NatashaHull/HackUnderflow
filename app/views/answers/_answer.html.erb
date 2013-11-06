@@ -1,0 +1,14 @@
+<div class="answer">
+  <pre class="answer-body"><%= answer.body %></pre>
+  <a href="<%= edit_answer_url(answer) %>" class="answer-link">
+    improve this answer
+  </a>|
+  <a href="<%= new_answer_comment_url(answer) %>"
+     class="answer-link">comment</a>
+  <div class="comments">
+    <% answer.comments.each do |comment| %>
+      <pre class="comment-body"
+          ><%= comment.body %> - <%= comment.user.username %></pre>
+    <% end %>
+  </div>
+</div>

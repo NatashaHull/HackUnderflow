@@ -1,0 +1,19 @@
+<%= render 'questions/question' %>
+<% if @answer %>
+  <%= render 'answers/answer', :answer => @answer %>
+  <% url = answer_comments_url(@answer) %>
+<% else %>
+  <% url = question_comments_url(@question) %>
+<% end %>
+
+<h5 class="answer-title">Your Comment</h5>
+<form action="<%= url %>" method="post" class="comments-form">
+  <input type="hidden" name="authenticity_token"
+         value="<%= form_authenticity_token %>">
+
+  <label for="comment_body"></label>
+  <textarea name="comment[body]" id="comment_body"
+  rows="20" cols="20"><%= @comment.body %></textarea>
+
+  <input type="submit" value="Add Comment" class="submit-button">
+</form>

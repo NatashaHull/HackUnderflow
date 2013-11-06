@@ -1,0 +1,17 @@
+<h5 class="question-title">
+  <strong><%= @question.title %></strong>
+</h5>
+<div class="question">
+  <pre class="question-body"><%= @question.body %></pre>
+  <a href="<%= edit_question_url(@question) %>" class="question-link">
+    improve this question
+  </a>|
+  <a href="<%= new_question_comment_url(@question) %>"
+     class="question-link">comment</a>
+  <div class="comments">
+    <% @question.comments.each do |comment| %>
+      <pre class="comment-body"
+          ><%= comment.body %> - <%= comment.user.username %></pre>
+    <% end %>
+  </div>
+</div>

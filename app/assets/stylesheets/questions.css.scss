@@ -18,6 +18,21 @@
   margin: 10px auto;
 }
 
+.question-body, .answer-body {
+  margin: 10px;
+  margin-left: 0px;
+}
+
+.question-link {
+  color: #888888;
+  margin: 5px;
+}
+
+.question-link:hover {
+  color: white;
+  background-color: #888888;
+}
+
 .answer {
   border-bottom: 1px solid #cccccc;  
 }
@@ -34,4 +49,14 @@
   width: 90%;
   padding: 5px;
   margin: 10px auto;
+}
+
+.comments {
+  margin: 10px;
+  border-bottom: 1px dotted #888888;
+}
+
+.comments .comment-body {
+  padding: 5px;
+  border-top: 1px dotted #888888;
 }

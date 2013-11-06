@@ -100,6 +100,27 @@
   font-size: 1em;
   width: 15em;
 }
+
+.comments-form {
+  margin-left: 50px;
+  width: 70%;
+}
+
+.comments-form textarea {
+  width: 400px;
+  height: 100px;
+}
+
+.comments-form .submit-button {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 15px;
+  margin: 10%;
+  margin-top: 20px;
+  font-size: 1em;
+  width: 15em;
+}
+
 .submit-button:hover {
   background-color: black;
   color: white;

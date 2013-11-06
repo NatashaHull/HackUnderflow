@@ -1,6 +1,17 @@
 class CommentsController < ApplicationController
   before_filter :require_current_user!
 
+  def new
+    if params[:question_id]
+      @question = Question.find(params[:question_id])
+    else
+      @answer = Answer.includes(:question).find(params[:answer_id])
+      @question = @answer.question
+    end
+
+    @comment = Comment.new
+  end
+
   def create
     params[:question_id] ? create_for_question : create_for_answer
   end
