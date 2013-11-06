@@ -27,6 +27,7 @@
   </div>
 <% end %>
 
+<% if @user.id == current_user.id %>
 <% unless @user.edit_suggestions.includes(:editable).empty? %>
   <div class="profile-list">
     <h5 class="profile-header">
@@ -57,4 +58,5 @@
       <% end %>
     </ul>
   </div>
+<% end %>
 <% end %>
