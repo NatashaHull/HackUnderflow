@@ -26,4 +26,9 @@ class Answer < ActiveRecord::Base
     
     false
   end
+
+  def accept
+    self.accepted = true
+    self.save!
+  end
 end
