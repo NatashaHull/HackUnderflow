@@ -80,6 +80,24 @@ Voting also required two different instance methods on `question` and `answer` o
 * `vote_direction_by_user` - This takes in a user_id and sees if and how the user voted on that object.
 
 ##Edit Suggestions
+Broadly, edit suggestions are simply edits on questions or answer bodies which are not saved directly because they are created by a different user than the one who wrote the respective question or answer. This means that, as a resource, the user only perceives that their edit is not directly saved because the edit button is different. I decided that a user should be able to see what they have suggested edits for, and what other users have suggested they change in their own questions and answers via their profile page. I also added a show page for suggested edits, which shows the original body and the suggested revision side by side. If it is your question or answer that is being edited, then you can see and click on buttons to accept the edit or reject the edit.
+
+The `edit_suggestions` schema is fairly simple. It contains the following:
+
+* id
+* body
+* user_id
+* editable_type
+* editable_id
+
+The only thing users can access directly is the body. Everything else is set for them using the available information.
+
+The necessary methods for `edit_suggestions` were fairly simple. For the moment I have the following methods:
+
+* `questions` - This figures out which question to which this edit can be traced back.
+* `accept_edit` - This changes the associated `editable`'s body to its own body, saves its revised `editable` and deletes itself (this last part may change).
+
+This led to a few associated methods for users. Assuming that I want to show a user all the suggested edits they have for their questions and answers (which I do), I realized that no direct association would give me this list. This meant that I needed to create multiple associations in the `Users` model to `edit_suggestions` and a `suggested_edits` method which added together both the `suggested_question_edits` and the `suggested_answer_edits`.
 
 ##Credits
 I am not a designer. As a result I downloaded [Foundation's](http://foundation.zurb.com/) stylesheets and added them to my own CSS files.
