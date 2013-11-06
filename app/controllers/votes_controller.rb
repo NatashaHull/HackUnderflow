@@ -11,36 +11,23 @@ class VotesController < ApplicationController
 
   private
     def question(dir)
-      @question = Question.find(params[:question_id])
-      @vote = @question.votes.build()
-      set_direction(dir)
-      @vote.user_id = current_user.id
+      Vote.parse_vote_request(
+        dir,
+        params[:question_id],
+        "Question",
+        current_user.id)
 
-      if @vote.save
-        redirect_to @question
-      else
-        flash.now[:errors] = @comment.errors.full_messages
-        @answer = Answer.new
-        render 'questions/show'
-      end
+      redirect_to @question
     end
 
     def answer(dir)
       @answer = Question.find(params[:answer_id])
-      @vote = @answer.votes.build()
-      set_direction(dir)
-      @vote.user_id = current_user.id
-
-      if @vote.save
-        redirect_to question_url(@answer.question_id)
-      else
-        flash.now[:errors] = @comment.errors.full_messages
-        @question = @answer.question
-        render 'questions/show'
-      end
-    end
-
-    def set_direction(dir)
-      @vote.direction = dir
+      Vote.parse_vote_request(
+        dir,
+        params[:answer_id],
+        "Answer",
+        current_user.id)
+      
+      redirect_to question_url(@answer.question_id)
     end
 end
