@@ -1,4 +1,6 @@
 HackUnderflow::Application.routes.draw do
+  get "edit_suggestions/show"
+
   resources :users, :except => [:index, :destroy]
   resource :session, :only => [:new, :create, :destroy]
 

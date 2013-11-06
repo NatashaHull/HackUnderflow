@@ -11,4 +11,12 @@ class EditSuggestion < ActiveRecord::Base
     self.editable.save!
     self.destroy
   end
+
+  def question
+    if self.editable_type == "Question"
+      self.editable
+    else
+      self.editable.question
+    end
+  end
 end
