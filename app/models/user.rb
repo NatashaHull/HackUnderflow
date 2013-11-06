@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
   has_many :comments
+  has_many :votes
 
   def self.find_by_credentials(user_params)
     user = User.find_by_username(user_params[:username])
