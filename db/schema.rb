@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131105225026) do
+ActiveRecord::Schema.define(:version => 20131106004827) do
 
   create_table "answers", :force => true do |t|
     t.string   "body"
@@ -56,5 +56,16 @@ ActiveRecord::Schema.define(:version => 20131105225026) do
 
   add_index "users", ["session_token"], :name => "index_users_on_session_token"
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
+
+  create_table "votes", :force => true do |t|
+    t.string   "direction"
+    t.integer  "user_id"
+    t.integer  "voteable_id"
+    t.string   "voteable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "votes", ["user_id"], :name => "index_votes_on_user_id"
 
 end

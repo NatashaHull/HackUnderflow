@@ -1,0 +1,34 @@
+// Place all the styles related to the Votes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.arrows {
+  height: 100px;
+  float: left;
+  margin: 7px;
+  margin-left: -10px;
+  margin-top: -10px;
+}
+
+.arrow-up {
+  display: block;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid #cccccc;
+}
+
+.arrow-down {
+  display: block;
+  width: 0; 
+  height: 0; 
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent; 
+  border-top: 15px solid #cccccc;
+}
+
+.votes {
+  text-align: center;
+  padding: 10px;
+}
