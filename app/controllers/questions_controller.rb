@@ -35,11 +35,12 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if @question.update_attributes(params[:question])
-      redirect_to @question
+    @question = Question.find(params[:id])
+
+    if @question.user_id == current_user
+      update_question
     else
-      flash.now[:errors] = @question.errors.full_messages
-      render :edit
+      create_edit_suggestion
     end
   end
 
@@ -49,13 +50,23 @@ class QuestionsController < ApplicationController
   end
 
   private
-
+    #Before Filters
     def require_question_owner!
       @question = Question.find(params[:id])
 
       unless @question.user_id == current_user.id
         flash[:errors] = ["You cannot edit another person's question"]
         redirect_to @question
+      end
+    end
+
+    #Private Methods
+    def update_answer
+      if @question.update_attributes(params[:question])
+        redirect_to @question
+      else
+        flash.now[:errors] = @question.errors.full_messages
+        render :edit
       end
     end
 end

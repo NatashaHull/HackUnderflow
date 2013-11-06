@@ -43,7 +43,7 @@ class AnswersController < ApplicationController
       end
     end
 
-    #Forked Private Methods
+    #Private Methods
     def update_answer
       if @answer.update_attributes(params[:answer])
         redirect_to question_url(@answer.question_id)
