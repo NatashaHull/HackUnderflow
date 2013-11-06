@@ -1,4 +1,6 @@
 class VotesController < ApplicationController
+  before_filter :require_current_user!
+
   def up
     params[:question_id] ? question("up") : answer("up")
   end
@@ -28,7 +30,7 @@ class VotesController < ApplicationController
       @vote = @answer.votes.build()
       set_direction(dir)
       @vote.user_id = current_user.id
-      
+
       if @vote.save
         redirect_to question_url(@answer.question_id)
       else
