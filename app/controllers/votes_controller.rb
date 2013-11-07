@@ -1,5 +1,6 @@
 class VotesController < ApplicationController
   before_filter :require_current_user!
+  before_filter :require_non_author!
   before_filter :require_authorized_upvote_user!, :only => [:up]
   before_filter :require_authorized_downvote_user!, :only => [:down]
 
@@ -13,6 +14,29 @@ class VotesController < ApplicationController
 
   private
     #Before Filters
+    def require_non_author!
+      params[:question_id] ? question_non_author : answer_non_author
+    end
+
+    def question_non_author
+      @question = Question.find(params[:question_id])
+      if @question.user_id == current_user.id
+        non_author_auth(@question, @question)
+      end
+    end
+
+    def answer_non_author
+      @answer = Answer.find(params[:answer_id])
+      if @answer.user_id == current_user.id
+        non_author_auth(@answer, question_url(@answer.question_id))
+      end
+    end
+
+    def non_author_auth(obj, url)
+      flash[:errors] = ["You can't vote on your own #{obj}"]
+      redirect_to url
+    end
+
     def require_authorized_upvote_user!
       unless current_user.can_vote_up?
         flash[:errors] = ["You are not authorized to vote anything up yet!"]
