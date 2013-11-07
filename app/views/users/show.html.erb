@@ -1,10 +1,11 @@
-<h1 class="centered-header"><%= @user.username.capitalize %></h1>
-<div class="profile-info">
-  <p>Points: <%= @user.points %></p>
-  <p>Questions: <%= @user.questions.count %></p>
-  <p>Answers: <%= @user.answers.count %></p>
-  <p>Contributions: <%= @user.accepted_edit_suggestions.count %></p>
-</div>
+<h1 class="profile-main-header"><%= @user.username.capitalize %></h1>
+<ul class="profile-info">
+  <h5 class="profile-header">Summary</h5>
+  <li>Points: <%= @user.points %></li>
+  <li>Questions: <%= @user.questions.count %></li>
+  <li>Answers: <%= @user.answers.count %></li>
+  <li>Contributions: <%= @user.accepted_edit_suggestions.count %></li>
+</ul>
 
 <% unless @user.questions.empty? %>
   <div class="profile-list">

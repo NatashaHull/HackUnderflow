@@ -22,7 +22,7 @@
   </div>
 </div>
 
-<% if @suggestion.editable.user_id == current_user.id %>
+<% if !@suggestion.accepted && @suggestion.editable.user_id == current_user.id %>
   <div class="suggestion-forms">
     <form action="<%= edit_suggestion_accept_url(@suggestion) %>"
           method="post" class="suggestion-form">

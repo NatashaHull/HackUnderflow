@@ -156,6 +156,27 @@
 
 /* Profile */
 
+.profile-main-header {
+  text-align: center;
+}
+
+.profile-info .profile-header {
+  margin: auto;
+}
+
+.profile-info {
+  width: 250px;
+  height: 150px;
+  margin-left: 8%;
+}
+
+.profile-info li {
+  margin: auto;
+  text-align: center;
+  list-style-type: none;
+  border-top: 1px solid #cccccc;
+}
+
 .profile-list {
   float: left;
   width: 500px;
