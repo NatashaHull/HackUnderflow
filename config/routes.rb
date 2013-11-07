@@ -22,4 +22,6 @@ HackUnderflow::Application.routes.draw do
     put 'accept'
     delete 'reject'
   end
+
+  root :to => 'questions#index'
 end
