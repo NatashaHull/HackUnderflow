@@ -61,7 +61,7 @@ class QuestionsController < ApplicationController
     end
 
     #Private Methods
-    def update_answer
+    def update_question
       if @question.update_attributes(params[:question])
         redirect_to @question
       else
