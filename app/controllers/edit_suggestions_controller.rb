@@ -1,5 +1,6 @@
 class EditSuggestionsController < ApplicationController
   before_filter :require_current_user!, :except => [:show]
+  before_filter :require_editable_owner!, :except => [:show]
 
   def show
     @suggestion = EditSuggestion.find(params[:id])
@@ -17,7 +18,7 @@ class EditSuggestionsController < ApplicationController
 
   private
 
-    def require_editable_owner
+    def require_editable_owner!
       @suggestion = EditSuggestion.includes(:editable)
                                   .find(params[:edit_suggestion_id])
       unless @suggestion.editable.user_id == current_user.id
