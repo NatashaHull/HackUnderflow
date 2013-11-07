@@ -1,15 +1,12 @@
 <div class="answer">
-  <% if !!current_user %>
   <div class="arrows">
-    <% direction = answer.vote_direction_by_user(current_user.id) %>
-      <a href="<%= answer_upvote_url(answer) %>"
-       data-method="post" rel="nofollow"
-       class="<%= direction == "up" ? "voted-up" : "arrow-up" %>"></a>
-    <span class="votes"><%= answer.vote_counts %></span>
-    <a href="<%= answer_downvote_url(answer) %>"
-       data-method="post" rel="nofollow"
-       class="<%= direction == "down" ? "voted-down" : "arrow-down" %>">
-    </a>
+    <% if !!current_user && !(answer.user_id == current_user.id) %>
+      <%= render 'shared/object_vote_link', :object => answer,
+                 :upvote_url => answer_upvote_url(answer),
+                 :downvote_url => answer_downvote_url(answer) %>
+    <% else %>
+      <%= render 'shared/object_votes', :object => answer %>
+    <% end %>
     <% if @question.accepted_answer.empty? && @question.user_id == current_user.id %>
     <a href="<%= answer_accept_url(answer) %>"
        class="not-accepted-answer" data-method="put" rel="nofollow">
@@ -19,7 +16,6 @@
     <span class="accepted-answer">&#10003</span>
     <% end %>
   </div>
-  <% end %>
   <pre class="answer-body"><%= answer.body %></pre>
   <div class="answer-links">
     <a href="<%= edit_answer_url(answer) %>" class="answer-link">
