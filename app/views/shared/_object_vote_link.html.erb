@@ -1,0 +1,9 @@
+<% direction = object.vote_direction_by_user(current_user.id) %>
+<a href="<%= upvote_url %>"
+ data-method="post" rel="nofollow"
+ class="<%= direction == "up" ? "voted-up" : "arrow-up" %>"></a>
+<span class="votes"><%= object.vote_counts %></span>
+<a href="<%= downvote_url %>"
+ data-method="post" rel="nofollow"
+ class="<%= direction == "down" ? "voted-down" : "arrow-down" %>">
+</a>
