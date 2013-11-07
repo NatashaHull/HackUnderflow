@@ -31,7 +31,7 @@
 <% unless @user.suggested_edits.empty? %>
   <div class="profile-list">
     <h5 class="profile-header">
-      <%= pluralize(@user.suggested_edits.count, "Edit Suggestion") %>
+      <%= pluralize(@user.suggested_edits.count, "Suggested Edit") %>
     </h5>
     <ul>
       <% @user.suggested_edits.each do |edit_suggestion| %>
