@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131106232314) do
+ActiveRecord::Schema.define(:version => 20131107004541) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -42,8 +42,9 @@ ActiveRecord::Schema.define(:version => 20131106232314) do
     t.integer  "user_id"
     t.integer  "editable_id"
     t.string   "editable_type"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.boolean  "accepted",      :default => false
   end
 
   add_index "edit_suggestions", ["user_id"], :name => "index_edit_suggestions_on_user_id"
