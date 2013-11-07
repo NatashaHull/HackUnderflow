@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   attr_reader :password
   attr_accessor :password_confirmation
 
-  before_validation :set_session_token
   validates_presence_of :username, :password_digest, :session_token
   validates :username, :uniqueness => true
   validates :password, :length => { :minimum => 6, :allow_nil => true }

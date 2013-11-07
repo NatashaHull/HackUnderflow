@@ -12,6 +12,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.set_session_token
     if @user.save
       login_user!(@user)
       redirect_to @user
