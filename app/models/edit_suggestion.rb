@@ -8,8 +8,11 @@ class EditSuggestion < ActiveRecord::Base
 
   def accept_edit
     self.editable.body = self.body
-    self.editable.save!
-    self.destroy
+    self.accepted = true
+    ActiveRecord::Base.transaction do
+      self.editable.save!
+      self.save!
+    end
   end
 
   def question
