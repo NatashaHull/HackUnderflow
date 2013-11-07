@@ -14,6 +14,8 @@ Below is a list of advanced features I may add to this site:
 
 * Tags
 * Question view counts
+* User profile pics
+* Facebook, Twitter, and other logins
 * The ability to open and close questions
 * Moderator privileges
 
