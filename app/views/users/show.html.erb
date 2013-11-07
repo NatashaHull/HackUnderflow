@@ -1,7 +1,7 @@
 <h1 class="centered-header"><%= @user.username.capitalize %></h1>
 <div class="profile-info">
   <p>Points: <%= @user.points %></p>
-  <p>Questions: <%= @user.question.count %></p>
+  <p>Questions: <%= @user.questions.count %></p>
   <p>Answers: <%= @user.answers.count %></p>
   <p>Contributions: <%= @user.accepted_edit_suggestions.count %></p>
 </div>

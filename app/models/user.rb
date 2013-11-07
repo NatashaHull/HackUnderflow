@@ -74,8 +74,8 @@ class User < ActiveRecord::Base
 
   #Edit Suggestion Compilation
   def suggested_edits
-    questions = sugggested_question_edits.includes(:editable)
-    answers = sugggested_answer_edits.includes(:editable)
+    questions = sugggested_question_edits.includes(:editable).where(:accepted => false)
+    answers = sugggested_answer_edits.includes(:editable).where(:accepted => false)
     questions + answers
   end
 

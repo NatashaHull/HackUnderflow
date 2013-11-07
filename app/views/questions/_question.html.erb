@@ -2,6 +2,7 @@
   <strong><%= @question.title %></strong>
 </h5>
 <div class="question">
+  <% if !!current_user %>
   <div class="arrows">
     <% direction = @question.vote_direction_by_user(current_user.id) %>
     <a href="<%= question_upvote_url(@question) %>"
@@ -13,6 +14,7 @@
        class="<%= direction == "down" ? "voted-down" : "arrow-down" %>">
     </a>
   </div>
+  <% end %>
   <pre class="question-body"><%= @question.body %></pre>
   <a href="<%= edit_question_url(@question) %>" class="question-link">
     improve this question
