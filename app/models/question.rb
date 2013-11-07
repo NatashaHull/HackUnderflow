@@ -31,4 +31,17 @@ class Question < ActiveRecord::Base
 
     false
   end
+
+  #Edit stuff
+  def contributors
+    User.find_by_sql([<<-SQL, self.id, "Question", true])
+      SELECT users.*
+      FROM users
+        INNER JOIN edit_suggestions
+          ON edit_suggestions.user_id = user.id
+      WHERE edit_suggestions.editable_id = ?
+        AND edit_suggestions.editable_type = ?
+        AND edit_suggestions.accepted = ?
+    SQL
+  end
 end

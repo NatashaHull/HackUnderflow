@@ -34,6 +34,18 @@ class Answer < ActiveRecord::Base
     false
   end
 
+  def contributors
+    User.find_by_sql([<<-SQL, self.id, "Answer", true])
+      SELECT users.*
+      FROM users
+        INNER JOIN edit_suggestions
+          ON edit_suggestions.user_id = users.id
+      WHERE edit_suggestions.editable_id = ?
+        AND edit_suggestions.editable_type = ?
+        AND edit_suggestions.accepted = ?
+    SQL
+  end
+
   private
 
     def only_one_accepted_answer
