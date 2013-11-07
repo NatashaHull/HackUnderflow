@@ -1,6 +1,7 @@
 class AnswersController < ApplicationController
   before_filter :require_current_user!
   before_filter :require_answer_owner!, :only => [:destroy]
+  before_filter :require_question_owner!, :only => [:accept]
 
   def create
     @answer = Answer.new(params[:answer])
@@ -32,6 +33,11 @@ class AnswersController < ApplicationController
     redirect_to question_url(@answer.question_id)
   end
 
+  def accept
+    @answer.accept
+    redirect_to question_url(@answer.question_id)
+  end
+
   private
     #Before Filters
     def require_answer_owner!
@@ -39,6 +45,15 @@ class AnswersController < ApplicationController
 
       unless @answer.user_id == current_user.id
         flash[:errors] = ["You cannot edit another person's answer"]
+        redirect_to question_url(@answer.question_id)
+      end
+    end
+
+    def require_question_owner!
+      @answer = Answer.includes(:question).find(params[:answer_id])
+
+      unless @answer.question.user_id == current_user.id
+        flash[:errors] = ["Only the question owner can accept answers"]
         redirect_to question_url(@answer.question_id)
       end
     end

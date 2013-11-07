@@ -9,6 +9,12 @@ class Question < ActiveRecord::Base
   has_many :votes, :as => :voteable
   has_many :edit_suggestions, :as => :editable
 
+  #Answer Stuff
+  def accepted_answer
+    self.answers.where(:accepted => true)
+  end
+
+  #Vote Stuff
   def vote_counts
     votes = self.votes
     count = 0

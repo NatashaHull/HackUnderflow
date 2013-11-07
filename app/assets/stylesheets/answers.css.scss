@@ -1,3 +1,16 @@
 // Place all the styles related to the Answers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.not-accepted-answer {
+  font-size: 50px;
+  font-weight: bold;
+  color: #cccccc;
+}
+
+.accepted-answer {
+  font-size: 50px;
+  font-weight: bold;
+  color: #FF9900;
+  margin-left: -5px;
+}

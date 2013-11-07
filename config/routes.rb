@@ -15,6 +15,7 @@ HackUnderflow::Application.routes.draw do
     resources :comments, :only => [:new, :create]
     post 'upvote' => 'votes#up'
     post 'downvote' => 'votes#down'
+    put 'accept'
   end
 
   resources :edit_suggestions, :only => [:show] do

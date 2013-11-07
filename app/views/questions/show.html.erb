@@ -4,7 +4,7 @@
   <h5 class="answer-header">
     <%= pluralize(@question.answers.count, "Answer") %>
   </h5>
-  <% @question.answers.each do |answer| %>
+  <% @answers.each do |answer| %>
     <%= render 'answers/answer', :answer => answer %>
   <% end %>
 </div>
