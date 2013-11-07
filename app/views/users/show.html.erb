@@ -28,13 +28,13 @@
 <% end %>
 
 <% if @user.id == current_user.id %>
-<% unless @user.edit_suggestions.includes(:editable).empty? %>
+<% unless @user.suggested_edits.empty? %>
   <div class="profile-list">
     <h5 class="profile-header">
-      <%= pluralize(@user.edit_suggestions.count, "Edit Suggestion") %>
+      <%= pluralize(@user.suggested_edits.count, "Edit Suggestion") %>
     </h5>
     <ul>
-      <% @user.edit_suggestions.each do |edit_suggestion| %>
+      <% @user.suggested_edits.includes(:editable).each do |edit_suggestion| %>
         <li class="profileLi">
           <%= link_to "#{edit_suggestion.question.title}: #{edit_suggestion.editable_type}",
                 edit_suggestion %>
@@ -44,13 +44,13 @@
   </div>
 <% end %>
 
-<% unless @user.suggested_edits.empty? %>
+<% unless @user.pending_edit_suggestions.empty? %>
   <div class="profile-list">
     <h5 class="profile-header">
-      <%= pluralize(@user.suggested_edits.count, "Suggested Edit") %>
+      <%= pluralize(@user.pending_suggested_edits.count, "Pending Edit") %>
     </h5>
     <ul>
-      <% @user.suggested_edits.each do |suggested_edit| %>
+      <% @user.pending_edit_suggestions.each do |suggested_edit| %>
         <li class="profileLi">
           <%= link_to "#{suggested_edit.question.title}: #{suggested_edit.editable_type}",
               suggested_edit %>
@@ -59,4 +59,20 @@
     </ul>
   </div>
 <% end %>
+<% end %>
+
+<% unless @user.accepted_edit_suggestions.empty? %>
+  <div class="profile-list">
+    <h5 class="profile-header">
+      <%= pluralize(@user.accepted_edit_suggestions.count, "Accepted Edit") %>
+    </h5>
+    <ul>
+      <% @user.accepted_edit_suggestions.each do |suggested_edit| %>
+        <li class="profileLi">
+          <%= link_to "#{suggested_edit.question.title}: #{suggested_edit.editable_type}",
+              suggested_edit %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
