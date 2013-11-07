@@ -34,7 +34,7 @@
       <%= pluralize(@user.suggested_edits.count, "Edit Suggestion") %>
     </h5>
     <ul>
-      <% @user.suggested_edits.includes(:editable).each do |edit_suggestion| %>
+      <% @user.suggested_edits.each do |edit_suggestion| %>
         <li class="profileLi">
           <%= link_to "#{edit_suggestion.question.title}: #{edit_suggestion.editable_type}",
                 edit_suggestion %>
@@ -47,7 +47,7 @@
 <% unless @user.pending_edit_suggestions.empty? %>
   <div class="profile-list">
     <h5 class="profile-header">
-      <%= pluralize(@user.pending_suggested_edits.count, "Pending Edit") %>
+      <%= pluralize(@user.pending_edit_suggestions.count, "Pending Edit") %>
     </h5>
     <ul>
       <% @user.pending_edit_suggestions.each do |suggested_edit| %>

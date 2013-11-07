@@ -21,7 +21,7 @@ class AnswersController < ApplicationController
   def update
     @answer = Answer.find(params[:id])
 
-    if @answer.user_id == current_user
+    if @answer.user_id == current_user.id
       update_answer
     else
       create_edit_suggestion
