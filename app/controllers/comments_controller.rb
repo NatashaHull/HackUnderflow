@@ -1,13 +1,12 @@
 class CommentsController < ApplicationController
   before_filter :require_current_user!
+  before_filter :require_authorized_user!
 
   def new
     ActiveRecord::Base.transaction do
       if params[:question_id]
-        @question = Question.find(params[:question_id])
         @answers = @question.answers.includes(:votes)
       else
-        @answer = Answer.includes(:votes).find(params[:answer_id])
         @question = @answer.question.includes(:votes)
       end
     end
@@ -20,7 +19,28 @@ class CommentsController < ApplicationController
   end
 
   private
+    #Before Filters
+    def require_authorized_user!
+      params[:question_id] ? question_auth : answer_auth
+    end
 
+    def question_auth
+      @question = Question.find(params[:question_id])
+      unless current_user.can_comment?
+        flash[:errors] = ["You do not have enough points to comment"]
+        redirect_to @question
+      end
+    end
+
+    def answer_auth
+      @answer = Answer.includes(:votes).find(params[:answer_id])
+      unless current_user.can_comment?
+        flash[:errors] = ["You do not have enough points to comment"]
+        redirect_to question_url(@answer.question_id)
+      end
+    end
+
+    #Private Methods
     def create_for_question
       @question = Question.find(params[:question_id])
       @comment = @question.comments.build(params[:comment])

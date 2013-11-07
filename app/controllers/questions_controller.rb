@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_filter :require_current_user!, :except => [:index, :show]
-  before_filter :require_question_owner!, :only => [:edit, :update, :destroy]
+  before_filter :require_question_owner!, :only => [:destroy]
+  before_filter :require_authorized_user!, :only => [:edit, :update]
 
   def index
     @questions = Question.includes(:votes).all
@@ -31,12 +32,9 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    @question = Question.find(params[:id])
   end
 
   def update
-    @question = Question.find(params[:id])
-
     if @question.user_id == current_user.id
       update_question
     else
@@ -55,7 +53,16 @@ class QuestionsController < ApplicationController
       @question = Question.find(params[:id])
 
       unless @question.user_id == current_user.id
-        flash[:errors] = ["You cannot edit another person's question"]
+        flash[:errors] = ["You cannot delete another person's question"]
+        redirect_to @question
+      end
+    end
+
+    def require_authorized_user!
+      @question = Question.find(params[:id])
+
+      unless current_user.can_edit? || @question.user_id == current_user.id
+        flash[:errors] = ["You are not authorized to edit other peoples questions"]
         redirect_to @question
       end
     end
