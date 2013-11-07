@@ -44,6 +44,8 @@ Points are the gatekeepers for the ability to do anything other than ask a quest
 * `can_vote_down?` (min 125 points)
 * `can_edit?` (min 2000)
 
+Users can get points by their questions and answers being voted up and their `answers` and `edit_suggestions` being accepted. Simply using the `add_points` method in the `accept` methods for `answers` and `edit_suggestions` was enough to get those actions to add points to a user. However, my method for dealing with votes was more complicated. This led to me adding a class method to the `Vote` model called `calculate_user_points` that figures out how many points to add to the object's user based on whether the object is a `Question` or an `Answer`.
+
 If I get around to moderator and more advanced features, more methods will need to be added to correspond to those extra features.
 
 ##Questions
@@ -107,7 +109,7 @@ The necessary methods for `edit_suggestions` were fairly simple. For the moment 
 * `questions` - This figures out which question to which this edit can be traced back.
 * `accept_edit` - This changes the associated `editable`'s body to its own body, saves its revised `editable` and changes the `accepted` attribute to `true` and saves everything.
 
-This led to a few associated methods for users. Assuming that I want to show a user all the suggested edits they have for their questions and answers (which I do), I realized that no direct association would give me this list. Moreover, I want users to be able to see whether their edits are pending or accepted on their profile. This lead to the following methods:
+This led to a few associated methods for users. Assuming that I want to show a user all the suggested edits they have for their questions and answers (which I do), I realized that no direct association would give me this list. Moreover, I want users to be able to see whether their edits are pending or accepted on their profile. This led to the following methods:
 
 * `suggested_edits` - This adds together both the `suggested_question_edits` and the `suggested_answer_edits`
 * `pending_edit_suggestions` - This finds the `edit_suggestions` that have not been accepted
