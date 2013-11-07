@@ -12,7 +12,8 @@
        class="not-accepted-answer" data-method="put" rel="nofollow">
       &#10003
     </a>
-    <% elsif @question.accepted_answer.first.id == answer.id %>
+    <% elsif @question.accepted_answer.first &&
+             @question.accepted_answer.first.id == answer.id %>
     <span class="accepted-answer">&#10003</span>
     <% end %>
   </div>

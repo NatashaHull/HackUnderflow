@@ -9,7 +9,9 @@
   <% end %>
 </div>
 
+<% if !current_user || current_user.id != @question.user_id %>
 <h5 class="answer-title">Your Answer</h5>
 <div class="new-answers-form">
   <%= render 'answers/form', :type => "new" %>
 </div>
+<% end %>

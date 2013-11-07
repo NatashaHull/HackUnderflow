@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
   before_filter :require_current_user!
+  before_filter :require_non_question_owner!, :only => [:create]
   before_filter :require_answer_owner!, :only => [:destroy]
   before_filter :require_question_owner!, :only => [:accept]
   before_filter :require_authorized_user!, :only => [:edit, :update]
@@ -47,6 +48,15 @@ class AnswersController < ApplicationController
       unless @answer.user_id == current_user.id
         flash[:errors] = ["You cannot edit another person's answer"]
         redirect_to question_url(@answer.question_id)
+      end
+    end
+
+    def require_non_question_owner!
+      @question = Question.find(params[:question_id])
+
+      if @question.user_id == current_user.id
+        flash[:errors] = ["You cannot answer your own question!"]
+        redirect_to @question
       end
     end
 
