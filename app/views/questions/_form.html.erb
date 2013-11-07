@@ -1,7 +1,7 @@
 <input type="hidden" name="authenticity_token"
        value="<%= form_authenticity_token %>">
 
-<% if @question.user_id == current_user.id %>
+<% if !@question.persisted || @question.user_id == current_user.id %>
   <label for="title">Title</label>
   <input type="text" name="question[title]"
          value="<%= @question.title %>" id="title">
