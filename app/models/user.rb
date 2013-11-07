@@ -79,6 +79,14 @@ class User < ActiveRecord::Base
     questions + answers
   end
 
+  def pending_edit_suggestions
+    self.edit_suggestions.where(:accepted => false)
+  end
+
+  def accepted_edit_suggestions
+    self.edit_suggestions.where(:accepted => true)
+  end
+
   private
 
     def password_matches_confirmation
