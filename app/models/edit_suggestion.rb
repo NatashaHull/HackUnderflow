@@ -10,6 +10,7 @@ class EditSuggestion < ActiveRecord::Base
     self.editable.body = self.body
     self.accepted = true
     ActiveRecord::Base.transaction do
+      self.user.add_points(2)
       self.editable.save!
       self.save!
     end

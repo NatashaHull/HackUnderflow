@@ -12,8 +12,11 @@ class Answer < ActiveRecord::Base
   has_many :edit_suggestions, :as => :editable
 
   def accept
-    self.accepted = true
-    self.save
+    ActiveRecord::Base.transaction do
+      self.accepted = true
+      self.save
+      self.user.add_points(15)
+    end
   end
 
   #Vote Stuff
