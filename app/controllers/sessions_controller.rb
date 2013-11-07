@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_filter :require_current_user!, :only => [:destroy]
+  before_filter :require_logged_out!, :only => [:new, :create]
 
   def new
     @user = User.new
