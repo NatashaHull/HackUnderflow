@@ -1,6 +1,69 @@
 // Place all the styles related to the Questions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* Index View */
+
+.questions-list {
+  width: 80%;
+  margin: auto;
+}
+
+.questions-list .questionLi {
+  border-top: 1px solid #cccccc;
+  margin: 50px auto;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 10px;
+  width: 70%;
+  height: 110px;
+  list-style-type: none;
+}
+
+.questions-list .questionLi .question-info {
+  float:left;
+  background-color: #cccccc;
+  width: 80px;
+  height: 86px;
+  text-align: center;
+}
+
+.question-info .question-answers, .question-info .question-votes {
+  margin: auto;
+  height: 40px;
+  width: 70px;
+  padding: 1px;
+  display: block;
+  font-size: .8em;
+  line-height: 20px;
+}
+
+.question-info .question-num {
+  display:block;
+  font-size: 1.2em;
+}
+
+.question-info .question-votes {  
+  margin-top: 3px;
+  margin-bottom: 0px;
+}
+
+.question-info .question-answers {
+  margin-top: 0px;
+  margin-bottom: 3px;
+  color: white;
+  background-color: #888888;
+}
+
+.questionLi .question {
+  margin: 0px;
+}
+
+.questionLi .question .question-body {
+  padding-left: 150px;
+  display: block;
+}
+
 /* Show View */
 
 .question, .answer {

@@ -2,6 +2,25 @@
 
 <ul class="questions-list">
   <% @questions.each do |question| %>
-    <li class="questionLi"><%= link_to question.title, question %></li>
+    <li class="questionLi">
+      <div class="question-info">
+        <% votes = pluralize(question.vote_counts, "vote") %>
+        <% answers = pluralize(question.answers.count, "answer") %>
+        <span class="question-votes">
+          <strong class="question-num"><%= votes.split(" ")[0] %></strong>
+          <%= votes.split(" ")[1] %>
+        </span>
+        <span class="question-answers">
+          <strong class="question-num"><%= answers.split(" ")[0] %></strong>
+          <%= answers.split(" ")[1] %>
+        </span>
+      </div>
+      <span class="question">
+        <%= link_to question.title, question %>
+        <span class="question-body">
+          <%= question.body.slice(0..100) %>
+        </span>
+      </span>
+    </li>
   <% end %>
 </ul>

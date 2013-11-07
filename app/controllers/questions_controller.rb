@@ -5,6 +5,12 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.includes(:votes).all
+    @questions.sort_by! do |question|
+      time = (Time.now - question.updated_at).to_i / 3600
+      votes = question.vote_counts
+      votes / (time + 2)
+    end
+    @questions.reverse!
   end
 
   def show
