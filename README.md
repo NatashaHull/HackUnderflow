@@ -50,7 +50,16 @@ If I get around to moderator and more advanced features, more methods will need 
 The `questions` resource is fairly simple compared to the user's resource (at least for now). The database only stores an id, a title, and a body. That said, from this point on, everything relates back to a question and a user, either directy (to the question itself) or inderection through an answer. Moreover, questions end up having a number of methods to deal with Voting and Edit Suggestions. That are mentioned in those respective section below.
 
 ##Answers
-The `answers` resource is even simpler than the `questions` resource. Answers only has a body, an associated user, and an associated question in their database table. Answers, like questions, can be voted on, commented on, and even edited by other users. Every added method that a question needs to deal with the following resources, an answer needs as well.
+The `answers` resource is even simpler than the `questions` resource. It has the following schema:
+* id
+* body
+* user_id
+* question_id
+* accepted
+
+The `Answer` model also has a method called `accept` that sets the `accepted` attribute to `true` and saves the object. Since each question should only have one accepted answer, this necessitated the private validation method `only_one_accepted_answer` which (if the current object has `accepted` set to `true`) performs a SQL query (using `find_by_sql`) to determine if there is another accepted answer for the current object's question and adds an error if there is another accepted answer for the same question. Lastly, question also has a method `accepted_answer` which finds and returns its accepted answer.
+
+Answers, like questions, can be voted on, commented on, and even edited by other users. Every added method that a question needs to deal with the following resources, an answer needs as well.
 
 ##Comments
 The `comments`, while storing a polymorhpic association, is very simple. Each row in the `comments` table has the following schema:
@@ -89,15 +98,22 @@ The `edit_suggestions` schema is fairly simple. It contains the following:
 * user_id
 * editable_type
 * editable_id
+* accepted
 
 The only thing users can access directly is the body. Everything else is set for them using the available information.
 
 The necessary methods for `edit_suggestions` were fairly simple. For the moment I have the following methods:
 
 * `questions` - This figures out which question to which this edit can be traced back.
-* `accept_edit` - This changes the associated `editable`'s body to its own body, saves its revised `editable` and deletes itself (this last part may change).
+* `accept_edit` - This changes the associated `editable`'s body to its own body, saves its revised `editable` and changes the `accepted` attribute to `true` and saves everything.
 
-This led to a few associated methods for users. Assuming that I want to show a user all the suggested edits they have for their questions and answers (which I do), I realized that no direct association would give me this list. This meant that I needed to create multiple associations in the `Users` model to `edit_suggestions` and a `suggested_edits` method which added together both the `suggested_question_edits` and the `suggested_answer_edits`.
+This led to a few associated methods for users. Assuming that I want to show a user all the suggested edits they have for their questions and answers (which I do), I realized that no direct association would give me this list. Moreover, I want users to be able to see whether their edits are pending or accepted on their profile. This lead to the following methods:
+
+* `suggested_edits` - This adds together both the `suggested_question_edits` and the `suggested_answer_edits`
+* `pending_edit_suggestions` - This finds the `edit_suggestions` that have not been accepted
+* `accept_edit_suggestions` - This finds the `edit_suggestions` that have been accepted
+ 
+Additionally, I was able to use this to add a `contributors` instance method to the `Answer` and `Question` models which performas a SQL query (using `find_by_sql`) to find all the users that have accepted edit suggestions for the object in question.
 
 ##Credits
 I am not a designer. As a result I downloaded [Foundation's](http://foundation.zurb.com/) stylesheets and added them to my own CSS files.
