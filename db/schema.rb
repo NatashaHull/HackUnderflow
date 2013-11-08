@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131107004541) do
+ActiveRecord::Schema.define(:version => 20131108012319) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -49,6 +49,17 @@ ActiveRecord::Schema.define(:version => 20131107004541) do
 
   add_index "edit_suggestions", ["user_id"], :name => "index_edit_suggestions_on_user_id"
 
+  create_table "friendly_id_slugs", :force => true do |t|
+    t.string   "slug",                         :null => false
+    t.integer  "sluggable_id",                 :null => false
+    t.string   "sluggable_type", :limit => 40
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
+  add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
   create_table "questions", :force => true do |t|
     t.string   "title"
     t.text     "body"
@@ -66,9 +77,11 @@ ActiveRecord::Schema.define(:version => 20131107004541) do
     t.integer  "points",          :default => 5
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.string   "slug"
   end
 
   add_index "users", ["session_token"], :name => "index_users_on_session_token"
+  add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
   create_table "votes", :force => true do |t|

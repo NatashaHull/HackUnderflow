@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   attr_accessible :username, :password, :password_confirmation
   attr_reader :password
   attr_accessor :password_confirmation
+  extend FriendlyId
+  
+  friendly_id :username, :use => :slugged
 
   validates_presence_of :username, :password_digest, :session_token
   validates :username, :uniqueness => true
