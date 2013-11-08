@@ -3,14 +3,16 @@
     <li class="divider"></li>
     <li><strong><%= link_to "Hack Underflow", root_url %></strong></li>
     <li class="divider"></li>
+    <% if !!current_user %>
     <li class="divider"></li>
     <li><a href="<%= user_url(current_user) %>">
       Hi <%= current_user.username.capitalize %>!
     </a></li>
+    <% end %>
   </ul>
   <ul class="right">
     <li class="divider"></li>
-  <% if current_user %>
+  <% if !!current_user %>
     <li>
     <%= link_to "Sign Out", session_url, :method => :delete %>
     </li>
