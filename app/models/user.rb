@@ -89,6 +89,14 @@ class User < ActiveRecord::Base
     self.edit_suggestions.where(:accepted => true)
   end
 
+  #Handling API Security
+  def as_json(options={})
+    json = super(options)
+    json.delete("session_token")
+    json.delete("password_digest")
+    json
+  end
+
   private
 
     def password_matches_confirmation
