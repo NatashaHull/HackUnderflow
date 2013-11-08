@@ -13,7 +13,10 @@ class Question < ActiveRecord::Base
 
   #Answer Stuff
   def accepted_answer
-    self.answers.where(:accepted => true)
+    self.answers.each do |answer|
+      return answer if answer.accepted == true
+    end
+    false
   end
 
   #Vote Stuff
@@ -45,5 +48,15 @@ class Question < ActiveRecord::Base
         AND edit_suggestions.editable_type = ?
         AND edit_suggestions.accepted = ?
     SQL
+  end
+
+  def as_json(options={})
+    json = {}
+    json[:model] = super(options)
+    json[:model]["answers"] = self.answers
+    json[:model]["vote_counts"] = self.vote_counts
+    json[:model]["comments"] = self.comments
+    json[:model]["accepted_answer"] = self.accepted_answer
+    json
   end
 end

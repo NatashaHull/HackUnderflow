@@ -4,21 +4,45 @@ class QuestionsController < ApplicationController
   before_filter :require_authorized_user!, :only => [:edit, :update]
 
   def index
-    @questions = Question.includes(:votes).order("created_at desc")
+    @questions = Question.includes(:answers => :votes)
+                         .includes(:answers => :comments)
+                         .includes(:votes)
+                         .includes(:comments)
+                         .order("created_at desc")
                          .page(params[:page])
+
     @questions.sort_by! do |question|
       time = (Time.now - question.updated_at).to_i / 3600
       votes = question.vote_counts
       votes.to_f / (time + 2).to_f
     end
     @questions.reverse!
+
+    respond_to do |format|
+      format.html { render :index }
+      format.json do
+        render :json => { 
+          :models => @questions,
+          :pages => params[:page],
+          :total_pages => @total_pages
+        }
+      end
+    end
   end
 
   def show
     ActiveRecord::Base.transaction do
-      @question = Question.includes(:votes).find(params[:id])
-      @answers = @question.answers.includes(:votes).includes(:comments)
+      @question = Question.includes(:answers => :votes)
+                          .includes(:answers => :comments)
+                          .includes(:votes)
+                          .includes(:comments)
+                          .find(params[:id])
       @answer = Answer.new
+    end
+
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render :json => @question }
     end
   end
 
