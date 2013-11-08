@@ -16,3 +16,6 @@
 
 # Ignore application configuration
 /config/application.yml
+
+# Ignore Nokogiri stuff
+/script/nokogiridev
