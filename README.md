@@ -120,4 +120,5 @@ This led to a few associated methods for users. Assuming that I want to show a u
 Additionally, I was able to use this to add a `contributors` instance method to the `Answer` and `Question` models which performas a SQL query (using `find_by_sql`) to find all the users that have accepted edit suggestions for the object in question.
 
 ##Credits
-I am not a designer. As a result I downloaded [Foundation's](http://foundation.zurb.com/) stylesheets and added them to my own CSS files.
+Design: I am not a designer. As a result I downloaded [Foundation's](http://foundation.zurb.com/) stylesheets and added them to my own CSS files.
+FriendlyId: This website uses the `friendly_id` gem.
