@@ -89,8 +89,21 @@ class User < ActiveRecord::Base
     self.edit_suggestions.where(:accepted => true)
   end
 
-  #Handling API Security
+  #Making json rendering uniform
   def as_json(options={})
+    User.transaction do
+      self.questions
+      self.answers
+      self.edit_suggestions
+      self.sugggested_question_edits
+      self.sugggested_answer_edits         
+    end
+
+    defaults = {:include => [:questions, :answers],
+                :methods => [:accepted_edit_suggestions,
+                             :pending_edit_suggestions,
+                             :suggested_edits]}
+    options.merge!(defaults)
     json = super(options)
     json.delete("session_token")
     json.delete("password_digest")

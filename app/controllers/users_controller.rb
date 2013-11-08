@@ -4,6 +4,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render :json => @user }
+    end
   end
 
   def new
@@ -15,10 +20,14 @@ class UsersController < ApplicationController
     @user.set_session_token
     if @user.save
       login_user!(@user)
-      redirect_to @user
+      respond_with_user
     else
       flash.now[:errors] = @user.errors.full_messages
-      render :new
+      
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render :json => flash[:errors] }
+      end
     end
   end
 
@@ -32,14 +41,28 @@ class UsersController < ApplicationController
     if @user.is_password?(params[:password])
       if @user.update_attributes(params[:user])
         login_user!(@user)
-        redirect_to @user
+        respond_with_user
       else
         flash.now[:errors] = @user.errors.full_messages
-        render :edit
+        respond_with_edit_error
       end
     else
       flash.now[:errors] = ["Incorrect Password"]
-      render :edit
+      respond_with_edit_error
     end
   end
+
+    def respond_with_user
+      respond_to do |format|
+        format.html { redirect_to @user }
+        format.json { render :json => @user }
+      end
+    end
+
+    def respond_with_update_error
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render :json => flash[:errors] }
+      end
+    end
 end
