@@ -10,10 +10,13 @@ module EditSuggestionsHelper
     @suggestion.user_id = current_user.id
 
     if @suggestion.save
-      redirect_to @question
+      respond_to do |format|
+        format.html { redirect_to @question }
+        format.json { render :json => @suggestion }
+      end
     else
       flash.now[:errors] = @suggestion.errors.full_messages
-      render :edit
+      suggestion_errors_render('question/edit')
     end
   end
 
@@ -24,10 +27,21 @@ module EditSuggestionsHelper
     @suggestion.user_id = current_user.id
 
     if @suggestion.save
-      redirect_to question_url(@answer.question_id)
+      respond_to do |format|
+        format.html { redirect_to question_url(@answer.question_id) }
+        format.json { render :json => @suggestion }
+      end
     else
       flash.now[:errors] = @suggestion.errors.full_messages
-      render :edit
+      suggestion_errors_render('answer/edit')
+    end
+  end
+
+  def suggestion_errors_render(view)
+    respond_to do |format|
+      format.html { render view }
+      format.json { render :json => flash[:errors],
+                           :status => :unprocessable_entity }
     end
   end
 end

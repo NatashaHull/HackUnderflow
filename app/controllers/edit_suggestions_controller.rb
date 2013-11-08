@@ -3,17 +3,30 @@ class EditSuggestionsController < ApplicationController
   before_filter :require_editable_owner!, :except => [:show]
 
   def show
-    @suggestion = EditSuggestion.find(params[:id])
+    @suggestion = EditSuggestion.includes(:editable).find(params[:id])
+
+    respond_to do |format|
+      format.html { redirect_to :show }
+      format.json { render :json => @suggestion, :include => [:editable] }
+    end
   end
 
   def accept
     @suggestion.accept_edit
-    redirect_to @suggestion.question
+
+    respond_to do |format|
+      format.html { redirect_to @suggestion.question }
+      format.json { render :json => @suggestion }
+    end
   end
 
   def reject
     @suggestion.destroy
-    redirect_to @suggestion.question
+    
+    respond_to do |format|
+      format.html { redirect_to @suggestion.question }
+      format.json { render :json => @suggestion }
+    end
   end
 
   private

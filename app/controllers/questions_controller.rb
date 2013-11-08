@@ -75,7 +75,10 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question.destroy
-    redirect_to questions_url
+    respond_to do |format|
+      format.html { redirect_to questions_url }
+      format.json { render :json => @question }
+    end
   end
 
   private

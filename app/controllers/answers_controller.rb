@@ -11,9 +11,16 @@ class AnswersController < ApplicationController
     @answer.user_id = current_user.id
 
     if @answer.save
+      main_server_response
+    else
       flash[:errors] = @answer.errors.full_messages
+      
+      respond_to do |format|
+        format.html { redirect_to question_url(@answer.question_id) }
+        format.json { render :json => flash[:errors],
+                           :status => :unprocessable_entity }
+      end
     end
-    redirect_to question_url(@answer.question_id)
   end
 
   def edit
@@ -32,12 +39,12 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer.destroy
-    redirect_to question_url(@answer.question_id)
+    main_server_response
   end
 
   def accept
     @answer.accept
-    redirect_to question_url(@answer.question_id)
+    main_server_response
   end
 
   private
@@ -81,10 +88,23 @@ class AnswersController < ApplicationController
     #Private Methods
     def update_answer
       if @answer.update_attributes(params[:answer])
-        redirect_to question_url(@answer.question_id)
+        main_server_response
       else
         flash.now[:errors] = @answer.errors.full_messages
-        render :edit
+
+        respond_to do |format|
+          format.html { render :edit }
+          format.json { render :json => flash[:errors],
+                     :status => :unprocessable_entity }
+        end
+      end
+    end
+
+    #API Stuff
+    def main_server_response
+      respond_to do |format|
+        format.html { redirect_to question_url(@answer.question_id) }
+        format.json { render :json => @answer }
       end
     end
 end
