@@ -1,8 +1,12 @@
 <nav class="top-bar">
   <ul class="left">
     <li class="divider"></li>
-    <li><strong>Hack Underflow</strong></li>
+    <li><strong><%= link_to "Hack Underflow", root_url %></strong></li>
     <li class="divider"></li>
+    <li class="divider"></li>
+    <li><a href="<%= user_url(current_user) %>">
+      Hi <%= current_user.username.capitalize %>!
+    </a></li>
   </ul>
   <ul class="right">
     <li class="divider"></li>
@@ -14,15 +18,7 @@
     <li>
       <%= link_to "Profile", current_user %>
     </li>
-    <li class="divider"></li>
-    <li>
-      <%= link_to "Questions", questions_url %>
-    </li>
-    <li class="divider"></li>
-    <li>Hi <%= current_user.username.capitalize %>!</li>
-    <li class="divider"></li>
   <% else %>
-    <li>
     <%= link_to "Register", new_user_url %>
     <li class="divider"></li>
     </li>
@@ -30,6 +26,14 @@
     <%= link_to "Sign In", new_session_url %>
     </li>
   <% end %>
+    <li class="divider"></li>
+    <li>
+    <%= link_to "About", about_url %>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <%= link_to "Questions", questions_url %>
+    </li>
     <li class="divider show-for-small"></li>
   </ul>
 </nav>

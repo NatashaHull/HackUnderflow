@@ -20,3 +20,32 @@
   background-color: #FF9900;
   border: 1px solid #FF9900;
 }
+
+/* About page */
+
+.about-content {
+  margin: 5%;
+}
+
+.about-content div {
+  border-bottom: 1px solid #cccccc;
+}
+
+.about-content .coming-features div {
+  border-top: 1px solid #cccccc;
+}
+
+.about-content .intro-section {
+  margin: auto;
+  text-align:center;
+}
+
+.about-content .points-section ul {
+  list-style: none;
+}
+
+.about-content .points-section .check {
+  float: left;
+  width: 2em;
+  color: #009900;
+}
