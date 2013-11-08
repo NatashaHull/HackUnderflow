@@ -29,6 +29,10 @@ class SessionsController < ApplicationController
 
   def destroy
     logout_user!(current_user)
-    redirect_to new_session_url
+
+    respond_to do |format|
+      format.html { redirect_to new_session_url }
+      format.json { render :json => current_user }
+    end
   end
 end
