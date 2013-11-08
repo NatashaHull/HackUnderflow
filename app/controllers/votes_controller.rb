@@ -62,23 +62,29 @@ class VotesController < ApplicationController
 
     #Other Private Methods
     def question(dir)
-      Vote.parse_vote_request(
+      vote = Vote.parse_vote_request(
         dir,
         params[:question_id],
         "Question",
         current_user.id)
 
-      redirect_to question_url(params[:question_id])
+      respond_to do |format|
+        format.html { redirect_to question_url(params[:question_id]) }
+        format.json { render :json => vote }
+      end
     end
 
     def answer(dir)
       @answer = Answer.find(params[:answer_id])
-      Vote.parse_vote_request(
+      vote = Vote.parse_vote_request(
         dir,
         params[:answer_id],
         "Answer",
         current_user.id)
       
-      redirect_to question_url(@answer.question_id)
+      respond_to do |format|
+        format.html { redirect_to question_url(@answer.question_id) }
+        format.json { render :json => vote }
+      end
     end
 end
