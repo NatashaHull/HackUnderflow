@@ -4,14 +4,14 @@ class QuestionsController < ApplicationController
   before_filter :require_authorized_user!, :only => [:edit, :update]
 
   def index
-    @questions = Question.includes(:votes).all
+    @questions = Question.includes(:votes).order("created_at desc")
+                         .page(params[:page])
     @questions.sort_by! do |question|
       time = (Time.now - question.updated_at).to_i / 3600
       votes = question.vote_counts
-      votes / (time + 2)
+      votes.to_f / (time + 2).to_f
     end
     @questions.reverse!
-    @questions.page(params[:page])
   end
 
   def show
