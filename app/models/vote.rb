@@ -59,6 +59,7 @@ class Vote < ActiveRecord::Base
 
       if voteable_obj.user_id == self.user_id
         errors[:user] << "You cannot vote on your own post"
+      end
     end
 
     def get_question

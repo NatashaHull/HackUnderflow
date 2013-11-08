@@ -3,7 +3,7 @@ class Answer < ActiveRecord::Base
 
   validates_presence_of :body, :question_id, :user_id
   validates_uniqueness_of :question_id, :scope => [:user_id]
-  validate :only_one_accepted_answer
+  validate :only_one_accepted_answer, :not_question_owner
 
   belongs_to :user
   belongs_to :question
