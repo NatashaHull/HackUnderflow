@@ -9,6 +9,8 @@ class Question < ActiveRecord::Base
   has_many :votes, :as => :voteable
   has_many :edit_suggestions, :as => :editable
 
+  paginates_per 25
+
   #Answer Stuff
   def accepted_answer
     self.answers.where(:accepted => true)

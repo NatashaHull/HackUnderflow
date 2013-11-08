@@ -11,6 +11,7 @@ class QuestionsController < ApplicationController
       votes / (time + 2)
     end
     @questions.reverse!
+    @questions.page(params[:page])
   end
 
   def show
