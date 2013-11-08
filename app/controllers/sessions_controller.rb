@@ -22,7 +22,8 @@ class SessionsController < ApplicationController
 
       respond_to do |format|
         format.html { render :new }
-        format.json { render :json => flash[:errors] }
+        format.json { render :json => flash[:errors],
+                             :status => :unprocessable_entity }
       end
     end
   end

@@ -4,12 +4,8 @@ class QuestionsController < ApplicationController
   before_filter :require_authorized_user!, :only => [:edit, :update]
 
   def index
-    @questions = Question.includes(:answers => :votes)
-                         .includes(:answers => :comments)
-                         .includes(:votes)
-                         .includes(:comments)
-                         .order("created_at desc")
-                         .page(params[:page])
+    @questions = preloaded_questions.order("created_at desc")
+                                    .page(params[:page])
 
     @questions.sort_by! do |question|
       time = (Time.now - question.updated_at).to_i / 3600
@@ -32,11 +28,7 @@ class QuestionsController < ApplicationController
 
   def show
     ActiveRecord::Base.transaction do
-      @question = Question.includes(:answers => :votes)
-                          .includes(:answers => :comments)
-                          .includes(:votes)
-                          .includes(:comments)
-                          .find(params[:id])
+      @question = preloaded_questions.find(params[:id])
       @answer = Answer.new
     end
 
@@ -55,10 +47,18 @@ class QuestionsController < ApplicationController
     @question.user_id = current_user.id
 
     if @question.save
-      redirect_to @question
+      respond_to do |format|
+        format.html { redirect_to @question }
+        format.json { render :json => @question }
+      end
     else
       flash.now[:errors] = @question.errors.full_messages
-      render :new
+      
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render :json => flash[:errors],
+                             :status => :unprocessable_entity }
+      end
     end
   end
 
@@ -81,7 +81,7 @@ class QuestionsController < ApplicationController
   private
     #Before Filters
     def require_question_owner!
-      @question = Question.find(params[:id])
+      @question = preloaded_questions.find(params[:id])
 
       unless @question.user_id == current_user.id
         flash[:errors] = ["You cannot delete another person's question"]
@@ -90,7 +90,7 @@ class QuestionsController < ApplicationController
     end
 
     def require_authorized_user!
-      @question = Question.find(params[:id])
+      @question = preloaded_questions.find(params[:id])
 
       unless current_user.can_edit? || @question.user_id == current_user.id
         flash[:errors] = ["You are not authorized to edit other peoples questions"]
@@ -101,10 +101,26 @@ class QuestionsController < ApplicationController
     #Private Methods
     def update_question
       if @question.update_attributes(params[:question])
-        redirect_to @question
+        respond_to do |format|
+          format.html { redirect_to @question }
+          format.json { render :json => @question }
+        end
       else
         flash.now[:errors] = @question.errors.full_messages
-        render :edit
+        
+        respond_to do |format|
+          format.html { render :edit }
+          format.json { render :json => flash[:errors],
+                             :status => :unprocessable_entity }
+        end
       end
+    end
+
+    #SQL query reducing methods
+    def preloaded_questions
+      Question.includes(:answers => :votes)
+              .includes(:answers => :comments)
+              .includes(:votes)
+              .includes(:comments)
     end
 end

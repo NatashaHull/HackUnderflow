@@ -27,7 +27,8 @@ class UsersController < ApplicationController
       
       respond_to do |format|
         format.html { render :new }
-        format.json { render :json => flash[:errors] }
+        format.json { render :json => flash[:errors],
+                             :status => :unprocessable_entity }
       end
     end
   end
@@ -63,7 +64,8 @@ class UsersController < ApplicationController
     def respond_with_update_error
       respond_to do |format|
         format.html { render :new }
-        format.json { render :json => flash[:errors] }
+        format.json { render :json => flash[:errors],
+                             :status => :unprocessable_entity }
       end
     end
 end
