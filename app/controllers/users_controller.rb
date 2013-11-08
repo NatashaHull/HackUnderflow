@@ -4,10 +4,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    cu_bool = (@user == current_user)
 
     respond_to do |format|
       format.html { render :show }
-      format.json { render :json => @user }
+      format.json { render :json => @user, :is_current_user => cu_bool }
     end
   end
 
@@ -54,7 +55,7 @@ class UsersController < ApplicationController
 
     def respond_with_user
       respond_to do |format|
-        format.html { redirect_to @user }
+        format.html { redirect_to @user, :is_current_user => true }
         format.json { render :json => @user }
       end
     end

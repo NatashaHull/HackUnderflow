@@ -91,18 +91,9 @@ class User < ActiveRecord::Base
 
   #Making json rendering uniform
   def as_json(options={})
-    User.transaction do
-      self.questions
-      self.answers
-      self.edit_suggestions
-      self.sugggested_question_edits
-      self.sugggested_answer_edits         
-    end
+    cu_bool = options.delete(:is_current_user)
+    defaults = build_defaults(cu_bool)
 
-    defaults = {:include => [:questions, :answers],
-                :methods => [:accepted_edit_suggestions,
-                             :pending_edit_suggestions,
-                             :suggested_edits]}
     options.merge!(defaults)
     json = super(options)
     json.delete("session_token")
@@ -115,6 +106,33 @@ class User < ActiveRecord::Base
     def password_matches_confirmation
       unless @password == @password_confirmation
         errors[:password_confirmation] << "Password must match Password Confirmation"
+      end
+    end
+
+    def build_defaults(cu_bool)
+      preload_user_info(cu_bool)
+
+      defaults = {:include => [:questions, :answers],
+                  :methods => [:accepted_edit_suggestions]}
+
+      if cu_bool
+        defaults[:methods] << :pending_edit_suggestions
+        defaults[:methods] << :suggested_edits
+      end
+      defaults
+    end
+
+    def preload_user_info(cu_bool)
+      User.transaction do
+        self.questions
+        self.answers
+        self.edit_suggestions
+        
+        #Only load these things if it's this is the current user
+        if cu_bool
+          self.sugggested_question_edits
+          self.sugggested_answer_edits         
+        end
       end
     end
 end
