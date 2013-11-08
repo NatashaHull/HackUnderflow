@@ -36,7 +36,16 @@ class EditSuggestionsController < ApplicationController
                                   .find(params[:edit_suggestion_id])
       unless @suggestion.editable.user_id == current_user.id
         flash[:errors] = ["You cannot accept an edit unless it is on your own post"]
-        redirect_to @suggestion
+        main_server_redirect
+      end
+    end
+
+    #API Stuff
+    def main_server_redirect
+      respond_to do |format|
+        format.html { redirect_to @suggestion }
+        format.json { render :json => flash[:errors],
+                   :status => :unprocessable_entity }
       end
     end
 end

@@ -34,7 +34,12 @@ class VotesController < ApplicationController
 
     def non_author_auth(obj, url)
       flash[:errors] = ["You can't vote on your own #{obj}"]
-      redirect_to url
+      
+      respond_to do |format|
+        format.html { redirect_to url }
+        format.json { render :json => flash[:errors],
+                   :status => :unprocessable_entity }
+      end
     end
 
     def require_authorized_upvote_user!
@@ -52,12 +57,21 @@ class VotesController < ApplicationController
     end
 
     def question_auth
-      redirect_to question_url(params[:question_id])
+      respond_to do |format|
+        format.html { redirect_to question_url(params[:question_id]) }
+        format.json { render :json => flash[:errors],
+                   :status => :unprocessable_entity }
+      end
     end
 
     def answer_auth
       q_id = Answer.find(params[:answer_id]).question_id
-      redirect_to question_url(q_id)
+      
+      respond_to do |format|
+        format.html { redirect_to question_url(q_id) }
+        format.json { render :json => flash[:errors],
+                   :status => :unprocessable_entity }
+      end
     end
 
     #Other Private Methods

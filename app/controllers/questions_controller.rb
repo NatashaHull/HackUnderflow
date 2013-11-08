@@ -88,7 +88,7 @@ class QuestionsController < ApplicationController
 
       unless @question.user_id == current_user.id
         flash[:errors] = ["You cannot delete another person's question"]
-        redirect_to @question
+        main_server_redirect
       end
     end
 
@@ -97,7 +97,7 @@ class QuestionsController < ApplicationController
 
       unless current_user.can_edit? || @question.user_id == current_user.id
         flash[:errors] = ["You are not authorized to edit other peoples questions"]
-        redirect_to @question
+        main_server_redirect
       end
     end
 
@@ -125,5 +125,14 @@ class QuestionsController < ApplicationController
               .includes(:answers => :comments)
               .includes(:votes)
               .includes(:comments)
+    end
+
+    #API Stuff
+    def main_server_redirect
+      respond_to do |format|
+        format.html { redirect_to @question }
+        format.json { render :json => flash[:errors],
+                   :status => :unprocessable_entity }
+      end
     end
 end

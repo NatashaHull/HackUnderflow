@@ -54,7 +54,7 @@ class AnswersController < ApplicationController
 
       unless @answer.user_id == current_user.id
         flash[:errors] = ["You cannot edit another person's answer"]
-        redirect_to question_url(@answer.question_id)
+        main_redirect_server_response
       end
     end
 
@@ -63,7 +63,12 @@ class AnswersController < ApplicationController
 
       if @question.user_id == current_user.id
         flash[:errors] = ["You cannot answer your own question!"]
-        redirect_to @question
+
+        respond_to do |format|
+          format.html { redirect_to @question }
+          format.json { render :json => flash[:errors],
+                     :status => :unprocessable_entity }
+        end
       end
     end
 
@@ -72,7 +77,7 @@ class AnswersController < ApplicationController
 
       unless @answer.question.user_id == current_user.id
         flash[:errors] = ["Only the question owner can accept answers"]
-        redirect_to question_url(@answer.question_id)
+        main_redirect_server_response
       end
     end
 
@@ -81,7 +86,7 @@ class AnswersController < ApplicationController
 
       unless current_user.can_edit? || @answer.user_id == current_user.id
         flash[:errors] = ["You are not authorized to edit other peoples answers"]
-        redirect_to question_url(@answer.question_id)
+        main_redirect_server_response
       end
     end
 
@@ -105,6 +110,14 @@ class AnswersController < ApplicationController
       respond_to do |format|
         format.html { redirect_to question_url(@answer.question_id) }
         format.json { render :json => @answer }
+      end
+    end
+
+    def main_redirect_server_response
+      respond_to do |format|
+        format.html { redirect_to question_url(@answer.question_id) }
+        format.json { render :json => flash[:errors],
+                   :status => :unprocessable_entity }
       end
     end
 end
