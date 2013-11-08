@@ -47,11 +47,14 @@ class CommentsController < ApplicationController
       @comment.user_id = current_user.id
 
       if @comment.save
-        redirect_to @question
+        respond_to do |format|
+          format.html { redirect_to @question }
+          format.json { render :json => @comment }
+        end
       else
         flash.now[:errors] = @comment.errors.full_messages
-        @answers = @quesion.answers.includes(:votes).includes(:comments)
-        render :new
+        @answers = @question.answers.includes(:votes).includes(:comments)
+        error_server_response
       end
     end
 
@@ -61,11 +64,23 @@ class CommentsController < ApplicationController
       @comment.user_id = current_user.id
 
       if @comment.save
-        redirect_to question_url(@answer.question_id)
+        respond_to do |format|
+          format.html { redirect_to question_url(@answer.question_id) }
+          format.json { render :json => @comment }
+        end
       else
         flash.now[:errors] = @comment.errors.full_messages
         @question = @answer.question.includes(:votes).includes(:comments)
-        render :new
+        error_server_response
+      end
+    end
+
+    #API Stuff
+    def error_server_response
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render :json => flash[:errors],
+                             :status => :unprocessable_entity }
       end
     end
 end

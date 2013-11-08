@@ -11,16 +11,29 @@ class SessionsController < ApplicationController
 
     if !!@user
       login_user!(@user)
-      redirect_to @user
+
+      respond_to do |format|
+        format.html { redirect_to @user }
+        format.json { render :json => @user }
+      end
     else
       @user = User.new
       flash.now[:errors] = ["Invalid username or password"]
-      render :new
+
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render :json => flash[:errors],
+                             :status => :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     logout_user!(current_user)
-    redirect_to new_session_url
+
+    respond_to do |format|
+      format.html { redirect_to new_session_url }
+      format.json { render :json => current_user }
+    end
   end
 end

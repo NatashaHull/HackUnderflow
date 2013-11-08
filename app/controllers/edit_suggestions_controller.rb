@@ -3,17 +3,30 @@ class EditSuggestionsController < ApplicationController
   before_filter :require_editable_owner!, :except => [:show]
 
   def show
-    @suggestion = EditSuggestion.find(params[:id])
+    @suggestion = EditSuggestion.includes(:editable).find(params[:id])
+
+    respond_to do |format|
+      format.html { redirect_to :show }
+      format.json { render :json => @suggestion, :include => [:editable] }
+    end
   end
 
   def accept
     @suggestion.accept_edit
-    redirect_to @suggestion.question
+
+    respond_to do |format|
+      format.html { redirect_to @suggestion.question }
+      format.json { render :json => @suggestion }
+    end
   end
 
   def reject
     @suggestion.destroy
-    redirect_to @suggestion.question
+    
+    respond_to do |format|
+      format.html { redirect_to @suggestion.question }
+      format.json { render :json => @suggestion }
+    end
   end
 
   private
@@ -23,7 +36,16 @@ class EditSuggestionsController < ApplicationController
                                   .find(params[:edit_suggestion_id])
       unless @suggestion.editable.user_id == current_user.id
         flash[:errors] = ["You cannot accept an edit unless it is on your own post"]
-        redirect_to @suggestion
+        main_server_redirect
+      end
+    end
+
+    #API Stuff
+    def main_server_redirect
+      respond_to do |format|
+        format.html { redirect_to @suggestion }
+        format.json { render :json => flash[:errors],
+                   :status => :unprocessable_entity }
       end
     end
 end

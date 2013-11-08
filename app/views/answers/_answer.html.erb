@@ -7,13 +7,13 @@
     <% else %>
       <%= render 'shared/object_votes', :object => answer %>
     <% end %>
-    <% if @question.accepted_answer.empty? && @question.user_id == current_user.id %>
+    <% if @question.accepted_answer && @question.user_id == current_user.id %>
     <a href="<%= answer_accept_url(answer) %>"
        class="not-accepted-answer" data-method="put" rel="nofollow">
       &#10003
     </a>
-    <% elsif @question.accepted_answer.first &&
-             @question.accepted_answer.first.id == answer.id %>
+    <% elsif @question.accepted_answer &&
+             @question.accepted_answer.id == answer.id %>
     <span class="accepted-answer">&#10003</span>
     <% end %>
   </div>

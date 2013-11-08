@@ -49,6 +49,13 @@ class Answer < ActiveRecord::Base
     SQL
   end
 
+  #API Stuff
+  def as_json(options={})
+    options[:include] = [:comments]
+    options[:methods] = [:vote_counts]
+    super(options)
+  end
+
   private
 
     def only_one_accepted_answer

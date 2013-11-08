@@ -127,3 +127,30 @@
   padding: 5px;
   border-top: 1px dotted #888888;
 }
+
+.pagination {
+  margin-top: 20px;
+  margin-left: 40%;
+}
+
+.page a, .next, .last, .first, .prev {
+  color: white;
+  border: 1px solid #888888;
+  background-color: #888888;
+  padding: 5px;
+  margin: 1px;
+  text-align: center;
+}
+
+.page {
+  text-align: center;
+}
+
+.page a, .next a, .last a, .first a, .prev a {
+  color: white;
+}
+
+.page a:hover, .next:hover, .last:hover, .first:hover, .prev:hover {
+  background-color: #FF9900;
+  border: 1px solid #FF9900;
+}
