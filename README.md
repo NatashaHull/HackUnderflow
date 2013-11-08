@@ -121,4 +121,5 @@ Additionally, I was able to use this to add a `contributors` instance method to 
 
 ##Credits
 Design: I am not a designer. As a result I downloaded [Foundation's](http://foundation.zurb.com/) stylesheets and added them to my own CSS files.
+
 FriendlyId: This website uses the `friendly_id` gem.
