@@ -64,4 +64,12 @@ class Answer < ActiveRecord::Base
         errors[:answer] << "You cannot accept more than one answer!"
       end
     end
+
+    def not_question_owner
+      question_obj = Question.find(self.question_id)
+
+      if question_obj.user_id == self.user_id
+        errors[:user] << "You can't answer your own question"
+      end
+    end
 end

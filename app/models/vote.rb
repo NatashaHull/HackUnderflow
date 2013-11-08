@@ -4,6 +4,7 @@ class Vote < ActiveRecord::Base
   validates_uniqueness_of :voteable_id,
                           :scope => [:voteable_type, :user_id]
   validates :direction, :inclusion => { :in => ["up", "down"] }
+  validate :user_not_voteable_owner
 
   belongs_to :voteable, :polymorphic => true
   belongs_to :user
@@ -46,4 +47,25 @@ class Vote < ActiveRecord::Base
       User.find(u_id).add_points(10)
     end
   end
+
+  private
+
+    def user_not_voteable_owner
+      if self.voteable_type == "Question"
+        voteable_obj = get_question
+      else
+        voteable_obj = get_answer
+      end
+
+      if voteable_obj.user_id == self.user_id
+        errors[:user] << "You cannot vote on your own post"
+    end
+
+    def get_question
+      Question.find(self.voteable_id)
+    end
+
+    def get_answer
+      Answer.find(self.voteable_id)
+    end
 end
