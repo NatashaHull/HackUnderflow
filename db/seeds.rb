@@ -23,7 +23,7 @@ def create_question(title, body, answers, comments)
 end
 
 def build_answers(q, answers)
-  user_ids = []
+  user_ids = [q.user_id]
   answers.map do |answer|
     num = find_non_taken_id(user_ids)
     user_ids << num
@@ -51,7 +51,7 @@ end
 
 def find_non_taken_id(taken_ids)
   num = rand(1..100)
-  while num == taken_ids.include?(num)
+  while taken_ids.include?(num)
     num = rand(1..100)
   end
   num
@@ -105,17 +105,24 @@ users.each do |user|
   user.add_points(num)
 end
 
-#Create Other Stuff
-doc = get_html_doc("http://stackoverflow.com/questions?sort=votes")
+#Get Questions Pages
+docs = []
+doc << get_html_doc("http://stackoverflow.com/questions?page=5&sort=votes")
+doc << get_html_doc("http://stackoverflow.com/questions?page=4&sort=votes")
+doc << get_html_doc("http://stackoverflow.com/questions?page=3&sort=votes")
+doc << get_html_doc("http://stackoverflow.com/questions?page=2&sort=votes")
+doc << get_html_doc("http://stackoverflow.com/questions?sort=votes")
 
 question_titles = []
 question_links = []
 questions_answers = []
 questions_comments = []
 
-doc.xpath('questions', '//h3/a').each do |question|
-  question_titles << question.content
-  question_links << "http://www.stackoverflow.com#{question["href"]}"
+docs.each do |doc|
+  doc.xpath('questions', '//h3/a').each do |question|
+    question_titles << question.content
+    question_links << "http://www.stackoverflow.com#{question["href"]}"
+  end
 end
 
 question_content = question_links.map do |link|

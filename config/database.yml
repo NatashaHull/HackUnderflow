@@ -45,7 +45,7 @@ test:
   database: hack_underflow_test
   pool: 5
   username: hack_underflow
-  password:
+  password: secret
 
 production:
   adapter: postgresql
@@ -53,4 +53,4 @@ production:
   database: hack_underflow_production
   pool: 5
   username: hack_underflow
-  password:
+  password: secret
