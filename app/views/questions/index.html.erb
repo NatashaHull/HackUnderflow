@@ -2,6 +2,12 @@
 
 <ul class="questions-list">
   <% @questions.each do |question| %>
+    <% if (question.title.length > 50) %>
+      <% show_title = "#{question.title.slice(0..50)}..." %>
+    <% else %>
+      <% show_title = question.title %>
+    <% end %>
+    
     <li class="questionLi">
       <div class="question-info">
         <% votes = pluralize(question.vote_counts, "vote") %>
@@ -16,9 +22,9 @@
         </span>
       </div>
       <span class="question">
-        <%= link_to question.title, question %>
+        <%= link_to show_title, question %>
         <span class="question-body">
-          <%= question.body.slice(0..100) %>
+          <%= "#{question.body.slice(0..75)}..." %>
         </span>
       </span>
     </li>
@@ -28,3 +34,7 @@
 <div class="question-pagination">
   <%= paginate @questions %>
 </div>
+
+</br>
+</br>
+</br>

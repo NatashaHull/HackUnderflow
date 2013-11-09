@@ -135,10 +135,10 @@
 
 .page a, .next, .last, .first, .prev {
   color: white;
-  border: 1px solid #888888;
+  border: 1px solid white;
+  border-collapse:collapse;
   background-color: #888888;
   padding: 5px;
-  margin: 1px;
   text-align: center;
 }
 
@@ -152,5 +152,4 @@
 
 .page a:hover, .next:hover, .last:hover, .first:hover, .prev:hover {
   background-color: #FF9900;
-  border: 1px solid #FF9900;
 }

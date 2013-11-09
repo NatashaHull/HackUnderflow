@@ -107,11 +107,11 @@ end
 
 #Get Questions Pages
 docs = []
-doc << get_html_doc("http://stackoverflow.com/questions?page=5&sort=votes")
-doc << get_html_doc("http://stackoverflow.com/questions?page=4&sort=votes")
-doc << get_html_doc("http://stackoverflow.com/questions?page=3&sort=votes")
-doc << get_html_doc("http://stackoverflow.com/questions?page=2&sort=votes")
-doc << get_html_doc("http://stackoverflow.com/questions?sort=votes")
+docs << get_html_doc("http://stackoverflow.com/questions?page=5&sort=votes")
+docs << get_html_doc("http://stackoverflow.com/questions?page=4&sort=votes")
+docs << get_html_doc("http://stackoverflow.com/questions?page=3&sort=votes")
+docs << get_html_doc("http://stackoverflow.com/questions?page=2&sort=votes")
+docs << get_html_doc("http://stackoverflow.com/questions?sort=votes")
 
 question_titles = []
 question_links = []
