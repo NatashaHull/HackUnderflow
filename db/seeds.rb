@@ -89,21 +89,17 @@ def get_question_content(ldoc)
 end
 
 def get_question_answers(ldoc)
-  question_answers = []
   path = '//div[contains(@class, "answer")]//div[contains(@class, "post-text")]'
-  ldoc.xpath(path).each do |answer|
-    question_answers << answer.text
+  ldoc.xpath(path).map do |answer|
+    answer.text
   end
-  question_answers
 end
 
 def get_question_comments(ldoc)
-  question_comments = []
-  path = '//div[contains(@class, "question")]//table/tbody/tr/td/div'
-  ldoc.xpath(path).each do |comm|
-    question_comments << comm.content
+  path = '//div[contains(@class, "question")]//table/tbody/tr/td/div[contains(@class, "comment-body")]'
+  ldoc.xpath(path).map do |comm|
+    comm.content
   end
-  question_comments
 end
 
 #Create Users
