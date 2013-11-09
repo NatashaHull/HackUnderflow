@@ -18,10 +18,13 @@ def create_question(title, body, answers, comments)
   q = Question.new(:title => title, :body => body)
   q.user_id = rand(100)
   q.save!
-  build_answers(q, answers).each(&:save!)
-  q.answers.first.accept
-  build_comments(q, comments).each(&:save!)
-  build_random_upvotes(rand(80), q.id, "Question", q.user_id)
+
+  ActiveRecord::Base.transaction do
+    build_answers(q, answers).each(&:save!)
+    q.answers.first.accept
+    build_comments(q, comments).each(&:save!)
+    build_random_upvotes(rand(80), q.id, "Question", q.user_id)
+  end
 end
 
 def build_answers(q, answers)
@@ -104,17 +107,21 @@ def get_question_comments(ldoc)
 end
 
 #Create Users
-users = []
-100.times do
-  users << create_new_user(
-    Faker::Name.name,
-    SecureRandom.urlsafe_base64(16)
-    )
+User.transaction do
+  users = []
+  100.times do
+    users << create_new_user(
+      Faker::Name.name,
+      SecureRandom.urlsafe_base64(16)
+      )
+  end
 end
 
-users.each do |user|
-  num = rand(5000)
-  user.add_points(num)
+User.transaction do
+  users.each do |user|
+    num = rand(5000)
+    user.add_points(num)
+  end
 end
 
 #Get Questions Pages
