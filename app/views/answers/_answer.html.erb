@@ -7,7 +7,8 @@
     <% else %>
       <%= render 'shared/object_votes', :object => answer %>
     <% end %>
-    <% if @question.accepted_answer && @question.user_id == current_user.id %>
+    <% if !!current_user && !@question.accepted_answer &&
+          @question.user_id == current_user.id %>
     <a href="<%= answer_accept_url(answer) %>"
        class="not-accepted-answer" data-method="put" rel="nofollow">
       &#10003
