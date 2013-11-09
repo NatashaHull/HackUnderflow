@@ -19,6 +19,7 @@ gem 'figaro'
 gem 'friendly_id'
 gem 'nokogiri'
 gem 'kaminari'
+gem 'faker'
 
 group :development do
   gem 'better_errors'

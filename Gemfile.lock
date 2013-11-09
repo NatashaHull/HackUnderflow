@@ -56,6 +56,8 @@ GEM
     debugger-ruby_core_source (1.2.3)
     erubis (2.7.0)
     execjs (2.0.2)
+    faker (1.1.2)
+      i18n (~> 0.5)
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
@@ -150,6 +152,7 @@ DEPENDENCIES
   binding_of_caller
   coffee-rails (~> 3.2.1)
   debugger
+  faker
   figaro
   friendly_id
   jquery-rails
