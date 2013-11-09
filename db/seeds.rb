@@ -107,8 +107,8 @@ def get_question_comments(ldoc)
 end
 
 #Create Users
+users = []
 User.transaction do
-  users = []
   100.times do
     users << create_new_user(
       Faker::Name.name,
