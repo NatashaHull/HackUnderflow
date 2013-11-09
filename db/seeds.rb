@@ -19,7 +19,9 @@ def create_question(title, body, answers, comments)
   q.user_id = rand(100)
   q.save!
   build_answers(q, answers).each(&:save!)
+  q.answers.first.accept
   build_comments(q, comments).each(&:save!)
+  build_random_upvotes(rand(80), q.id, "Question", q.user_id)
 end
 
 def build_answers(q, answers)
@@ -46,6 +48,16 @@ def build_comments(q, comments)
     c.commentable_id = q.id
     c.commentable_type = "Question"
     c
+  end
+end
+
+def build_random_upvotes(num, id, type, taken_id)
+  used_ids = [taken_id]
+  num.times do
+    u_id = find_non_taken_id(used_ids)
+    used_ids << u_id
+    
+    Vote.build_vote("up", id, type, u_id)
   end
 end
 
