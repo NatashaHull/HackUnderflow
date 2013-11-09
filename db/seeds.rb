@@ -154,6 +154,6 @@ end
   title = question_titles[i]
   body = question_content[i]
   answers = questions_answers[i]
-  comments = questions_answers[i]
+  comments = questions_comments[i]
   create_question(title, body, answers, comments)
 end
