@@ -96,7 +96,7 @@ def get_question_answers(ldoc)
 end
 
 def get_question_comments(ldoc)
-  path = '//div[contains(@class, "question")]//table/tbody/tr/td/div[contains(@class, "comment-body")]'
+  path = '//div[contains(@class, "question")]//span[contains(@class, "comment-copy")]'
   ldoc.xpath(path).map do |comm|
     comm.content
   end
