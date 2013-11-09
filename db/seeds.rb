@@ -34,10 +34,10 @@ def create_question(title, body, answers)
   q = Question.new(:title => title, :body => body)
   q.user_id = rand(100)
   q.save!
-  build_answers(q, answers).each(&:save!)
+  build_answers(q.id, answers).each(&:save!)
 end
 
-def build_answers(q, answers)
+def build_answers(q_id, answers)
   user_ids = []
   answers.map do |answer|
     num = rand(100)
@@ -47,7 +47,7 @@ def build_answers(q, answers)
 
     a = Answer.new(:body => answer)
     a.user_id = num
-    a.question_id = q.id
+    a.question_id = q_id
     a
   end
 end
