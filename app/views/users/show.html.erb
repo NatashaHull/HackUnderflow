@@ -1,4 +1,8 @@
-<h1 class="profile-main-header"><%= @user.username.capitalize %></h1>
+<h1 class="profile-main-header">
+  <%= image_tag(@user.gravatar_url, alt: @user.username, class: "gravatar") %>
+  <%= @user.username.capitalize %>
+</h1>
+
 <ul class="profile-info">
   <h5 class="profile-header">Summary</h5>
   <li>Points: <%= @user.points %></li>

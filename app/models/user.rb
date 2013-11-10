@@ -1,15 +1,15 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  attr_accessible :username, :password, :password_confirmation
+  attr_accessible :username, :email, :password, :password_confirmation
   attr_reader :password
   attr_accessor :password_confirmation
   extend FriendlyId
   
   friendly_id :username, :use => :slugged
 
-  validates_presence_of :username, :password_digest, :session_token
-  validates :username, :uniqueness => true
+  validates_presence_of :username, :email, :password_digest, :session_token
+  validates :username, :email, :uniqueness => true
   validates :password, :length => { :minimum => 6, :allow_nil => true }
   validate :password_matches_confirmation
 
@@ -28,6 +28,12 @@ class User < ActiveRecord::Base
   def self.find_by_credentials(user_params)
     user = User.find_by_username(user_params[:username])
     return user if user.is_password?(user_params[:password])
+  end
+
+  #Email stuff
+  def gravatar_url
+    gravatar_id = Digest::MD5::hexdigest(self.email.downcase)
+    "https://secure.gravatar.com/avatar/#{gravatar_id}"
   end
 
   #Password Stuff
@@ -118,6 +124,7 @@ class User < ActiveRecord::Base
       if cu_bool
         defaults[:methods] << :pending_edit_suggestions
         defaults[:methods] << :suggested_edits
+        defaults[:methods] << :gravatar_url
       end
       defaults
     end

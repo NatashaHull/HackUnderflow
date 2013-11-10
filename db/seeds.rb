@@ -2,9 +2,10 @@ require 'open-uri'
 require 'nokogiri'
 
 #Creation Methods
-def create_new_user(username, password)
+def create_new_user(username, email, password)
   u = User.new(
     :username => username,
+    :email => email,
     :password => password,
     :password_confirmation => password
     )
@@ -108,6 +109,7 @@ User.transaction do
   100.times do
     users << create_new_user(
       Faker::Name.name,
+      Faker::Internet.email,
       SecureRandom.urlsafe_base64(16)
       )
   end
