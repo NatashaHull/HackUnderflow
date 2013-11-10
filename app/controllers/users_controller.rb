@@ -2,6 +2,14 @@ class UsersController < ApplicationController
   before_filter :require_current_user!, :only => [:edit, :update, :delete]
   before_filter :require_logged_out!, :only => [:new, :create]
 
+  def index
+    @users = preloaded_users
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render :json => @users }
+    end
+  end
+
   def show
     @user = User.find(params[:id])
     cu_bool = (@user == current_user)
@@ -53,6 +61,15 @@ class UsersController < ApplicationController
       respond_with_edit_error
     end
   end
+
+  private
+
+    def preloaded_users
+      User.includes(:questions)
+           .includes(:answers)
+           .includes(:edit_suggestions)
+           .all
+    end
 
     def respond_with_user
       respond_to do |format|

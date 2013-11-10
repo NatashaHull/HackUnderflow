@@ -1,7 +1,7 @@
 HackUnderflow::Application.routes.draw do
   get "about" => "static_pages#about"
 
-  resources :users, :except => [:index, :destroy]
+  resources :users, :except => [:destroy]
   resource :session, :only => [:new, :create, :destroy]
 
   resources :questions, :except => [:show] do
