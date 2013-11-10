@@ -19,6 +19,11 @@ class Answer < ActiveRecord::Base
     end
   end
 
+  #Question Stuff
+  def question_title
+    self.question.title
+  end
+
   #Vote Stuff
   def vote_counts
     votes = self.votes

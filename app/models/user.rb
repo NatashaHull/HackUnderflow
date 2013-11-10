@@ -13,17 +13,19 @@ class User < ActiveRecord::Base
   validates :password, :length => { :minimum => 6, :allow_nil => true }
   validate :password_matches_confirmation
 
-  has_many :questions
-  has_many :answers
-  has_many :comments
-  has_many :votes
+  has_many :questions, :order => "created_at DESC"
+  has_many :answers, :order => "created_at DESC"
+  has_many :comments, :order => "created_at DESC"
+  has_many :votes, :order => "created_at DESC"
   has_many :edit_suggestions
   has_many :suggested_question_edits,
            :through => :questions,
-           :source => :edit_suggestions
+           :source => :edit_suggestions,
+           :order => "created_at DESC"
   has_many :suggested_answer_edits,
            :through => :answers,
-           :source => :edit_suggestions
+           :source => :edit_suggestions,
+           :order => "created_at DESC"
 
   def self.find_by_credentials(user_params)
     user = User.find_by_username(user_params[:username])
@@ -117,8 +119,13 @@ class User < ActiveRecord::Base
     end
 
     def build_defaults(cu)
-      defaults = {:include => [:questions, :answers],
-                  :methods => [:accepted_edit_suggestions]}
+      defaults = {
+        :include => {
+          :questions => {},
+          :answers => { :methods => :question_title }
+          },
+        :methods => [:accepted_edit_suggestions]
+      }
 
       if cu && cu.id == self.id
         defaults[:methods] << :pending_edit_suggestions
