@@ -1,13 +1,17 @@
 <input type="hidden" name="authenticity_token"
        value="<%= form_authenticity_token %>">
 
-<label for="username">Username</label>
+<label for="username">
+  <%= is_new ? "Username" : "Username/Email" %>
+</label>
 <input type="text" name="user[username]" id="username"
        value="<%= @user.username %>">
 
-<label for="email">Email</label>
-<input type="text" name="user[email]" id="email"
-       value="<%= @user.email %>">
+<% if is_new %>
+  <label for="email">Email</label>
+  <input type="text" name="user[email]" id="email"
+         value="<%= @user.email %>">
+<% end %>
 
 <label for="password">Password</label>
 <input type="password" name="user[password]" id="password">

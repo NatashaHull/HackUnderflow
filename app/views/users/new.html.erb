@@ -2,7 +2,7 @@
   <h1 class="centered-header">Create a New Account</h1>
 
   <form action="<%= users_url %>" method="post" class="users-form">
-    <%= render 'shared/form' %>
+    <%= render 'shared/form', :is_new => true %>
 
     <label for="password_confirmation">Confirm Password</label>
     <input type="password" name="user[password_confirmation]"
