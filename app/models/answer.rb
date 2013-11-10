@@ -51,7 +51,7 @@ class Answer < ActiveRecord::Base
 
   #API Stuff
   def as_json(options={})
-    options[:include] = [:comments]
+    options[:include] = [:comments, :user]
     options[:methods] = [:vote_counts]
     super(options)
   end

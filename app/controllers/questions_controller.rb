@@ -123,6 +123,8 @@ class QuestionsController < ApplicationController
     def preloaded_questions
       Question.includes(:answers => :votes)
               .includes(:answers => :comments)
+              .includes(:answers => :user)
+              .includes(:user)
               .includes(:votes)
               .includes(:comments)
     end

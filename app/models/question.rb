@@ -51,12 +51,12 @@ class Question < ActiveRecord::Base
   end
 
   def as_json(options={})
-    json = {}
-    json[:model] = super(options)
-    json[:model]["answers"] = self.answers
-    json[:model]["vote_counts"] = self.vote_counts
-    json[:model]["comments"] = self.comments
-    json[:model]["accepted_answer"] = self.accepted_answer
+    json = super(options)
+    json["answers"] = self.answers
+    json["vote_counts"] = self.vote_counts
+    json["comments"] = self.comments
+    json["accepted_answer"] = self.accepted_answer
+    json["user"] = self.user
     json
   end
 end
