@@ -56,7 +56,6 @@ class Question < ActiveRecord::Base
     json["vote_counts"] = self.vote_counts
     json["comments"] = self.comments
     json["accepted_answer"] = self.accepted_answer
-    json["user"] = self.user
     json
   end
 end
