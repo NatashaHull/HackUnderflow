@@ -8,10 +8,10 @@
               alt: user.username,
               class: "gravatar"
             ) %>
-        <span class="user">
-          <%= link_to user.username, user %>
-          <%= user.points %>
-        </span>
+        <pre 
+          class="user"><%= link_to "#{user.username}\n",
+              user %><%= user.points %>
+        </pre>
       </div>
     </li>
   <% end %>

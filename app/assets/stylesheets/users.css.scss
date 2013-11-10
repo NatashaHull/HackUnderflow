@@ -154,6 +154,33 @@
   color: white;
 }
 
+/* Index */
+
+.users-list {
+  display: block;
+  list-style-type: none;
+}
+
+.userLi .user-info {
+  float: left;
+  height: 57px;
+  width: 200px;
+  margin: 25px;
+}
+
+.userLi .user-info .gravatar {
+  height: 57px;
+  float: left;
+}
+
+.userLi .user-info .user {
+  line-height: 15px;
+  width: 100px;
+  margin-left: 5px;
+  margin-top: 5%;
+  float: left;
+}
+
 /* Profile */
 
 .profile-main-header {
@@ -168,7 +195,6 @@
   width: 250px;
   height: 150px;
   margin-left: 8%;
-  /*margin-top: -30px;*/
 }
 
 .profile-info li {
