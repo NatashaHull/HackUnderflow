@@ -1,10 +1,20 @@
+<% answers = @question.answers.sort_by do |answer| %>
+  <% if @question.accepted_answer &&
+        @question.accepted_answer.id == answer.id %>
+    <% -100000000 %>
+  <% else %>
+    <% time = (Time.now - answer.updated_at).to_i %>
+    <% -1 * (answer.vote_counts.to_f / (time+2).to_f) %>
+  <% end %>
+<% end %>
+
 <%= render 'questions/question' %>
 
 <div class="answers">
   <h5 class="answer-header">
     <%= pluralize(@question.answers.count, "Answer") %>
   </h5>
-  <% @question.answers.each do |answer| %>
+  <% answers.each do |answer| %>
     <%= render 'answers/answer', :answer => answer %>
   <% end %>
 </div>
