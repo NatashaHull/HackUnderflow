@@ -3,20 +3,19 @@ class UsersController < ApplicationController
   before_filter :require_logged_out!, :only => [:new, :create]
 
   def index
-    @users = preloaded_users
+    @users = preloaded_users.all
     respond_to do |format|
       format.html { render :index }
-      format.json { render :json => @users }
+      format.json { render :json => @users, :cu => current_user }
     end
   end
 
   def show
-    @user = User.find(params[:id])
-    cu_bool = (@user == current_user)
+    @user = preloaded_users.find(params[:id])
 
     respond_to do |format|
       format.html { render :show }
-      format.json { render :json => @user, :is_current_user => cu_bool }
+      format.json { render :json => @user, :cu => current_user }
     end
   end
 
@@ -66,9 +65,10 @@ class UsersController < ApplicationController
 
     def preloaded_users
       User.includes(:questions)
-           .includes(:answers)
-           .includes(:edit_suggestions)
-           .all
+          .includes(:answers)
+          .includes(:edit_suggestions)
+          .includes(:suggested_question_edits)
+          .includes(:suggested_answer_edits)
     end
 
     def respond_with_user

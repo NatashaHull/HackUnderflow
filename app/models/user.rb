@@ -18,10 +18,10 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :votes
   has_many :edit_suggestions
-  has_many :sugggested_question_edits,
+  has_many :suggested_question_edits,
            :through => :questions,
            :source => :edit_suggestions
-  has_many :sugggested_answer_edits,
+  has_many :suggested_answer_edits,
            :through => :answers,
            :source => :edit_suggestions
 
@@ -83,8 +83,8 @@ class User < ActiveRecord::Base
 
   #Edit Suggestion Compilation
   def suggested_edits
-    questions = sugggested_question_edits.includes(:editable).where(:accepted => false)
-    answers = sugggested_answer_edits.includes(:editable).where(:accepted => false)
+    questions = suggested_question_edits.includes(:editable).where(:accepted => false)
+    answers = suggested_answer_edits.includes(:editable).where(:accepted => false)
     questions + answers
   end
 
@@ -98,8 +98,8 @@ class User < ActiveRecord::Base
 
   #Making json rendering uniform
   def as_json(options={})
-    cu_bool = options.delete(:is_current_user)
-    defaults = build_defaults(cu_bool)
+    cu = options.delete(:cu)
+    defaults = build_defaults(cu)
 
     options.merge!(defaults)
     json = super(options)
@@ -116,31 +116,15 @@ class User < ActiveRecord::Base
       end
     end
 
-    def build_defaults(cu_bool)
-      preload_user_info(cu_bool)
-
+    def build_defaults(cu)
       defaults = {:include => [:questions, :answers],
                   :methods => [:accepted_edit_suggestions]}
 
-      if cu_bool
+      if cu && cu.id == self.id
         defaults[:methods] << :pending_edit_suggestions
         defaults[:methods] << :suggested_edits
         defaults[:methods] << :gravatar_url
       end
       defaults
-    end
-
-    def preload_user_info(cu_bool)
-      User.transaction do
-        self.questions
-        self.answers
-        self.edit_suggestions
-        
-        #Only load these things if it's this is the current user
-        if cu_bool
-          self.sugggested_question_edits
-          self.sugggested_answer_edits         
-        end
-      end
     end
 end
