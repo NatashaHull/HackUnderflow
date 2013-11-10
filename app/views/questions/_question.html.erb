@@ -17,6 +17,7 @@
   </a>|
   <a href="<%= new_question_comment_url(@question) %>"
      class="question-link">comment</a>
+  <%= render 'shared/obj_user_info', :obj => @question %>
   <div class="comments">
     <% @question.comments.each do |comment| %>
       <pre class="comment-body"

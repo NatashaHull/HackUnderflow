@@ -1,0 +1,10 @@
+<div class="user-info">
+    <%= image_tag(obj.user.gravatar_url,
+          alt: obj.user.username,
+          class: "gravatar"
+        ) %>
+  <span class="user">
+    Updated at: <%= obj.updated_at %>
+    By <%= obj.user.username %>
+  </span>
+</div>
