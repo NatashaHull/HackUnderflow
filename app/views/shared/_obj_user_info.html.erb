@@ -5,6 +5,6 @@
         ) %>
   <span class="user">
     Updated at: <%= obj.updated_at %>
-    By <%= obj.user.username %>
+    By <%= link_to obj.user.username, obj.user %>
   </span>
 </div>
