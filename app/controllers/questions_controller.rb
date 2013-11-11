@@ -19,8 +19,8 @@ class QuestionsController < ApplicationController
       format.json do
         render :json => { 
           :models => @questions,
-          :pages => params[:page],
-          :total_pages => @total_pages
+          :page => params[:page],
+          :total_pages => @questions.total_pages
         }
       end
     end
