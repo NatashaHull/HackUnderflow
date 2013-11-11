@@ -7,6 +7,7 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
     "": "questionsIndex",
     "questions": "questionsIndex",
     "users": "usersIndex",
+    "users/:id": "usersDetail",
     "about": "about"
   },
 
@@ -31,6 +32,25 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
     }
   },
 
+  usersDetail: function(id) {
+    var that = this, user;
+    if(HackUnderflow.users) {
+      user = HackUnderflow.users.get(id);
+      if(user.questions) {
+        that._renderUsersDetail(user);
+        return;
+      }
+    } else {
+      user = new HackUnderflow.Model.User({ id: id });
+    }
+
+    user.fetch({
+      success: function() {
+        that._renderUsersDetail(user);
+      }
+    });
+  },
+
   about: function() {
     this._swapView(new HackUnderflow.Views.About());
   },
@@ -50,5 +70,13 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
     });
 
     this._swapView(indexView);
+  },
+
+  _renderUsersDetail: function(model) {
+    var detailView = new HackUnderflow.Views.UserDetail({
+      model: model
+    });
+
+    this._swapView(detailView);
   }
 });
