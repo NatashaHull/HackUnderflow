@@ -1,0 +1,17 @@
+<h1 class="centered-header">Users</h1>
+
+<ul class="users-list">
+  <% users.forEach(function(user) { %>
+    <li class="userLi">
+      <div class="user-info">
+        <img alt="<%= user.escape("username") %>" class="gravatar"
+             src="<%= user.escape("gravatar_url") %>">
+        <pre 
+          class="user"><a href="#users/<%= user.escape("id") %>">
+            <%= user.escape("username") + "\n" %>
+          </a><%= user.escape("points") %>
+        </pre>
+      </div>
+    </li>
+  <% }); %>
+</ul>

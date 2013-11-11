@@ -3,15 +3,15 @@
 <ul class="questions-list">
   <% questions.forEach(function(question) { %>
     <% if(question.title.length > 50) { %>
-      <% show_title = question.title.slice(0..50) + "..."; %>
+      <% show_title = question.escape("title").slice(0..50) + "..."; %>
     <% } else { %>
-      <% show_title = question.title; %>
+      <% show_title = question.escape("title"); %>
     <% } %>
     
     <li class="questionLi">
       <div class="question-info">
         <% var votes = _( "vote" ).pluralize( question.vote_counts, true ); %>
-        <% var answers = _("answer").pluralize(question.answers.count, true); %>
+        <% var answers = _("answer").pluralize(question.answers.length, true); %>
         <span class="question-votes">
           <strong class="question-num"><%= votes.split(" ")[0]; %></strong>
           <%= votes.split(" ")[1]; %>
@@ -22,11 +22,11 @@
         </span>
       </div>
       <span class="question">
-        <a href="#questions/<%= question.id %>">show_title, question</a>
+        <a href="#questions/<%= question.escape("id") %>"><%= show_title %></a>
         <span class="question-body">
-          <%= question.body.slice(0..75) + "..." %>
+          <%= question.escape("body").slice(0..75) + "..." %>
         </span>
       </span>
     </li>
-  <% } %>
+  <% }); %>
 </ul>
