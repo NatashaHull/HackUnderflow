@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def index
     User.transaction do
-      @users = User.all
+      @users = User.all.sort_by(&:points).reverse
       
       respond_to do |format|
         format.html { render :index }
