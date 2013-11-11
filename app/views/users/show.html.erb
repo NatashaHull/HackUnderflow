@@ -23,7 +23,7 @@
       <% @user.questions[i...(i+5)].each do |question| %>
         <li class="profileLi"><%= link_to question.title, question %></li>
       <% end %>
-      <span class="more-button">See More Answers</span>
+      <span class="more-button">See More Questions</span>
     </ul>
     <% end %>
   </div>
@@ -65,7 +65,7 @@
                 edit_suggestion %>
         </li>
       <% end %>
-      <span class="more-button">See More Answers</span>
+      <span class="more-button">See More Suggested Edits</span>
     </ul>
     <% end %>
   </div>
@@ -86,7 +86,7 @@
               suggested_edit %>
         </li>
       <% end %>
-      <span class="more-button">See More Answers</span>
+      <span class="more-button">See More Pending Edits</span>
     </ul>
     <% end %>
   </div>
@@ -108,7 +108,7 @@
               suggested_edit %>
         </li>
       <% end %>
-      <span class="more-button">See More Answers</span>
+      <span class="more-button">See More Accepted Edits</span>
     </ul>
     <% end %>
   </div>

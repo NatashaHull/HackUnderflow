@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   #Email stuff
   def gravatar_url
     gravatar_id = Digest::MD5::hexdigest(self.email.downcase)
-    "https://secure.gravatar.com/avatar/#{gravatar_id}"
+    "https://secure.gravatar.com/avatar/#{gravatar_id}?d=identicon"
   end
 
   #Password Stuff
