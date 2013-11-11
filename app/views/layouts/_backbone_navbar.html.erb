@@ -1,0 +1,47 @@
+<nav class="top-bar">
+  <ul class="left">
+    <li class="divider"></li>
+    <li><strong><%= link_to "Hack Underflow", root_url %></strong></li>
+    <li class="divider"></li>
+    <% if !!current_user %>
+    <li class="divider"></li>
+    <li><a href="#users/<%= current_user.id %>">
+      Hi <%= current_user.username.capitalize %>!
+    </a></li>
+    <% end %>
+  </ul>
+  <ul class="right">
+    <li class="divider"></li>
+  <% if !!current_user %>
+    <li>
+    <%= link_to "Sign Out", session_url, :method => :delete %>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <%= link_to "Profile", current_user %>
+    </li>
+  <% else %>
+    <li>
+    <%= link_to "Register", new_user_url %>
+    </li>
+    <li class="divider"></li>
+    </li>
+    <li>
+    <%= link_to "Sign In", new_session_url %>
+    </li>
+  <% end %>
+    <li class="divider"></li>
+    <li>
+    <a href="#users">Users</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+    <a href="#about">About</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+    <a href="#questions">Questions</a>
+    </li>
+    <li class="divider show-for-small"></li>
+  </ul>
+</nav>

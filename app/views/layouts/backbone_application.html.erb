@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hack Underflow</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= render 'layouts/backbone_navbar' %>
+
+<%= render 'layouts/errors' %>
+
+<%= render 'layouts/backbone_headers' %>
+
+<%= yield %>
+
+</body>
+</html>
