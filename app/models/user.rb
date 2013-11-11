@@ -98,21 +98,40 @@ class User < ActiveRecord::Base
     self.edit_suggestions.select(&:accepted)
   end
 
-  #Making json rendering uniform
+  #Handle json rendering automatically
   def as_json(options={})
-    cu = options.delete(:cu)
-    defaults = build_defaults(cu)
+    all = options.delete(:all)
+    if all
+      json = super(build_all_json(options))
+    else
+      options, cu = build_user_json(options)
+      json = revise_user_json(super(options), cu)
+    end
 
-    options.merge!(defaults)
-    revise_json(super(options), cu)
+    remove_private_attrs(json)
   end
 
   private
 
+    #Validations
     def password_matches_confirmation
       unless @password == @password_confirmation
         errors[:password_confirmation] << "Password must match Password Confirmation"
       end
+    end
+
+    #JSON Stuff
+    def build_all_json(options)
+      options[:methods] ||= []
+      options[:methods] << :gravatar_url
+      options
+    end
+
+    def build_user_json(options)
+      cu = options.delete(:cu)
+      defaults = build_defaults(cu)
+      options.merge!(defaults)
+      [options, cu]
     end
 
     def build_defaults(cu)
@@ -127,15 +146,17 @@ class User < ActiveRecord::Base
       defaults
     end
 
-    def revise_json(json, cu)
-      #Add necessary json
+    #Add attrs present on show page
+    def revise_user_json(json, cu)
       json["accepted_edit_suggestions"] = self.accepted_edit_suggestions
       if cu && cu.id == self.id
         json["pending_edit_suggestions"] = self.pending_edit_suggestions
         json["suggested_edits"] = self.suggested_edits
       end
-      
-      #Remove Private Stuff
+      json
+    end
+
+    def remove_private_attrs(json)
       json.delete("session_token")
       json.delete("password_digest")
       json

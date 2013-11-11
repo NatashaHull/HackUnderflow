@@ -4,11 +4,11 @@ class UsersController < ApplicationController
 
   def index
     User.transaction do
-      @users = preloaded_users.all
+      @users = User.all
       
       respond_to do |format|
         format.html { render :index }
-        format.json { render :json => @users, :cu => current_user }
+        format.json { render :json => @users, :all => true }
       end
     end
   end
