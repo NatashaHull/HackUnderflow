@@ -1,5 +1,9 @@
 $(document).ready(function() {
+  $("#profile-questions-0").removeClass("hidden");
   $("#profile-answers-0").removeClass("hidden");
+  $("#profile-suggested-edits-0").removeClass("hidden");
+  $("#profile-pending-edits-0").removeClass("hidden");
+  $("#profile-accepted-edits-0").removeClass("hidden");
   $('.more-button').on("click", function(e) {
     var $userAttr = $(e.currentTarget).parent();
     var objClass = $userAttr.attr("class");

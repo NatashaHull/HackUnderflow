@@ -16,11 +16,16 @@
     <h5 class="profile-header">
       <%= pluralize(@user.questions.count, "Question") %>
     </h5>
-    <ul>
-      <% @user.questions[0...5].each do |question| %>
+    <% 0.step(@user.questions.count, 5) do |i| %>
+    <ul class="profile-questions hidden"
+        id="profile-questions-<%= (i+1)/5 %>" data-id="<%= (i+1)/5 %>"
+        data-last="<%= @user.questions.count / 5 %>">
+      <% @user.questions[i...(i+5)].each do |question| %>
         <li class="profileLi"><%= link_to question.title, question %></li>
       <% end %>
+      <span class="more-button">See More Answers</span>
     </ul>
+    <% end %>
   </div>
 <% end %>
 
@@ -29,7 +34,7 @@
     <h5 class="profile-header">
       <%= pluralize(@user.answers.count, "Answer") %>
     </h5>
-    <% 0.step(@user.answers.length, 5) do |i| %>
+    <% 0.step(@user.answers.count, 5) do |i| %>
     <ul class="profile-answers hidden"
         id="profile-answers-<%= (i+1)/5 %>" data-id="<%= (i+1)/5 %>"
         data-last="<%= @user.answers.count / 5 %>">
@@ -50,14 +55,17 @@
     <h5 class="profile-header">
       <%= pluralize(@user.suggested_edits.count, "Suggested Edit") %>
     </h5>
-    <% 0.step(@user.suggested_edits.length, 5) do |i| %>
-    <ul class="profile-edits-<%= (i+1)/5 %>">
+    <% 0.step(@user.suggested_edits.count, 5) do |i| %>
+    <ul class="profile-suggested-edits hidden"
+        id="profile-suggested-edits-<%= (i+1)/5 %>" data-id="<%= (i+1)/5 %>"
+        data-last="<%= @user.suggested_edits.count / 5 %>">
       <% @user.suggested_edits[i...i+5].each do |edit_suggestion| %>
         <li class="profileLi">
           <%= link_to "#{edit_suggestion.question_title}: #{edit_suggestion.editable_type}",
                 edit_suggestion %>
         </li>
       <% end %>
+      <span class="more-button">See More Answers</span>
     </ul>
     <% end %>
   </div>
@@ -68,14 +76,19 @@
     <h5 class="profile-header">
       <%= pluralize(@user.pending_edit_suggestions.count, "Pending Edit") %>
     </h5>
-    <ul>
-      <% @user.pending_edit_suggestions[0...5].each do |suggested_edit| %>
+    <% 0.step(@user.pending_edit_suggestions.count, 5) do |i| %>
+    <ul class="profile-pending-edits hidden"
+        id="profile-pending-edits-<%= (i+1)/5 %>" data-id="<%= (i+1)/5 %>"
+        data-last="<%= @user.pending_edit_suggestions.count / 5 %>">
+      <% @user.pending_edit_suggestions[i...i+5].each do |suggested_edit| %>
         <li class="profileLi">
           <%= link_to "#{suggested_edit.question_title}: #{suggested_edit.editable_type}",
               suggested_edit %>
         </li>
       <% end %>
+      <span class="more-button">See More Answers</span>
     </ul>
+    <% end %>
   </div>
 <% end %>
 <% end %>
@@ -85,13 +98,18 @@
     <h5 class="profile-header">
       <%= pluralize(@user.accepted_edit_suggestions.count, "Accepted Edit") %>
     </h5>
-    <ul>
-      <% @user.accepted_edit_suggestions[0...5].each do |suggested_edit| %>
+    <% 0.step(@user.accepted_edit_suggestions.count, 5) do |i| %>
+    <ul class="profile-accepted-edits hidden"
+        id="profile-accepted-edits-<%= (i+1)/5 %>" data-id="<%= (i+1)/5 %>"
+        data-last="<%= @user.accepted_edit_suggestions.count / 5 %>">
+      <% @user.accepted_edit_suggestions[i...i+5].each do |suggested_edit| %>
         <li class="profileLi">
           <%= link_to "#{suggested_edit.question_title}: #{suggested_edit.editable_type}",
               suggested_edit %>
         </li>
       <% end %>
+      <span class="more-button">See More Answers</span>
     </ul>
+    <% end %>
   </div>
 <% end %>
