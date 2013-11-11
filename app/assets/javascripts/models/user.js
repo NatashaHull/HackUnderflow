@@ -51,8 +51,6 @@ HackUnderflow.Models.User = Backbone.Model.extend({
 
   toJSON: function(options) {
     var json = _.extend({}, this.attributes);
-    json.answers = this.answers.toJSON();
-    json.questions = this.questions.toJSON();
     delete json.gravatar_url;
     return json;
   }

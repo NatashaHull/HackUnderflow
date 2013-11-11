@@ -41,7 +41,7 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
         return;
       }
     } else {
-      user = new HackUnderflow.Model.User({ id: id });
+      user = new HackUnderflow.Models.User({ id: id });
     }
 
     user.fetch({
@@ -78,5 +78,6 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
     });
 
     this._swapView(detailView);
+    detailView.showFirstItems();
   }
 });
