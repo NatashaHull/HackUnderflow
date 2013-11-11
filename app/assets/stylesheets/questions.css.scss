@@ -86,12 +86,12 @@
   margin-left: 25px;
 }
 
-.question-link, .answer-link {
+.question-link, .answer-link, .more-button {
   color: #888888;
   margin: 5px;
 }
 
-.question-link:hover {
+.question-link:hover, .more-button:hover {
   color: white;
   background-color: #888888;
 }

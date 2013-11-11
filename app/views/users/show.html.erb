@@ -17,7 +17,7 @@
       <%= pluralize(@user.questions.count, "Question") %>
     </h5>
     <ul>
-      <% @user.questions.each do |question| %>
+      <% @user.questions[0...5].each do |question| %>
         <li class="profileLi"><%= link_to question.title, question %></li>
       <% end %>
     </ul>
@@ -29,13 +29,17 @@
     <h5 class="profile-header">
       <%= pluralize(@user.answers.count, "Answer") %>
     </h5>
-    <ul>
-      <% @user.answers.each do |answer| %>
+    <% 0.step(@user.answers.length, 5) do |i| %>
+    <ul class="profile-answers hidden"
+        id="profile-answers-<%= (i+1)/5 %>" data-id="<%= (i+1)/5 %>">
+      <% @user.answers[i...(i+5)].each do |answer| %>
         <li class="profileLi">
           <%= link_to answer.question_title, answer.question %>
         </li>
       <% end %>
+      <span class="more-button">See More Answers</span>
     </ul>
+    <% end %>
   </div>
 <% end %>
 
@@ -45,14 +49,16 @@
     <h5 class="profile-header">
       <%= pluralize(@user.suggested_edits.count, "Suggested Edit") %>
     </h5>
-    <ul>
-      <% @user.suggested_edits.each do |edit_suggestion| %>
+    <% 0.step(@user.suggested_edits.length, 5) do |i| %>
+    <ul class="profile-edits-<%= (i+1)/5 %>">
+      <% @user.suggested_edits[i...i+5].each do |edit_suggestion| %>
         <li class="profileLi">
           <%= link_to "#{edit_suggestion.question_title}: #{edit_suggestion.editable_type}",
                 edit_suggestion %>
         </li>
       <% end %>
     </ul>
+    <% end %>
   </div>
 <% end %>
 
@@ -62,7 +68,7 @@
       <%= pluralize(@user.pending_edit_suggestions.count, "Pending Edit") %>
     </h5>
     <ul>
-      <% @user.pending_edit_suggestions.each do |suggested_edit| %>
+      <% @user.pending_edit_suggestions[0...5].each do |suggested_edit| %>
         <li class="profileLi">
           <%= link_to "#{suggested_edit.question_title}: #{suggested_edit.editable_type}",
               suggested_edit %>
@@ -79,7 +85,7 @@
       <%= pluralize(@user.accepted_edit_suggestions.count, "Accepted Edit") %>
     </h5>
     <ul>
-      <% @user.accepted_edit_suggestions.each do |suggested_edit| %>
+      <% @user.accepted_edit_suggestions[0...5].each do |suggested_edit| %>
         <li class="profileLi">
           <%= link_to "#{suggested_edit.question_title}: #{suggested_edit.editable_type}",
               suggested_edit %>
