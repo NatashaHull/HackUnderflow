@@ -25,5 +25,5 @@ HackUnderflow::Application.routes.draw do
     delete 'reject'
   end
 
-  root :to => 'questions#index'
+  root :to => 'static_pages#root'
 end

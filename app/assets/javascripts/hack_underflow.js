@@ -4,10 +4,12 @@ window.HackUnderflow = {
   Views: {},
   Routers: {},
   initialize: function() {
-    alert('Hello from Backbone!');
+    HackUnderflow.questions = new HackUnderflow.Collections.Questions();
+    HackUnderflow.questions.fetch({
+      success: function() {
+        new HackUnderflow.Routers.ApplicationRouter($("#content"));
+        Backbone.history.start();
+      }
+    });
   }
 };
-
-$(document).ready(function(){
-  HackUnderflow.initialize();
-});
