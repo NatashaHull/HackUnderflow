@@ -31,7 +31,8 @@
     </h5>
     <% 0.step(@user.answers.length, 5) do |i| %>
     <ul class="profile-answers hidden"
-        id="profile-answers-<%= (i+1)/5 %>" data-id="<%= (i+1)/5 %>">
+        id="profile-answers-<%= (i+1)/5 %>" data-id="<%= (i+1)/5 %>"
+        data-last="<%= @user.answers.count / 5 %>">
       <% @user.answers[i...(i+5)].each do |answer| %>
         <li class="profileLi">
           <%= link_to answer.question_title, answer.question %>
