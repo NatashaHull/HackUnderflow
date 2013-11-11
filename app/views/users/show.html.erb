@@ -32,7 +32,7 @@
     <ul>
       <% @user.answers.each do |answer| %>
         <li class="profileLi">
-          <%= link_to answer.question.title, answer.question %>
+          <%= link_to answer.question_title, answer.question %>
         </li>
       <% end %>
     </ul>
@@ -48,7 +48,7 @@
     <ul>
       <% @user.suggested_edits.each do |edit_suggestion| %>
         <li class="profileLi">
-          <%= link_to "#{edit_suggestion.question.title}: #{edit_suggestion.editable_type}",
+          <%= link_to "#{edit_suggestion.question_title}: #{edit_suggestion.editable_type}",
                 edit_suggestion %>
         </li>
       <% end %>
@@ -64,7 +64,7 @@
     <ul>
       <% @user.pending_edit_suggestions.each do |suggested_edit| %>
         <li class="profileLi">
-          <%= link_to "#{suggested_edit.question.title}: #{suggested_edit.editable_type}",
+          <%= link_to "#{suggested_edit.question_title}: #{suggested_edit.editable_type}",
               suggested_edit %>
         </li>
       <% end %>
@@ -81,7 +81,7 @@
     <ul>
       <% @user.accepted_edit_suggestions.each do |suggested_edit| %>
         <li class="profileLi">
-          <%= link_to "#{suggested_edit.question.title}: #{suggested_edit.editable_type}",
+          <%= link_to "#{suggested_edit.question_title}: #{suggested_edit.editable_type}",
               suggested_edit %>
         </li>
       <% end %>

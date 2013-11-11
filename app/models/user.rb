@@ -85,17 +85,17 @@ class User < ActiveRecord::Base
 
   #Edit Suggestion Compilation
   def suggested_edits
-    questions = suggested_question_edits.includes(:editable).where(:accepted => false)
-    answers = suggested_answer_edits.includes(:editable).where(:accepted => false)
+    questions = suggested_question_edits.reject(&:accepted)
+    answers = suggested_answer_edits.reject(&:accepted)
     questions + answers
   end
 
   def pending_edit_suggestions
-    self.edit_suggestions.where(:accepted => false)
+    self.edit_suggestions.reject(&:accepted)
   end
 
   def accepted_edit_suggestions
-    self.edit_suggestions.where(:accepted => true)
+    self.edit_suggestions.select(&:accepted)
   end
 
   #Making json rendering uniform
@@ -104,10 +104,7 @@ class User < ActiveRecord::Base
     defaults = build_defaults(cu)
 
     options.merge!(defaults)
-    json = super(options)
-    json.delete("session_token")
-    json.delete("password_digest")
-    json
+    revise_json(super(options), cu)
   end
 
   private
@@ -124,14 +121,23 @@ class User < ActiveRecord::Base
           :questions => {},
           :answers => { :methods => :question_title }
           },
-        :methods => [:accepted_edit_suggestions]
+        :methods => [:gravatar_url]
       }
 
-      if cu && cu.id == self.id
-        defaults[:methods] << :pending_edit_suggestions
-        defaults[:methods] << :suggested_edits
-        defaults[:methods] << :gravatar_url
-      end
       defaults
+    end
+
+    def revise_json(json, cu)
+      #Add necessary json
+      json["accepted_edit_suggestions"] = self.accepted_edit_suggestions
+      if cu && cu.id == self.id
+        json["pending_edit_suggestions"] = self.pending_edit_suggestions
+        json["suggested_edits"] = self.suggested_edits
+      end
+      
+      #Remove Private Stuff
+      json.delete("session_token")
+      json.delete("password_digest")
+      json
     end
 end

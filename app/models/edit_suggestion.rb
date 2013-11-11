@@ -23,4 +23,15 @@ class EditSuggestion < ActiveRecord::Base
       self.editable.question
     end
   end
+
+  def question_title
+    self.question.title
+  end
+
+  #Adding necessary elements to JSON
+  def as_json(options={})
+    options[:methods] ||= []
+    options[:methods] << :question_title
+    super(options)
+  end
 end

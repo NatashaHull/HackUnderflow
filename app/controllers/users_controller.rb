@@ -66,9 +66,9 @@ class UsersController < ApplicationController
     def preloaded_users
       User.includes(:questions)
           .includes(:answers => :question)
-          .includes(:edit_suggestions)
-          .includes(:suggested_question_edits)
-          .includes(:suggested_answer_edits)
+          .includes(:edit_suggestions => :editable)
+          .includes(:suggested_question_edits => :editable)
+          .includes(:suggested_answer_edits => :editable)
     end
 
     def respond_with_user
