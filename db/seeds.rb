@@ -17,7 +17,7 @@ end
 
 def create_question(title, body, answers, comments)
   q = Question.new(:title => title, :body => body)
-  q.user_id = rand(1..100)
+  q.user_id = [5, 15, 25, 35, 45, 55, 65, 75, 85, 95].sample
   q.save!
 
   ActiveRecord::Base.transaction do
