@@ -20,6 +20,8 @@ gem 'friendly_id'
 gem 'nokogiri'
 gem 'kaminari'
 gem 'faker'
+gem 'backbone-on-rails'
+gem 'ejs'
 
 group :development do
   gem 'better_errors'
