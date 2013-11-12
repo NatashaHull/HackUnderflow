@@ -73,7 +73,7 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
     var detailView = new HackUnderflow.Views.QuestionDetail({
       model: question
     });
-    this._swapView(questionsDetail);
+    this._swapView(detailView);
   },
 
   _renderUsersDetail: function(model) {

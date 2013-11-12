@@ -1,27 +1,28 @@
-<% answers = @question.answers.sort_by do |answer| %>
-  <% if @question.accepted_answer &&
-        @question.accepted_answer.id == answer.id %>
+<% var answers = question.answers.sortBy(function(answer) { %>
+  <% if(question.escape("accepted_answer") &&
+        question.escape("accepted_answer").id == answer.escape("id")) { %>
     <% -100000000 %>
-  <% else %>
-    <% time = (Time.now - answer.updated_at).to_i %>
-    <% -1 * (answer.vote_counts.to_f / (time+2).to_f) %>
-  <% end %>
-<% end %>
+  <% } else { %>
+    <% time = Date.now() - new Date(answer.escape("updated_at")) %>
+    <% time /= (1000 * 3600) %>
+    <% -1 * (answer.escape("vote_counts") / (time+2)) %>
+  <% } %>
+<% }); %>
 
 <%= render 'questions/question' %>
 
 <div class="answers">
   <h5 class="answer-header">
-    <%= pluralize(@question.answers.count, "Answer") %>
+    <%= _("Answer").pluralize(answers.length, true) %>
   </h5>
-  <% answers.each do |answer| %>
+  <% answers.forEach(function(answer) { %>
     <%= render 'answers/answer', :answer => answer %>
-  <% end %>
+  <% }); %>
 </div>
 
-<% if !current_user || current_user.id != @question.user_id %>
+<% if(!current_user || current_user.id != @question.user_id) { %>
 <h5 class="answer-title">Your Answer</h5>
 <div class="new-answers-form">
   <%= render 'answers/form', :type => "new" %>
 </div>
-<% end %>
+<% } %>
