@@ -6,6 +6,7 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
   routes: {
     "": "questionsIndex",
     "questions": "questionsIndex",
+    "questions/:id": "questionsDetail",
     "users": "usersIndex",
     "users/:id": "usersDetail",
     "about": "about"
@@ -18,32 +19,36 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
     this._swapView(indexView);
   },
 
-  usersIndex: function() {
+  questionsDetail: function(id) {
     var that = this;
-    if(HackUnderflow.users) {
-      that._renderUsersIndex();
+    question = HackUnderflow.questions.get(id);
+    if(question) {
+      that._renderQuestionsDetail(question);
     } else {
-      HackUnderflow.users = new HackUnderflow.Collections.Users();
-      HackUnderflow.users.fetch({
+      question = new HackUnderflow.Models.Question({ id: id });
+      question.fetch({
         success: function() {
-          that._renderUsersIndex();
+          that._renderQuestionsDetail(question);
         }
       });
     }
   },
 
+  usersIndex: function() {
+    var indexView = new HackUnderflow.Views.UserIndex({
+      collection: HackUnderflow.users
+    });
+
+    this._swapView(indexView);
+  },
+
   usersDetail: function(id) {
     var that = this, user;
-    if(HackUnderflow.users) {
-      user = HackUnderflow.users.get(id);
-      if(user.questions) {
-        that._renderUsersDetail(user);
-        return;
-      }
-    } else {
-      user = new HackUnderflow.Models.User({ id: id });
+    user = HackUnderflow.users.get(id);
+    if(user.answers.length > 0 || user.questions.length > 0) {
+      that._renderUsersDetail(user);
+      return;
     }
-
     user.fetch({
       success: function() {
         that._renderUsersDetail(user);
@@ -64,12 +69,11 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
     this.$rootEl.html(view.render().$el);
   },
 
-  _renderUsersIndex: function() {
-    var indexView = new HackUnderflow.Views.UserIndex({
-      collection: HackUnderflow.users
+  _renderQuestionsDetail: function(question) {
+    var detailView = new HackUnderflow.Views.QuestionDetail({
+      model: question
     });
-
-    this._swapView(indexView);
+    this._swapView(questionsDetail);
   },
 
   _renderUsersDetail: function(model) {

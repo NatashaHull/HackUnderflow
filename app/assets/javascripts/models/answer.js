@@ -7,6 +7,10 @@ HackUnderflow.Models.Answer = Backbone.Model.extend({
     }
   },
 
+  user: function() {
+    HackUnderflow.users.get(this.user_id);
+  },
+
   setComments: function(comments) {
     this.comments = new HackUnderflow.Collections.Comments(comments);
     return this.comments;

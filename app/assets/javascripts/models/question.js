@@ -1,6 +1,10 @@
 HackUnderflow.Models.Question = Backbone.Model.extend({
   urlRoot: "/questions",
 
+  user: function() {
+    HackUnderflow.users.get(this.user_id);
+  },
+
   setAnswers: function(answers) {
     this.answers = new HackUnderflow.Collections.Answers(answers);
     return this.answers;
