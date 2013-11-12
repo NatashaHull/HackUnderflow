@@ -5,6 +5,30 @@ HackUnderflow.Models.Question = Backbone.Model.extend({
     HackUnderflow.users.get(this.user_id);
   },
 
+  upvote: function() {
+    var that = this;
+    $.ajax({
+      type: "POST",
+      url: "/questions/" +  that.id + "/upvote",
+      success: function() {
+        //Change Once I handle logged in users
+        console.log("You just tried to vote this up!");
+      }
+    });
+  },
+
+  downvote: function() {
+    var that = this;
+    $.ajax({
+      type: "POST",
+      url: "/questions/" +  that.id + "/downvote",
+      success: function() {
+        //Change Once I handle logged in users
+        console.log("You just tried to vote this up!");
+      }
+    });
+  },
+
   setAnswers: function(answers) {
     this.answers = new HackUnderflow.Collections.Answers(answers);
     return this.answers;
