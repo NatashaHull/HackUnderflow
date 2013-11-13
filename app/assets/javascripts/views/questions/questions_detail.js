@@ -69,6 +69,8 @@ HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
   },
 
   remove: function() {
+    this.$el.html("");
+    this.stopListening();
     this.views.forEach(function(view) {
       view.remove();
     });
