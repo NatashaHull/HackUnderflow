@@ -1,6 +1,7 @@
 HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
   initialize: function(options) {
     this.listenTo(this.model.answers, "add remove sync", this.render);
+    this.views = [];
   },
 
   template: JST["questions/detail"],
@@ -37,6 +38,7 @@ HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
     });
     renderedQuestion = questionView.render().$el;
     this.$(".question").append(renderedQuestion);
+    this.views.push(questionView);
   },
 
   renderAnswers: function() {
@@ -49,11 +51,12 @@ HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
 
       renderedAnswer = answerView.render().$el;
       that.$(".answers").append(renderedAnswer);
+      that.views.push(answerView);
     });
   },
 
   renderAnswersForm: function() {
-    var answerFormView = new HackUnderflow.Views.AnswersForm({
+    answerFormView = new HackUnderflow.Views.AnswersForm({
       model: new HackUnderflow.Models.Answer({
         "question_id": this.model.get("id")
       }),
@@ -62,5 +65,12 @@ HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
 
     renderedAnswerForm = answerFormView.render().$el;
     this.$(".new-answers-form").append(renderedAnswerForm);
+    this.views.push(answerFormView);
+  },
+
+  remove: function() {
+    this.views.forEach(function(view) {
+      view.remove();
+    });
   }
 });
