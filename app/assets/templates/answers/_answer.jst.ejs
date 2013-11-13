@@ -9,8 +9,7 @@
               question.escape("user_id") == current_user.id) { %>
     <a class="not-accepted-answer" data-id="<%= answer.escape("id") %>"
        >&#10003</a>
-    <% } elsif (question.escape("accepted_answer") &&
-                question.escape("accepted_answer").id == answer.escape("id")) %>
+    <% } else if(answer.escape("accepted")) { %>
     <span class="accepted-answer">&#10003</span>
     <% } %>
   </div>
@@ -24,6 +23,7 @@
   <div class="user-info">
   <!-- Fill in with user info -->
   </div>
+
   <div class="comments">
     <% answer.comments.forEach(function(comment) { %>
       <pre class="comment-body"

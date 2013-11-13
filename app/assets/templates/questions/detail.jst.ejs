@@ -1,14 +1,3 @@
-<% var answers = question.answers.sortBy(function(answer) { %>
-  <% if(question.escape("accepted_answer") &&
-        question.escape("accepted_answer").id == answer.escape("id")) { %>
-    <% -100000000 %>
-  <% } else { %>
-    <% time = Date.now() - new Date(answer.escape("updated_at")) %>
-    <% time /= (1000 * 3600) %>
-    <% -1 * (answer.escape("vote_counts") / (time+2)) %>
-  <% } %>
-<% }); %>
-
 <h5 class="question-title">
   <strong><%= question.escape("title") %></strong>
 </h5>
@@ -18,14 +7,12 @@
 
 <div class="answers">
   <h5 class="answer-header">
-    <%= _("Answer").pluralize(answers.length, true) %>
+    <%= _("Answer").pluralize(question.answers.length, true) %>
   </h5>
-  <% answers.forEach(function(answer) { %>
-    <!-- Fill in with Answer view -->
-  <% }); %>
+  <!-- Fill in with Answer view -->
 </div>
 
-<% if(!current_user || current_user.id != @question.user_id) { %>
+<% if(!current_user || current_user.id != question.escape("user_id")) { %>
 <h5 class="answer-title">Your Answer</h5>
 <div class="new-answers-form">
   <!-- Fill in with answers form -->

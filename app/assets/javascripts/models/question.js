@@ -2,7 +2,7 @@ HackUnderflow.Models.Question = Backbone.Model.extend({
   urlRoot: "/questions",
 
   user: function() {
-    HackUnderflow.users.get(this.user_id);
+    return HackUnderflow.users.get(this.get("user_id"));
   },
 
   upvote: function() {
@@ -30,12 +30,12 @@ HackUnderflow.Models.Question = Backbone.Model.extend({
   },
 
   setAnswers: function(answers) {
-    this.answers = new HackUnderflow.Collections.Answers(answers);
+    this.answers = new HackUnderflow.Collections.Answers(answers, {parse: true});
     return this.answers;
   },
 
   setComments: function(comments) {
-    this.comments = new HackUnderflow.Collections.Comments(comments);
+    this.comments = new HackUnderflow.Collections.Comments(comments, {parse: true});
     return this.comments;
   },
 

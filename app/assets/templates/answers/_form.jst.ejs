@@ -1,14 +1,14 @@
-<% if(type === "new") %>
+<% if(answer.isNew()) { %>
   <% var method = "post" %>
   <% var button = "Post Your Answer" %>
-<% else %>
+<% } else { %>
   <% var method = "put" %>
-  <% if answer.escape("user_id") === current_user.id %>
+  <% if(answer.escape("user_id") === current_user.id) { %>
     <% var button = "Update Your Answer" %>
-  <% else %>
+  <% } else { %>
     <% var button = "Submit Edit" %>
-  <% end %>
-<% end %>
+  <% } %>
+<% } %>
 
 <form class="answers-form">
   <label for="answer_body"></label>

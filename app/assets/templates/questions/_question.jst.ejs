@@ -5,15 +5,20 @@
       <!-- Fill in with static arrows -->
   <% } %>
 </div>
+
 <pre class="question-body"><%= question.escape("body") %></pre>
 <a href="#questions/<%= question.escape("id") %>/edit"
    class="question-link">improve this question</a>|<a
-     class="answer-link comment-link"
-     data-id="<%= answer.escape("id") %>">comment</a>
-<%= render 'shared/obj_user_info', :obj => question %>
+     class="question-link comment-link"
+     data-id="<%= question.escape("id") %>">comment</a>
+
+<div class="user-info">
+  <!-- Fill in with user info -->
+</div>
+
 <div class="comments">
   <% question.comments.forEach(function(comment) { %>
     <pre class="comment-body"
         ><%= comment.escape("body") %> - <%= comment.user().escape("username") %></pre>
-  <% } %>
+  <% }); %>
 </div>
