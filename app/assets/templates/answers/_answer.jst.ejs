@@ -1,5 +1,6 @@
 <div class="answer">
   <div class="arrows">
+    <!-- Prepend with Arrows stuff -->
     <% if(!!current_user && !question.escape("accepted_answer") &&
               question.escape("user_id") == current_user.id) { %>
     <a class="not-accepted-answer" data-id="<%= answer.escape("id") %>"
