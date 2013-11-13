@@ -9,9 +9,8 @@ HackUnderflow.Models.Question = Backbone.Model.extend({
     var that = this;
     $.ajax({
       type: "POST",
-      url: "/questions/" +  that.id + "/upvote",
+      url: "/questions/" +  that.get("id") + "/upvote",
       success: function() {
-        //Change Once I handle logged in users
         callback();
       }
     });
@@ -21,9 +20,8 @@ HackUnderflow.Models.Question = Backbone.Model.extend({
     var that = this;
     $.ajax({
       type: "POST",
-      url: "/questions/" +  that.id + "/downvote",
+      url: "/questions/" +  that.get("id") + "/downvote",
       success: function() {
-        //Change Once I handle logged in users
         callback();
       }
     });

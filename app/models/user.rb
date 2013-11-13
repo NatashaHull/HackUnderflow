@@ -152,6 +152,7 @@ class User < ActiveRecord::Base
       if cu && cu.id == self.id
         json["pending_edit_suggestions"] = self.pending_edit_suggestions
         json["suggested_edits"] = self.suggested_edits
+        json["votes"] = self.votes
       end
       json
     end

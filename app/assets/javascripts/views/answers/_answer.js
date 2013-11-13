@@ -52,7 +52,7 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
     });
     var renderedCommentForm = commentForm.render().$el;
     this.$(".comments").append(renderedCommentForm);
-  }
+  },
 
   // voteUp: function(event) {
   //   var that = this;
