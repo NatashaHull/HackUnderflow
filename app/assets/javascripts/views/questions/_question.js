@@ -1,5 +1,13 @@
 HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
+  initialize: function() {
+    this.listenTo(this.model.comments, "add", this.render);
+  },
+
   template: JST["questions/_question"],
+
+  events: {
+    "click .comment-link": "renderCommentForm"
+  },
 
   render: function() {
     renderedContent = this.template({
@@ -27,5 +35,18 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
     });
     var renderedUserInfo = infoView.render().$el;
     this.$(".arrows").html(renderedUserInfo);
+  },
+
+  renderCommentForm: function() {
+    var that = this;
+    var commentForm = new HackUnderflow.Views.CommentForm({
+      model: new HackUnderflow.Models.Comment({
+        "commentable_id": that.model.get("id"),
+        "commentable_type": "Question"
+      }),
+      collection: that.model.comments
+    });
+    var renderedCommentForm = commentForm.render().$el;
+    this.$(".comments").append(renderedCommentForm);
   }
 });
