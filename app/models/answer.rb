@@ -2,7 +2,8 @@ class Answer < ActiveRecord::Base
   attr_accessible :body, :question_id
 
   validates_presence_of :body, :question_id, :user_id
-  validates_uniqueness_of :question_id, :scope => [:user_id]
+  validates_uniqueness_of :question_id, :scope => [:user_id],
+    :message => "You have already responded to this question."
   validate :only_one_accepted_answer, :not_question_owner
 
   belongs_to :user

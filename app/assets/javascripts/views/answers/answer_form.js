@@ -26,8 +26,13 @@ HackUnderflow.Views.AnswersForm = Backbone.View.extend({
       success: function() {
         that.collection.add(that.model);
       },
-      error: function() {
-        alert("Something went wrong");
+      error: function(model, errors) {
+        var valErrors = errors.responseJSON;
+        var $errors = $("<ul>");
+        valErrors.forEach(function(error) {
+          $errors.prepend("<li>" + error + "</li>");
+        });
+        that.$el.prepend($errors);
       }
     });
   }
