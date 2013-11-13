@@ -17,7 +17,6 @@ HackUnderflow.Models.Answer = Backbone.Model.extend({
       type: "POST",
       url: "/answers/" +  that.id + "/upvote",
       success: function() {
-        //Change Once I handle logged in users
         callback();
       }
     });
@@ -29,7 +28,6 @@ HackUnderflow.Models.Answer = Backbone.Model.extend({
       type: "POST",
       url: "/answers/" +  that.id + "/downvote",
       success: function() {
-        //Change Once I handle logged in users
         callback();
       }
     });
