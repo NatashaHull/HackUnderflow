@@ -36,4 +36,11 @@ class SessionsController < ApplicationController
       format.json { render :json => current_user }
     end
   end
+
+  #For Guest Login
+  def guest
+    guest = User.find_by_username("Guest")
+    login_user!(guest)
+    redirect_to guest
+  end
 end

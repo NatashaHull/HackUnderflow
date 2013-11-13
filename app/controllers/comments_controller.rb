@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
       if params[:question_id]
         @answers = @question.answers.includes(:votes)
       else
-        @question = @answer.question.includes(:votes)
+        @question = @answer.question
       end
     end
 
