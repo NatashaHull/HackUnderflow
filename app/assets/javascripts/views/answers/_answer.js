@@ -1,7 +1,12 @@
 HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
+  initialize: function(options) {
+    this.listenTo(this.model.comments, "add", this.render);
+  },
+
   template: JST["answers/_answer"],
 
   events: {
+    "click .comment-link": "renderCommentForm"
     // "click .arrow-up": "voteUp",
     // "click .voted-up": "voteUp",
     // "click .arrow-down": "voteDown",
@@ -9,7 +14,7 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
   },
 
   render: function() {
-    renderedContent = this.template({
+    var renderedContent = this.template({
       answer: this.model,
       current_user: null
     });
@@ -21,7 +26,7 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
   },
 
   renderUserInfo: function() {
-    infoView = new HackUnderflow.Views.UserInfo({
+    var infoView = new HackUnderflow.Views.UserInfo({
       model: this.model
     });
     var renderedUserInfo = infoView.render().$el;
@@ -29,12 +34,25 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
   },
 
   renderVotesInfo: function() {
-    infoView = new HackUnderflow.Views.ObjVotes({
+    var infoView = new HackUnderflow.Views.ObjVotes({
       model: this.model
     });
     var renderedUserInfo = infoView.render().$el;
     this.$(".arrows").prepend(renderedUserInfo);
   },
+
+  renderCommentForm: function() {
+    var that = this;
+    var commentForm = new HackUnderflow.Views.CommentForm({
+      model: new HackUnderflow.Models.Comment({
+        "commentable_id": that.model.get("id"),
+        "commentable_type": "Answer"
+      }),
+      collection: that.model.comments
+    });
+    var renderedCommentForm = commentForm.render().$el;
+    this.$(".comments").append(renderedCommentForm);
+  }
 
   // voteUp: function(event) {
   //   var that = this;

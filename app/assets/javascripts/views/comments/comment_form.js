@@ -1,27 +1,27 @@
-HackUnderflow.Views.AnswersForm = Backbone.View.extend({
-  template: JST["answers/_form"],
+HackUnderflow.Views.CommentForm = Backbone.View.extend({
+  template: JST["comments/form"],
 
   events:{
-    "submit form": "addAnswer"
+    "submit form": "addComment"
   },
 
   render: function() {
     renderedContent = this.template({
-      answer: this.model,
-      current_user: null
+      comment: this.model
     });
 
     this.$el.html(renderedContent);
     return this;
   },
 
-  addAnswer: function(event) {
+  addComment: function(event) {
     var that = this;
     event.preventDefault();
     var form = $(event.currentTarget);
     that.model.set("body", form.children("textarea").val());
     that.model.save(null, {
       success: function() {
+        that.$el.html("");
         that.collection.add(that.model);
       },
       error: function(model, errors) {
