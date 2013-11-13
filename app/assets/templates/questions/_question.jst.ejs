@@ -1,0 +1,26 @@
+<h5 class="question-title">
+  <strong><%= question.escape("title") %></strong>
+</h5>
+<div class="question">
+  <div class="arrows">
+    <% if(!!current_user && !(question.escape("user_id") == current_user.id)) { %>
+      <%= render 'shared/object_vote_link', :object => question,
+                 :upvote_url => question_upvote_url(question),
+                 :downvote_url => question_downvote_url(question) %>
+    <% } else { %>
+      <%= render 'shared/object_votes', :object => question %>
+    <% } %>
+  </div>
+  <pre class="question-body"><%= question.escape("body") %></pre>
+  <a href="<%= edit_question_url(question) %>" class="question-link">
+    improve this question
+  </a>|<a
+     id="comment-link" class="question-link">comment</a>
+  <%= render 'shared/obj_user_info', :obj => question %>
+  <div class="comments">
+    <% question.comments.forEach(function(comment) { %>
+      <pre class="comment-body"
+          ><%= comment.escape("body") %> - <%= comment.user().escape("username") %></pre>
+    <% } %>
+  </div>
+</div>
