@@ -1,0 +1,7 @@
+<img alt="<%= obj.user().escape("username") %>" class="gravatar"
+           src="<%= obj.user().escape("gravatar_url") %>">
+<span class="user">
+  Created at: <%= obj.escape("created_at") %>
+  By <a href="#users/<%= obj.user().escape("id") %>"
+    ><%= obj.user().escape("username") %></a>
+</span>

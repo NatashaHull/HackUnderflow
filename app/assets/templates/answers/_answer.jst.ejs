@@ -1,0 +1,33 @@
+<div class="answer">
+  <div class="arrows">
+    <% if(!!current_user && !(answer.escape("user_id") == current_user.id)) { %>
+      <!-- Fill in with arrows and links -->
+    <% } else { %>
+      <!-- Fill in with static arrows -->
+    <% } %>
+    <% if(!!current_user && !question.escape("accepted_answer") &&
+              question.escape("user_id") == current_user.id) { %>
+    <a class="not-accepted-answer" data-id="<%= answer.escape("id") %>"
+       >&#10003</a>
+    <% } elsif (question.escape("accepted_answer") &&
+                question.escape("accepted_answer").id == answer.escape("id")) %>
+    <span class="accepted-answer">&#10003</span>
+    <% } %>
+  </div>
+  <pre class="answer-body"><%= answer.escape("body") %></pre>
+  <div class="answer-links"
+    ><a href="#answers/<%= answer.escape("id") %>/edit"
+       class="answer-link">improve this answer</a>|<a
+       class="answer-link comment-link"
+       data-id="<%= answer.escape("id") %>">comment</a></div>
+  
+  <div class="user-info">
+  <!-- Fill in with user info -->
+  </div>
+  <div class="comments">
+    <% answer.comments.forEach(function(comment) { %>
+      <pre class="comment-body"
+          ><%= comment.escape("body") %> - <%= comment.user().escape("username") %></pre>
+    <% }); %>
+  </div>
+</div>
