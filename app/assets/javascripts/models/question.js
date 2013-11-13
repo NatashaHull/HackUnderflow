@@ -5,26 +5,26 @@ HackUnderflow.Models.Question = Backbone.Model.extend({
     return HackUnderflow.users.get(this.get("user_id"));
   },
 
-  upvote: function() {
+  upvote: function(callback) {
     var that = this;
     $.ajax({
       type: "POST",
       url: "/questions/" +  that.id + "/upvote",
       success: function() {
         //Change Once I handle logged in users
-        console.log("You just tried to vote this up!");
+        callback();
       }
     });
   },
 
-  downvote: function() {
+  downvote: function(callback) {
     var that = this;
     $.ajax({
       type: "POST",
       url: "/questions/" +  that.id + "/downvote",
       success: function() {
         //Change Once I handle logged in users
-        console.log("You just tried to vote this up!");
+        callback();
       }
     });
   },
