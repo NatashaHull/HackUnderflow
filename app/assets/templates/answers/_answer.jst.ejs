@@ -9,7 +9,7 @@
               question.escape("user_id") == current_user.id) { %>
     <a class="not-accepted-answer" data-id="<%= answer.escape("id") %>"
        >&#10003</a>
-    <% } else if(answer.escape("accepted")) { %>
+    <% } else if(answer.get("accepted")) { %>
     <span class="accepted-answer">&#10003</span>
     <% } %>
   </div>

@@ -1,4 +1,8 @@
 HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
+  initialize: function(options) {
+    this.listenTo(this.model.answers, "add remove sync", this.render);
+  },
+
   template: JST["questions/detail"],
 
   render: function() {
@@ -50,7 +54,10 @@ HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
 
   renderAnswersForm: function() {
     var answerFormView = new HackUnderflow.Views.AnswersForm({
-      model: new HackUnderflow.Models.Answer()
+      model: new HackUnderflow.Models.Answer({
+        "question_id": this.model.get("id")
+      }),
+      collection: this.model.answers
     });
 
     renderedAnswerForm = answerFormView.render().$el;

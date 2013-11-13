@@ -1,7 +1,7 @@
 HackUnderflow.Models.Answer = Backbone.Model.extend({
   urlRoot: function() {
     if(this.isNew()) {
-      return "/questions/" + this.question_id + "/answers";
+      return "/questions/" + this.get("question_id") + "/answers";
     } else {
       return "/answers";
     }
@@ -48,7 +48,9 @@ HackUnderflow.Models.Answer = Backbone.Model.extend({
 
   toJSON: function(options) {
     var json = _.extend({}, this.attributes);
-    json.comments = this.comments.toJSON();
+    if(this.comments) {
+      json.comments = this.comments.toJSON();
+    }
     delete json.vote_counts;
     delete json.question_title;
     return json;
