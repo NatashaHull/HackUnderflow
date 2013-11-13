@@ -8,6 +8,15 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
     });
 
     this.$el.html(renderedContent);
+    this.renderUserInfo();
     return this;
+  },
+
+  renderUserInfo: function() {
+    infoView = new HackUnderflow.Views.UserInfo({
+      model: this.model
+    });
+    var renderedUserInfo = infoView.render().$el;
+    this.$(".user-info").html(renderedUserInfo);
   }
 });
