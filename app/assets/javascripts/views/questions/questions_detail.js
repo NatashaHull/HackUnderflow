@@ -36,7 +36,7 @@ HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
       model: this.model
     });
     renderedQuestion = questionView.render().$el;
-    this.$el.children(".question").append(renderedQuestion);
+    this.$(".question").append(renderedQuestion);
   },
 
   renderAnswers: function() {
@@ -48,7 +48,7 @@ HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
       });
 
       renderedAnswer = answerView.render().$el;
-      that.$el.children(".answers").append(renderedAnswer);
+      that.$(".answers").append(renderedAnswer);
     });
   },
 
@@ -61,6 +61,6 @@ HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
     });
 
     renderedAnswerForm = answerFormView.render().$el;
-    this.$el.children(".new-answers-form").append(renderedAnswerForm);
+    this.$(".new-answers-form").append(renderedAnswerForm);
   }
 });
