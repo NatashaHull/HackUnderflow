@@ -20,7 +20,7 @@ Below is a list of advanced features I may add to this site:
 * Moderator privileges
 
 ##Construction
-I started this application as a Rails app (getting all the models, controllers, views, and routes set up, along with the API layer) and then started turning it into a one page application with backbone.
+I started this application as a Rails app (getting all the models, controllers, views, and routes set up, along with the API layer) and then started turning it into a one page application with backbone. In order to have some sample data on this website, I used Nokogiri to scrape Stack Overflow and seeded my database with that data.
 
 ##Users
 While I could use Devise or another authentication gem for me, this would complicate the structure of my project later on. My goal of turning this into a single page application using Backbone (including the sign up and sign in pages) lead me to the conclusion that I need more control over the `Users` and `Session` resources than using a pre-built authentication system would give me.

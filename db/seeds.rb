@@ -103,6 +103,15 @@ def get_question_comments(ldoc)
   end
 end
 
+#Create a Guest User
+guestuser = create_new_user(
+  "Guest",
+  "guest@example.com",
+  "password"
+)
+
+guestuser.add_points(10000)
+
 #Create Users
 users = []
 User.transaction do

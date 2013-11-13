@@ -1,3 +1,9 @@
+<% if @question.user_id == current_user.id %>
+  <% button = "Update Your Question" %>
+<% else %>
+  <% button = "Submit Edit" %>
+<% end %>
+
 <h1 class="centered-header">Edit "<%= @question.title %>"</h1>
 
 <form action="<%= question_url(@question) %>" method="post" class="questions-form">
@@ -5,5 +11,5 @@
 
   <%= render 'form' %>
 
-  <input type="submit" value="Update Question" class="submit-button">
+  <input type="submit" value="<%= button %>" class="submit-button">
 </form>

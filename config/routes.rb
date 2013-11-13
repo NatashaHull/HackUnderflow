@@ -2,7 +2,9 @@ HackUnderflow::Application.routes.draw do
   get "about" => "static_pages#about"
 
   resources :users, :except => [:destroy]
-  resource :session, :only => [:new, :create, :destroy]
+  resource :session, :only => [:new, :create, :destroy] do
+    post 'guest'
+  end
 
   resources :questions, :except => [:show] do
     post 'upvote' => 'votes#up'
