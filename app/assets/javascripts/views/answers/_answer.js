@@ -9,6 +9,7 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
 
     this.$el.html(renderedContent);
     this.renderUserInfo();
+    this.renderVotesInfo();
     return this;
   },
 
@@ -18,5 +19,13 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
     });
     var renderedUserInfo = infoView.render().$el;
     this.$(".user-info").html(renderedUserInfo);
+  },
+
+  renderVotesInfo: function() {
+    infoView = new HackUnderflow.Views.ObjVotes({
+      model: this.model
+    });
+    var renderedUserInfo = infoView.render().$el;
+    this.$(".arrows").prepend(renderedUserInfo);
   }
 });
