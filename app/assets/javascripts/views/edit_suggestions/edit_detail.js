@@ -8,7 +8,8 @@ HackUnderflow.Views.EditDetail = Backbone.View.extend({
 
   render: function() {
     var html = this.template({
-      question: this.model,
+      suggestion: this.model,
+      current_user: HackUnderflow.currentUser
     });
     this.$el.html(html);
     return this;

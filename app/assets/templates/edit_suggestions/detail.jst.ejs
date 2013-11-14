@@ -1,0 +1,42 @@
+<% body1 = suggestion.editable.escape("body").split("\n") %>
+<% body2 = suggestion.escape("body").split("\n") %>
+
+<h1 class="centered-header">
+  Suggested Edit for <%= suggestion.escape("question_title") + ": " +
+                         suggestion.escape("editable_type") %>
+</h1>
+
+<div class="edit-bodies">
+  <div class="edit-bodies-div">
+    <h5 class="suggestion-header">Original Post</h5>
+    <div class="edit-compare-div">
+      <% for(var i = 0; i < body1.length; i++) { %>
+        <% var line = body1[i] %>
+        <span class="edit-line"><%= (i+1) + " | " + line %></span>
+      <% } %>
+    </div>
+  </div>
+  
+  <div class="edit-bodies-div">
+    <h5 class="suggestion-header">Suggested Post</h5>
+    <div class="edit-compare-div">
+      <% for(var i = 0; i < body2.length; i++) { %>
+        <% var line = body2[i] %>
+        <span class="edit-line"><%= (i+1) + " | " + line %></span>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<% if(!suggestion.get("accepted") &&
+     suggestion.editable.escape("user_id") == current_user.id) { %>
+  <div class="suggestion-forms">
+    <form method="post" class="suggestion-form">
+      <input type="submit" class="accept-button" value="Accept Edit">
+    </form>
+
+    <form class="suggestion-form">
+      <input type="submit" class="reject-button" value="Reject Edit">
+    </form>
+  </div>
+<% } %>
