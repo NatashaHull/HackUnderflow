@@ -178,3 +178,10 @@
 .page a:hover, .next:hover, .last:hover, .first:hover, .prev:hover {
   background-color: #FF9900;
 }
+
+/* Lazy Edit Stuff */
+
+.question-body textarea {
+  margin-top: -100px;
+  display: inline;
+}

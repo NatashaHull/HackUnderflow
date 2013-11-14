@@ -10,7 +10,8 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
     "click .arrow-up": "upvote",
     "click .voted-up": "upvote",
     "click .arrow-down": "downvote",
-    "click .voted-down": "downvote"
+    "click .voted-down": "downvote",
+    "click .edit-link": "assessEditRequest"
   },
 
   render: function() {
@@ -71,7 +72,7 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
 
   downvote: function(event) {
     var that = this;
-    $target = $(event.currentTarget);
+    var $target = $(event.currentTarget);
     var vote = this.model.vote();
     this.model.downvote(function() {
       if(vote.isNew() || vote.get("direction") === "up") {
@@ -84,9 +85,50 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
     });
   },
 
+  assessEditRequest: function() {
+    if(this._editing) {
+      this._editing = false;
+      this.sendUpdate();
+    }
+
+    if(HackUnderflow.currentUser &&
+      (HackUnderflow.currentUser.id === this.model.escape("user_id")) ||
+      (HackUnderflow.currentUser.escape("points") > 2000)) {
+      this.replaceBodyWithForm();
+      this._editing = true;
+    }
+  },
+
+  replaceBodyWithForm: function() {
+    var replacementView = new HackUnderflow.Views.QuestionNew({
+      collection: HackUnderflow.questions,
+      model: this.model
+    });
+    var replacementEl = replacementView.render().$("#body");
+    replacementEl.removeAttr('id');
+    replacementEl.addClass("inline");
+    this.$(".question-body").html(replacementEl);
+  },
+
+  sendUpdate: function() {
+    var that = this;
+    var newBody = this.$(".inline").val();
+    that.model.set("body", newBody);
+    that.model.save(null, {
+      success: function(model) {
+        if(model.get("editable_id")) {
+          HackUnderflow.currentUser.pending_edit_suggestions.add(model);
+        } else {
+          HackUnderflow.questions.add(model);
+        }
+        that.render();
+      }
+    });
+  },
+
   _add_vote: function(vote, dir, vector) {
     vote.set("direction", dir);
-    num = vote.isNew() ? 1 : 2;
+    var num = vote.isNew() ? 1 : 2;
     num *= vector;
     if(vote.isNew()) vote.set("id", this._minimumId()+1);
     this.model.set("vote_counts", (this.model.get("vote_counts")+num));
