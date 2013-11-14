@@ -7,10 +7,10 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
 
   events: {
     "click .comment-link": "renderCommentForm",
-    "click .arrow-up": "voteUp",
-    "click .voted-up": "voteUp",
-    "click .arrow-down": "voteDown",
-    "click .voted-down": "voteDown"
+    "click .arrow-up": "upvote",
+    "click .voted-up": "upvote",
+    "click .arrow-down": "downvote",
+    "click .voted-down": "downvote"
   },
 
   render: function() {
@@ -55,7 +55,7 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
     this.$(".comments").append(renderedCommentForm);
   },
 
-  voteUp: function(event) {
+  upvote: function(event) {
     var that = this;
     $target = $(event.currentTarget);
     var vote = this.model.vote();
@@ -65,13 +65,12 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
       } else {
         that.model.set("vote_counts", (that.model.get("vote_counts")-1));
         HackUnderflow.currentUser.votes.remove(vote);
-        console.log("removed up vote");
       }
       that.render();
     });
   },
 
-  voteDown: function(event) {
+  downvote: function(event) {
     var that = this;
     $target = $(event.currentTarget);
     var vote = this.model.vote();
@@ -81,7 +80,6 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
       } else {
         that.model.set("vote_counts", (that.model.get("vote_counts")+1));
         HackUnderflow.currentUser.votes.remove(vote);
-        console.log("removed down vote");
       }
       that.render();
     });
@@ -91,12 +89,12 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
     vote.set("direction", dir);
     num = vote.isNew() ? 1 : 2;
     num *= vector;
-    if(vote.isNew()) vote.set("id", this.minimumId()+1);
+    if(vote.isNew()) vote.set("id", this._minimumId()+1);
     this.model.set("vote_counts", (this.model.get("vote_counts")+num));
     HackUnderflow.currentUser.votes.add(vote);
   },
 
-  minimumId: function() {
+  _minimumId: function() {
     var lastVote = HackUnderflow.currentUser.votes.last();
     return lastVote ? lastVote.get("id") : 0;
   }
