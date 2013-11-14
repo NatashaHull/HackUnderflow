@@ -6,7 +6,11 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
   template: JST["questions/_question"],
 
   events: {
-    "click .comment-link": "renderCommentForm"
+    "click .comment-link": "renderCommentForm",
+    "click .arrow-up": "voteUp",
+    "click .voted-up": "voteUp",
+    "click .arrow-down": "voteDown",
+    "click .voted-down": "voteDown"
   },
 
   render: function() {
@@ -49,5 +53,51 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
     });
     var renderedCommentForm = commentForm.render().$el;
     this.$(".comments").append(renderedCommentForm);
+  },
+
+  voteUp: function(event) {
+    var that = this;
+    $target = $(event.currentTarget);
+    var vote = this.model.vote();
+    this.model.upvote(function() {
+      if(vote.isNew() || vote.get("direction") === "down") {
+        that._add_vote(vote, "up", 1);
+      } else {
+        that.model.set("vote_counts", (that.model.get("vote_counts")-1));
+        HackUnderflow.currentUser.votes.remove(vote);
+        console.log("removed up vote");
+      }
+      that.render();
+    });
+  },
+
+  voteDown: function(event) {
+    var that = this;
+    $target = $(event.currentTarget);
+    var vote = this.model.vote();
+    this.model.downvote(function() {
+      if(vote.isNew() || vote.get("direction") === "up") {
+        that._add_vote(vote, "down", -1);
+      } else {
+        that.model.set("vote_counts", (that.model.get("vote_counts")+1));
+        HackUnderflow.currentUser.votes.remove(vote);
+        console.log("removed down vote");
+      }
+      that.render();
+    });
+  },
+
+  _add_vote: function(vote, dir, vector) {
+    vote.set("direction", dir);
+    num = vote.isNew() ? 1 : 2;
+    num *= vector;
+    if(vote.isNew()) vote.set("id", this.minimumId()+1);
+    this.model.set("vote_counts", (this.model.get("vote_counts")+num));
+    HackUnderflow.currentUser.votes.add(vote);
+  },
+
+  minimumId: function() {
+    var lastVote = HackUnderflow.currentUser.votes.last();
+    return lastVote ? lastVote.get("id") : 0;
   }
 });
