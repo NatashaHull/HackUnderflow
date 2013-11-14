@@ -5,12 +5,13 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
 
   routes: {
     "": "questionsIndex",
+    "about": "about",
     "questions": "questionsIndex",
     "questions/new": "questionNew",
     "questions/:id": "questionsDetail",
     "users": "usersIndex",
     "users/:id": "usersDetail",
-    "about": "about"
+    "edit_suggestions/:id": "editDetail"
   },
 
   questionsIndex: function() {
@@ -63,6 +64,10 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
         that._renderUsersDetail(user);
       }
     });
+  },
+
+  editDetail: function(id) {
+    
   },
 
   about: function() {

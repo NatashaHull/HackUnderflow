@@ -69,7 +69,7 @@
       <% for(var j = i; j < max; j++) {  %>
         <% var suggested_edit = user.suggested_edits.at(j) %>
         <li class="profileLi"><a
-          href="#questions/<%= suggested_edit.get("question_id") %>"
+          href="#edit_suggestions/<%= suggested_edit.get("id") %>"
           ><%= accepted_edit_suggestion.get("question_title") %></a></li>
       <% } %>
       <span class="more-button">See More Suggested Edits</span>
@@ -91,7 +91,7 @@
       <% for(var j = i; j < max; j++) {  %>
         <% var pending_edit_suggestion = user.pending_edit_suggestions.at(j) %>
         <li class="profileLi"><a
-          href="#questions/<%= pending_edit_suggestion.get("question_id") %>"
+          href="#edit_suggestions/<%= pending_edit_suggestion.get("id") %>"
           ><%= pending_edit_suggestion.get("question_title") %></a></li>
       <% } %>
       <span class="more-button">See More Pending Edits</span>
@@ -113,7 +113,7 @@
       <% for(var j = i; j < max; j++) {  %>
         <% var accepted_edit_suggestion = user.accepted_edit_suggestions.at(j) %>
         <li class="profileLi"><a
-          href="#questions/<%= accepted_edit_suggestion.get("question_id") %>"
+          href="#edit_suggestions/<%= accepted_edit_suggestion.get("id") %>"
           ><%= accepted_edit_suggestion.get("question_title") %></a></li>
       <% } %>
       <span class="more-button">See More Accepted Edits</span>
