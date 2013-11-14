@@ -12,6 +12,7 @@
   width: 45%;
   padding: 10px;
   margin: 10px;
+  overflow-y: scroll;
 }
 
 .suggestion-header {
@@ -19,7 +20,7 @@
 }
 
 .edit-compare-div {
-  border: 1px solid black;
+  /*border: 1px solid black;*/
   padding: 10px;
 }
 
