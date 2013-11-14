@@ -61,8 +61,10 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
   //   this.model.upvote(function() {
   //     if($target.attr("class") === "arrow-up") {
   //       that.model.set("vote_counts", (that.model.get("vote_counts") + 1));
+  //       HackUnderflow.currentUser.votes.add(model);
   //     } else {
   //       that.model.set("vote_counts", (that.model.get("vote_counts") - 1));
+  //       HackUnderflow.currentUser.votes.remove(model);
   //     }
   //     that.render();
   //   });
@@ -72,12 +74,12 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
   //   var that = this;
   //   $target = $(event.target);
   //   this.model.downvote(function(model) {
-  //     if($target.attr("class") === "voted-down") {
+  //     if($target.attr("class") === "arrow-down") {
   //       that.model.set("vote_counts", (that.model.get("vote_counts") - 1));
-  //       HackUnderflow.current_user.votes.add(model);
+  //       HackUnderflow.currentUser.votes.add(model);
   //     } else {
   //       that.model.set("vote_counts", (that.model.get("vote_counts") + 1));
-  //       HackUnderflow.current_user.votes.remove(model);
+  //       HackUnderflow.currentUser.votes.remove(model);
   //     }
   //     that.render();
   //   });

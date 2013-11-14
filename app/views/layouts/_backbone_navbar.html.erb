@@ -5,7 +5,7 @@
     <li class="divider"></li>
     <% if !!current_user %>
     <li class="divider"></li>
-    <li><a href="#users/<%= current_user.id %>">
+    <li><a class="current-user" href="#users/<%= current_user.id %>">
       Hi <%= current_user.username.capitalize %>!
     </a></li>
     <% end %>
@@ -17,9 +17,9 @@
     <%= link_to "Sign Out", session_url, :method => :delete %>
     </li>
     <li class="divider"></li>
-    <li>
-      <%= link_to "Profile", current_user %>
-    </li>
+    <li><a class="current-user" href="#users/<%= current_user.id %>">
+      Profile
+    </a></li>
   <% else %>
     <li>
     <%= link_to "Register", new_user_url %>
