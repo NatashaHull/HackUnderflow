@@ -6,7 +6,7 @@ class EditSuggestionsController < ApplicationController
     @suggestion = EditSuggestion.includes(:editable).find(params[:id])
 
     respond_to do |format|
-      format.html { render_to :show }
+      format.html { render :show }
       format.json { render :json => @suggestion, :include => [:editable] }
     end
   end
