@@ -9,7 +9,7 @@ HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
   render: function() {
     var html = this.template({
       question: this.model,
-      current_user: null
+      current_user: HackUnderflow.currentUser
     });
     this.$el.html(html);
 
@@ -46,7 +46,8 @@ HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
     answers = that.sortAnswers();
     answers.forEach(function(answer) {
       answerView = new HackUnderflow.Views.QuestionDetailAnswer({
-        model: answer
+        model: answer,
+        question: that.model
       });
 
       renderedAnswer = answerView.render().$el;

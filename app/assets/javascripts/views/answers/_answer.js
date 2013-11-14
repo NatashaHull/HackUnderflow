@@ -1,5 +1,6 @@
 HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
   initialize: function(options) {
+    this.question = options.question;
     this.listenTo(this.model.comments, "add", this.render);
   },
 
@@ -15,6 +16,7 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
 
   render: function() {
     var renderedContent = this.template({
+      question: this.question,
       answer: this.model,
       current_user: HackUnderflow.currentUser
     });
