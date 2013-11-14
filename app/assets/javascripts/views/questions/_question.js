@@ -10,7 +10,7 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
   },
 
   render: function() {
-    renderedContent = this.template({
+    var renderedContent = this.template({
       question: this.model,
       current_user: null
     });
@@ -22,7 +22,7 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
   },
 
   renderUserInfo: function() {
-    infoView = new HackUnderflow.Views.UserInfo({
+    var infoView = new HackUnderflow.Views.UserInfo({
       model: this.model
     });
     var renderedUserInfo = infoView.render().$el;
@@ -30,8 +30,9 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
   },
 
   renderVotesInfo: function() {
-    infoView = new HackUnderflow.Views.ObjVotes({
-      model: this.model
+    var infoView = new HackUnderflow.Views.ObjVotes({
+      model: this.model,
+      objType: "Question"
     });
     var renderedUserInfo = infoView.render().$el;
     this.$(".arrows").html(renderedUserInfo);

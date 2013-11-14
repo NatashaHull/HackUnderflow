@@ -6,11 +6,11 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
   template: JST["answers/_answer"],
 
   events: {
-    "click .comment-link": "renderCommentForm"
-    // "click .arrow-up": "voteUp",
-    // "click .voted-up": "voteUp",
-    // "click .arrow-down": "voteDown",
-    // "click .voted-down": "voteDown"
+    "click .comment-link": "renderCommentForm",
+    "click .arrow-up": "voteUp",
+    "click .voted-up": "voteUp",
+    "click .arrow-down": "voteDown",
+    "click .voted-down": "voteDown"
   },
 
   render: function() {
@@ -35,7 +35,8 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
 
   renderVotesInfo: function() {
     var infoView = new HackUnderflow.Views.ObjVotes({
-      model: this.model
+      model: this.model,
+      objType: "Answer"
     });
     var renderedUserInfo = infoView.render().$el;
     this.$(".arrows").prepend(renderedUserInfo);
@@ -54,34 +55,44 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
     this.$(".comments").append(renderedCommentForm);
   },
 
-  // voteUp: function(event) {
-  //   var that = this;
-  //   $target = $(event.currentTarget);
-  //   console.log(event.currentTarget);
-  //   this.model.upvote(function() {
-  //     if($target.attr("class") === "arrow-up") {
-  //       that.model.set("vote_counts", (that.model.get("vote_counts") + 1));
-  //       HackUnderflow.currentUser.votes.add(model);
-  //     } else {
-  //       that.model.set("vote_counts", (that.model.get("vote_counts") - 1));
-  //       HackUnderflow.currentUser.votes.remove(model);
-  //     }
-  //     that.render();
-  //   });
-  // },
+  voteUp: function(event) {
+    var that = this;
+    $target = $(event.currentTarget);
+    var vote = this.model.vote();
+    this.model.upvote(function() {
+      if(vote.isNew() || vote.get("direction") === "down") {
+        vote.set("direction", "up");
+        if(vote.isNew()) vote.set("id", that.minimumId()+1);
+        that.model.set("vote_counts", (that.model.get("vote_counts") + 1));
+        HackUnderflow.currentUser.votes.add(vote);
+      } else {
+        that.model.set("vote_counts", (that.model.get("vote_counts") - 1));
+        HackUnderflow.currentUser.votes.remove(vote);
+      }
+      that.render();
+    });
+  },
 
-  // voteDown: function() {
-  //   var that = this;
-  //   $target = $(event.target);
-  //   this.model.downvote(function(model) {
-  //     if($target.attr("class") === "arrow-down") {
-  //       that.model.set("vote_counts", (that.model.get("vote_counts") - 1));
-  //       HackUnderflow.currentUser.votes.add(model);
-  //     } else {
-  //       that.model.set("vote_counts", (that.model.get("vote_counts") + 1));
-  //       HackUnderflow.currentUser.votes.remove(model);
-  //     }
-  //     that.render();
-  //   });
-  // }
+  voteDown: function() {
+    var that = this;
+    $target = $(event.target);
+    var vote = this.model.vote();
+    this.model.downvote(function() {
+      if(vote.isNew() || vote.get("direction") === "up") {
+        vote.set("direction", "down");
+        if(vote.isNew()) vote.set("id", that.minimumId()+1);
+        that.model.set("vote_counts", (that.model.get("vote_counts") - 1));
+        HackUnderflow.currentUser.votes.add(vote);
+      } else {
+        that.model.set("vote_counts", (that.model.get("vote_counts") + 1));
+        HackUnderflow.currentUser.votes.remove(vote);
+      }
+      that.render();
+    });
+  },
+
+  minimumId: function() {
+    var lastVote = HackUnderflow.currentUser.votes.last();
+    return lastVote ? lastVote.get("id") : 0;
+  }
 });

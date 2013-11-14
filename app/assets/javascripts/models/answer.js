@@ -11,6 +11,21 @@ HackUnderflow.Models.Answer = Backbone.Model.extend({
     return HackUnderflow.users.get(this.get("user_id"));
   },
 
+  vote: function() {
+    var vote = HackUnderflow.currentUser.votes.findWhere({
+      "voteable_id": this.get("id"),
+      "voteable_type": "Answer"
+    });
+    if(vote) {
+      return vote;
+    } else {
+      return new HackUnderflow.Models.Vote({
+        "voteable_id": this.get("id"),
+        "voteable_type": "Answer"
+      });
+    }
+  },
+
   upvote: function(callback) {
     var that = this;
     $.ajax({
