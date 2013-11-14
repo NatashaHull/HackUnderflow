@@ -15,7 +15,10 @@ class EditSuggestionsController < ApplicationController
     @suggestion.accept_edit
 
     respond_to do |format|
-      format.html { redirect_to @suggestion.question }
+      format.html { 
+        p "I'm in html even though I should be in json"
+        debugger
+        redirect_to @suggestion.question }
       format.json { render :json => @suggestion }
     end
   end

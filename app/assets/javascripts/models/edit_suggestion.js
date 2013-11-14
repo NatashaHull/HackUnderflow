@@ -11,7 +11,7 @@ HackUnderflow.Models.EditSuggestion = Backbone.Model.extend({
 
   acceptEdit: function(callback) {
     var that = this;
-    var url = "/edit_suggestions/" + that.id + "/accept";
+    var url = "/edit_suggestions/" + that.id + "/accept.json";
     $.ajax({
       type: "PUT",
       url: url,
@@ -23,7 +23,7 @@ HackUnderflow.Models.EditSuggestion = Backbone.Model.extend({
     var that = this;
     $.ajax({
       type: "DELETE",
-      url: "/edit_suggestions/" + that.id + "/reject",
+      url: "/edit_suggestions/" + that.id + "/reject.json",
       success: callback
     });
   },
