@@ -69,8 +69,8 @@
       <% for(var j = i; j < max; j++) {  %>
         <% var suggested_edit = user.suggested_edits.at(j) %>
         <li class="profileLi"><a
-          href="#edit_suggestions/<%= suggested_edit.get("id") %>"
-          ><%= accepted_edit_suggestion.get("question_title") %></a></li>
+          href="#edit_suggestions/<%= suggested_edit.escape("id") %>"
+          ><%= suggested_edit.get("question_title") %></a></li>
       <% } %>
       <span class="more-button">See More Suggested Edits</span>
     </ul>

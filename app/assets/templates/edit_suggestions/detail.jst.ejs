@@ -2,7 +2,7 @@
 <% body2 = suggestion.escape("body").split("\n") %>
 
 <h1 class="centered-header">
-  Suggested Edit for <%= suggestion.escape("question_title") + ": " +
+  Suggested Edit for "<%= suggestion.escape("question_title") + "\": " +
                          suggestion.escape("editable_type") %>
 </h1>
 
@@ -28,15 +28,15 @@
   </div>
 </div>
 
-<% if(!suggestion.get("accepted") &&
-     suggestion.editable.escape("user_id") == current_user.id) { %>
+<% /*if(!suggestion.get("accepted") &&
+     suggestion.editable.escape("user_id") == current_user.id) {*/ %>
   <div class="suggestion-forms">
-    <form method="post" class="suggestion-form">
+    <form class="suggestion-form accept-form">
       <input type="submit" class="accept-button" value="Accept Edit">
     </form>
 
-    <form class="suggestion-form">
+    <form class="suggestion-form reject-form">
       <input type="submit" class="reject-button" value="Reject Edit">
     </form>
   </div>
-<% } %>
+<% /*}*/ %>

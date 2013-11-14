@@ -3,14 +3,32 @@ HackUnderflow.Models.EditSuggestion = Backbone.Model.extend({
 
   setEditable: function(resp) {
     if(resp.editable_type === "Question") {
-      this.editable = HackUnderflow.questions.get(resp.editable_id);
+      this.editable = new HackUnderflow.Models.Question(resp.editable);
     } else {
       this.editable = new HackUnderflow.Models.Answer(resp.editable);
     }
   },
 
+  acceptEdit: function(callback) {
+    var that = this;
+    var url = "/edit_suggestions/" + that.id + "/accept";
+    $.ajax({
+      type: "PUT",
+      url: url,
+      success: callback
+    });
+  },
+
+  rejectEdit: function(callback) {
+    var that = this;
+    $.ajax({
+      type: "DELETE",
+      url: "/edit_suggestions/" + that.id + "/reject",
+      success: callback
+    });
+  },
+
   parse: function(resp, options) {
-    console.log(resp);
     this.setEditable(resp);
     delete resp.editable;
     return resp;
