@@ -67,7 +67,18 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
   },
 
   editDetail: function(id) {
-    
+    var that = this;
+    var edit = new HackUnderflow.Models.EditSuggestion({
+      "id": id
+    });
+    edit.fetch({
+      success: function() {
+        var editDetail = new HackUnderflow.Views.EditDetail({
+          model: edit
+        });
+        that._swapView(editDetail);
+      }
+    });
   },
 
   about: function() {

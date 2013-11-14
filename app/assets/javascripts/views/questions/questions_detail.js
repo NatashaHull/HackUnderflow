@@ -9,7 +9,7 @@ HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
   render: function() {
     var html = this.template({
       question: this.model,
-      current_user: null
+      current_user: HackUnderflow.currentUser
     });
     this.$el.html(html);
 
