@@ -24,8 +24,10 @@ HackUnderflow.Views.QuestionNew = Backbone.View.extend({
       success: function() {
         that.collection.add(that.model);
         HackUnderflow.currentUser.questions.add(that.model);
-        console.log("Success!!!!!");
-        Backbone.history.navigate("/questions/"+that.model.get("id"));
+        Backbone.history.navigate(
+          "/questions/"+that.model.get("id"),
+          { trigger: true }
+        );
       },
       error: function(model, errors) {
         var valErrors = errors.responseJSON;
