@@ -6,6 +6,7 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
   routes: {
     "": "questionsIndex",
     "questions": "questionsIndex",
+    "questions/new": "questionNew",
     "questions/:id": "questionsDetail",
     "users": "usersIndex",
     "users/:id": "usersDetail",
@@ -32,6 +33,14 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
         }
       });
     }
+  },
+
+  questionNew: function() {
+    var newView = new HackUnderflow.Views.QuestionNew({
+      collection: HackUnderflow.questions,
+      model: new HackUnderflow.Models.Question()
+    });
+    this._swapView(newView);
   },
 
   usersIndex: function() {

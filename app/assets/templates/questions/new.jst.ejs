@@ -1,0 +1,13 @@
+<h1 class="centered-header">Create a Question</h1>
+
+<form class="questions-form">
+  <label for="title">Title</label>
+  <input type="text" name="question[title]"
+         value="<%= question.escape("title") %>" id="title">
+  
+  <label for="body">Body</label>
+  <textarea name="question[body]" id="body" rows="50" cols="100"
+  ><%= question.escape("body") %></textarea>
+
+  <input type="submit" value="Submit Question" class="submit-button">
+</form>
