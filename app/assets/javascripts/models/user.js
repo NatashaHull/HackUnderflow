@@ -45,10 +45,10 @@ HackUnderflow.Models.User = Backbone.Model.extend({
   },
 
   setVotes: function(votes) {
-    // this.votes = new HackUnderflow.Collections.Votes(
-    //   votes,
-    //   { parse:true }
-    // );
+    this.votes = new HackUnderflow.Collections.Votes(
+      votes,
+      { parse:true }
+    );
   },
 
   parse: function(resp, options) {
