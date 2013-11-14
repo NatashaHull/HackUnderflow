@@ -9,7 +9,7 @@
 <div class="edit-bodies">
   <div class="edit-bodies-div">
     <h5 class="suggestion-header">Original Post</h5>
-    <div class="edit-compare-div" style="height:<%= height * 1.8 %>em">
+    <div class="edit-compare-div" style="height:<%= height * 2 %>em">
       <% body1.each_with_index do |line, i| %>
         <span class="edit-line"><%= "#{i+1} | #{line}" %></span>
       <% end %>
@@ -18,7 +18,7 @@
   
   <div class="edit-bodies-div">
     <h5 class="suggestion-header">Suggested Post</h5>
-    <div class="edit-compare-div" style="height:<%= height * 1.8 %>em">
+    <div class="edit-compare-div" style="height:<%= height * 2 %>em">
       <% body2.each_with_index do |line, i| %>
         <span class="edit-line"><%= "#{i+1} | #{line}" %></span>
       <% end %>
