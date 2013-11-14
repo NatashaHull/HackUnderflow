@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     @user.set_session_token
     if @user.save
       login_user!(@user)
-      respond_with_user
+      respond_with_user(root_url)
     else
       flash.now[:errors] = @user.errors.full_messages
       
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
     if @user.is_password?(params[:password])
       if @user.update_attributes(params[:user])
         login_user!(@user)
-        respond_with_user
+        respond_with_user(@user)
       else
         flash.now[:errors] = @user.errors.full_messages
         respond_with_edit_error
@@ -76,10 +76,10 @@ class UsersController < ApplicationController
           .includes(:suggested_answer_edits => :editable)
     end
 
-    def respond_with_user
+    def respond_with_user(url)
       respond_to do |format|
-        format.html { redirect_to @user, :is_current_user => true }
-        format.json { render :json => @user }
+        format.html { redirect_to url }
+        format.json { render :json => @user, :cu => @user }
       end
     end
 

@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       login_user!(@user)
 
       respond_to do |format|
-        format.html { redirect_to @user }
+        format.html { redirect_to root_url }
         format.json { render :json => @user }
       end
     else
@@ -41,6 +41,6 @@ class SessionsController < ApplicationController
   def guest
     guest = User.find_by_username("Guest")
     login_user!(guest)
-    redirect_to guest
+    redirect_to root_url
   end
 end
