@@ -58,8 +58,8 @@ HackUnderflow.Models.Question = Backbone.Model.extend({
 
   toJSON: function(options) {
     var json = _.extend({}, this.attributes);
-    json.answers = this.answers.toJSON();
-    json.comments = this.comments.toJSON();
+    if(this.answers) json.answers = this.answers.toJSON();
+    if(this.comments) json.comments = this.comments.toJSON();
     delete json.accepted_answer;
     delete json.vote_counts;
     return json;

@@ -1,6 +1,10 @@
 HackUnderflow.Views.QuestionNew = Backbone.View.extend({
   template: JST["questions/new"],
 
+  events: {
+    "submit form": "submit"
+  },
+
   render: function() {
     var html = this.template({
       question: this.model
@@ -19,6 +23,8 @@ HackUnderflow.Views.QuestionNew = Backbone.View.extend({
     that.model.save(null, {
       success: function() {
         that.collection.add(that.model);
+        HackUnderflow.currentUser.questions.add(that.model);
+        console.log("Success!!!!!");
         Backbone.history.navigate("/questions/"+that.model.get("id"));
       },
       error: function(model, errors) {
