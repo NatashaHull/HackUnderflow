@@ -15,8 +15,7 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
 
   render: function() {
     var renderedContent = this.template({
-      question: this.model,
-      current_user: HackUnderflow.currentUser
+      question: this.model
     });
 
     this.$el.html(renderedContent);
