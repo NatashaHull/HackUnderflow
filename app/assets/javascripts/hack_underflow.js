@@ -25,7 +25,7 @@ window.HackUnderflow = {
 
   setupCurrentUser: function() {
     var that = this;
-    var currentUser = $(".current-user").attr("href")
+    var currentUser = $(".current-user").attr("href");
     if(currentUser) {
       var currentUserId = currentUser.split('/')[1];
       HackUnderflow.currentUser = new HackUnderflow.Models.User({

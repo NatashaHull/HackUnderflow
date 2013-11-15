@@ -11,6 +11,16 @@ HackUnderflow.Models.Answer = Backbone.Model.extend({
     return HackUnderflow.users.get(this.get("user_id"));
   },
 
+  accept: function(callback) {
+    var that = this;
+    var url = "/answers/" + that.id + "/accept.json";
+    $.ajax({
+      type: "PUT",
+      url: url,
+      success: callback
+    });
+  },
+
   vote: function() {
     var vote = HackUnderflow.currentUser.votes.findWhere({
       "voteable_id": this.get("id"),

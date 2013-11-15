@@ -1,10 +1,9 @@
 <div class="answer">
   <div class="arrows">
     <!-- Prepend with Arrows stuff -->
-    <% if(!!current_user && !question.escape("accepted_answer") &&
+    <% if(!!current_user && !question.get("accepted_answer") &&
               question.escape("user_id") == current_user.id) { %>
-    <a class="not-accepted-answer" data-id="<%= answer.escape("id") %>"
-       >&#10003</a>
+    <a class="not-accepted-answer">&#10003</a>
     <% } else if(answer.get("accepted")) { %>
     <span class="accepted-answer">&#10003</span>
     <% } %>
