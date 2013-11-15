@@ -135,9 +135,9 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
   accept: function() {
     var that = this;
     event.preventDefault();
-    console.log(that.model.acceptEdit);
     this.model.acceptEdit(function() {
       that.model.set("accepted", true);
+      that.render();
       var $success = $("<ul>");
       $success.prepend("<li>This answer has been accepted!</li>");
       that.$el.prepend($success);

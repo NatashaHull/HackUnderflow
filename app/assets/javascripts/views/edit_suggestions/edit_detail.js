@@ -18,7 +18,6 @@ HackUnderflow.Views.EditDetail = Backbone.View.extend({
   accept: function(event) {
     var that = this;
     event.preventDefault();
-    console.log(that.model.acceptEdit);
     this.model.acceptEdit(function() {
       that.model.set("accepted", true);
       var user = HackUnderflow.users.get(that.model.get("user_id"));
