@@ -18,9 +18,11 @@
       <%= _("Question").pluralize(user.questions.length, true) %>
     </h5>
     <% for(var i = 0; i < user.questions.length; i += 5) { %>
+    <% var last = parseInt(user.questions.length / 5) %>
+    <% if(user.questions.length % 5 === 0) last -= 1 %>
     <ul class="profile-questions hidden"
         id="profile-questions-<%= parseInt((i+1)/5) %>" data-id="<%= parseInt((i+1)/5) %>"
-        data-last="<%= parseInt(user.questions.length / 5) %>">
+        data-last="<%= last %>">
       <% var max = (i+5 < user.questions.length) ? i+5 : user.questions.length %>
       <% for(var j = i; j < max; j++) {  %>
         <% var question = user.questions.at(j) %>
@@ -39,9 +41,12 @@
       <%= _("Answer").pluralize(user.answers.length, true) %>
     </h5>
     <% for(var i = 0; i < user.answers.length; i += 5) { %>
+    <% var last = parseInt(user.answers.length / 5) %>
+    <% if(user.answers.length % 5 === 0) last -= 1 %>
     <ul class="profile-answers hidden"
-        id="profile-answers-<%= parseInt((i+1)/5) %>" data-id="<%= parseInt((i+1)/5) %>"
-        data-last="<%= parseInt(user.answers.length / 5) %>">
+        id="profile-answers-<%= parseInt((i+1)/5) %>"
+        data-id="<%= parseInt((i+1)/5) %>"
+        data-last="<%= last %>">
       <% var max = (i+5 < user.answers.length) ? i+5 : user.answers.length %>
       <% for(var j = i; j < max; j++) {  %>
         <% var answer = user.answers.at(j) %>
@@ -62,9 +67,12 @@
       <%= _("Suggested Edit").pluralize(user.suggested_edits.length, true) %>
     </h5>
     <% for(var i = 0; i < user.suggested_edits.length; i += 5) { %>
+    <% var last = parseInt(user.suggested_edits.length / 5) %>
+    <% if(user.suggested_edits.length % 5 === 0) last -= 1 %>
     <ul class="profile-suggested-edits hidden"
-        id="profile-suggested-edits-<%= parseInt((i+1)/5) %>" data-id="<%= parseInt((i+1)/5) %>"
-        data-last="<%= parseInt(user.suggested_edits.length / 5) %>">
+        id="profile-suggested-edits-<%= parseInt((i+1)/5) %>"
+        data-id="<%= parseInt((i+1)/5) %>"
+        data-last="<%= last %>">
       <% var max = (i+5 < user.suggested_edits.length) ? i+5 : user.suggested_edits.length %>
       <% for(var j = i; j < max; j++) {  %>
         <% var suggested_edit = user.suggested_edits.at(j) %>
@@ -84,9 +92,12 @@
       <%= _("Pending Edits").pluralize(user.pending_edit_suggestions.length, true) %>
     </h5>
     <% for(var i = 0; i < user.pending_edit_suggestions.length; i += 5) { %>
+    <% var last = parseInt(user.pending_edit_suggestions.length / 5) %>
+    <% if(user.pending_edit_suggestions.length % 5 === 0) last -= 1 %>
     <ul class="profile-pending-edits hidden"
-        id="profile-pending-edits-<%= parseInt((i+1)/5) %>" data-id="<%= parseInt((i+1)/5) %>"
-        data-last="<%= parseInt(user.pending_edit_suggestions.length / 5) %>">
+        id="profile-pending-edits-<%= parseInt((i+1)/5) %>"
+        data-id="<%= parseInt((i+1)/5) %>"
+        data-last="<%= last %>">
       <% var max = (i+5 < user.pending_edit_suggestions.length) ? i+5 : user.pending_edit_suggestions.length %>
       <% for(var j = i; j < max; j++) {  %>
         <% var pending_edit_suggestion = user.pending_edit_suggestions.at(j) %>
@@ -106,9 +117,12 @@
       <%= _("Accepted Edit").pluralize(user.accepted_edit_suggestions.length, true) %>
     </h5>
     <% for(var i = 0; i < user.accepted_edit_suggestions.length; i += 5) { %>
+    <% var last = parseInt(user.accepted_edit_suggestions.length / 5) %>
+    <% if(user.accepted_edit_suggestions.length % 5 === 0) last -= 1 %>
     <ul class="profile-accepted-edits hidden"
-        id="profile-accepted-edits-<%= parseInt((i+1)/5) %>" data-id="<%= parseInt((i+1)/5) %>"
-        data-last="<%= parseInt(user.accepted_edit_suggestions.length / 5) %>">
+        id="profile-accepted-edits-<%= parseInt((i+1)/5) %>"
+        data-id="<%= parseInt((i+1)/5) %>"
+        data-last="<%= last %>">
       <% var max = (i+5 < user.accepted_edit_suggestions.length) ? i+5 : user.accepted_edit_suggestions.length %>
       <% for(var j = i; j < max; j++) {  %>
         <% var accepted_edit_suggestion = user.accepted_edit_suggestions.at(j) %>
