@@ -16,13 +16,15 @@ HackUnderflow.Views.ObjVotes = Backbone.View.extend({
   },
 
   voted: function() {
-    var votes = HackUnderflow.currentUser.votes;
     if(HackUnderflow.currentUser) {
-      for(var i = 0; i < votes.length; i++) {
-        var vote = votes.at(i);
-        if(vote.get("voteable_id") == this.model.get("id") &&
-          vote.get("voteable_type") === this.objType) {
-          return vote.get("direction");
+      var votes = HackUnderflow.currentUser.votes;
+      if(HackUnderflow.currentUser) {
+        for(var i = 0; i < votes.length; i++) {
+          var vote = votes.at(i);
+          if(vote.get("voteable_id") == this.model.get("id") &&
+            vote.get("voteable_type") === this.objType) {
+            return vote.get("direction");
+          }
         }
       }
     }

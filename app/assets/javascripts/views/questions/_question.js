@@ -89,14 +89,20 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
 
   assessEditRequest: function() {
     if(this._editing) {
+      this._editing = false;
       this.sendUpdate();
-    }
-
-    if(HackUnderflow.currentUser &&
-      (HackUnderflow.currentUser.id === this.model.escape("user_id")) ||
-      (HackUnderflow.currentUser.escape("points") > 2000)) {
+    } else if(HackUnderflow.currentUser &&
+      ((HackUnderflow.currentUser.id === this.model.escape("user_id")) ||
+      (HackUnderflow.currentUser.escape("points") > 2000))) {
       this.replaceBodyWithForm();
       this._editing = true;
+    } else {
+      if(HackUnderflow.currentUser) {
+        var message = "You don't have enough points to edit other people's answers!";
+      } else {
+        var message = "You must be logged in to do this!";
+      }
+      this.$(".question-links").prepend("<p>" + message + "</p>");
     }
   },
 

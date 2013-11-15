@@ -3,9 +3,10 @@
 </div>
 
 <pre class="question-body"><%= question.escape("body") %></pre>
-<a class="question-link edit-link">improve this question</a>|<a
-     class="question-link comment-link"
-     data-id="<%= question.escape("id") %>">comment</a>
+<div class="question-links"
+  ><a class="question-link edit-link">improve this question</a>|<a
+   class="question-link comment-link"
+   data-id="<%= question.escape("id") %>">comment</a></div>
 
 <div class="user-info">
   <!-- Fill in with user info -->
