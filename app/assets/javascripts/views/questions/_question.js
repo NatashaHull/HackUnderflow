@@ -87,7 +87,6 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
 
   assessEditRequest: function() {
     if(this._editing) {
-      this._editing = false;
       this.sendUpdate();
     }
 
@@ -121,6 +120,7 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
           HackUnderflow.currentUser.pending_edit_suggestions.add(model);
           that.model.attributes = currentModel;
         }
+        that._editing = false;
         that.render();
       }
     });
