@@ -18,14 +18,14 @@ class Vote < ActiveRecord::Base
         )
 
       if !old_vote
-        calculate_user_points(dir, v_type, u_id)
         old_vote = build_vote(dir, v_id, v_type, u_id)
+        self.calculate_user_points(dir, v_id, v_type)
       elsif old_vote.direction == dir
         old_vote.destroy
       else
-        calculate_user_points(dir, v_type, u_id)
         old_vote.direction = dir
         old_vote.save!
+        self.calculate_user_points(dir, v_id, v_type)
       end
       old_vote
     end
@@ -41,12 +41,12 @@ class Vote < ActiveRecord::Base
     vote
   end
 
-  def self.calculate_user_points(dir, v_type, u_id)
+  def self.calculate_user_points(dir, v_id, v_type)
     return unless dir == "up"
     if v_type == "Question"
-      User.find(u_id).add_points(5)
+      Question.find(v_id).user.add_points(5)
     else
-      User.find(u_id).add_points(10)
+      Answer.find(v_id).user.add_points(10)
     end
   end
 
