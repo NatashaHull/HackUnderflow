@@ -81,6 +81,8 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
     this.model.downvote(function() {
       if(vote.isNew() || vote.get("direction") === "up") {
         that._add_vote(vote, "down", -1);
+        var user = that.model.user();
+        user.set("points", user.get("points") + 10);
       } else {
         that.model.set("vote_counts", (that.model.get("vote_counts") + 1));
         HackUnderflow.currentUser.votes.remove(vote);

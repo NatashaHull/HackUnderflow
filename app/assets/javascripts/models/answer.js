@@ -17,7 +17,11 @@ HackUnderflow.Models.Answer = Backbone.Model.extend({
     $.ajax({
       type: "PUT",
       url: url,
-      success: callback
+      success: function() {
+        var user = that.user();
+        user.set("points", user.get("points") + 2);
+        callback();
+      }
     });
   },
 

@@ -1,12 +1,8 @@
 HackUnderflow.Models.EditSuggestion = Backbone.Model.extend({
   urlRoot: "/edit_suggestions",
 
-  setEditable: function(resp) {
-    if(resp.editable_type === "Question") {
-      this.editable = new HackUnderflow.Models.Question(resp.editable);
-    } else {
-      this.editable = new HackUnderflow.Models.Answer(resp.editable);
-    }
+  user: function() {
+    return HackUnderflow.users.get(this.get("user_id"));
   },
 
   acceptEdit: function(callback) {
@@ -15,7 +11,11 @@ HackUnderflow.Models.EditSuggestion = Backbone.Model.extend({
     $.ajax({
       type: "PUT",
       url: url,
-      success: callback
+      success: function() {
+        var user = that.user();
+        user.set("points", user.get("points") + 2);
+        callback();
+      }
     });
   },
 
@@ -26,6 +26,14 @@ HackUnderflow.Models.EditSuggestion = Backbone.Model.extend({
       url: "/edit_suggestions/" + that.id + "/reject.json",
       success: callback
     });
+  },
+
+  setEditable: function(resp) {
+    if(resp.editable_type === "Question") {
+      this.editable = new HackUnderflow.Models.Question(resp.editable);
+    } else {
+      this.editable = new HackUnderflow.Models.Answer(resp.editable);
+    }
   },
 
   parse: function(resp, options) {
