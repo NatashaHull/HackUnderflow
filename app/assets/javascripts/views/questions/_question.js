@@ -113,13 +113,13 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
   sendUpdate: function() {
     var that = this;
     var newBody = this.$(".inline").val();
+    var currentModel = _.extend({}, that.model.attributes);
     that.model.set("body", newBody);
     that.model.save(null, {
       success: function(model) {
         if(model.get("editable_id")) {
           HackUnderflow.currentUser.pending_edit_suggestions.add(model);
-        } else {
-          HackUnderflow.questions.add(model);
+          that.model.attributes = currentModel;
         }
         that.render();
       }

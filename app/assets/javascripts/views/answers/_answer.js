@@ -11,7 +11,8 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
     "click .arrow-up": "upvote",
     "click .voted-up": "upvote",
     "click .arrow-down": "downvote",
-    "click .voted-down": "downvote"
+    "click .voted-down": "downvote",
+    "click .edit-link": "assessEditRequest"
   },
 
   render: function() {
@@ -84,6 +85,49 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
         HackUnderflow.currentUser.votes.remove(vote);
       }
       that.render();
+    });
+  },
+
+  assessEditRequest: function() {
+    if(this._editing) {
+      this._editing = false;
+      this.sendUpdate();
+    }
+
+    if(HackUnderflow.currentUser &&
+      (HackUnderflow.currentUser.id === this.model.escape("user_id")) ||
+      (HackUnderflow.currentUser.escape("points") > 2000)) {
+      this.replaceBodyWithForm();
+      this._editing = true;
+    }
+  },
+
+  replaceBodyWithForm: function() {
+    var replacementView = new HackUnderflow.Views.QuestionNew({
+      collection: HackUnderflow.questions,
+      model: this.model
+    });
+    var replacementEl = replacementView.render().$("#body");
+    replacementEl.removeAttr('id');
+    replacementEl.addClass("inline");
+    this.$(".answer-body").html(replacementEl);
+  },
+
+  sendUpdate: function() {
+    var that = this;
+    var newBody = this.$(".inline").val();
+    var currentModel = _.extend({}, that.model.attributes);
+    that.model.set("body", newBody);
+    that.model.save(null, {
+      success: function(model) {
+        if(model.get("editable_id")) {
+          HackUnderflow.currentUser.pending_edit_suggestions.add(model);
+          that.model.attributes = currentModel;
+          that.render();
+        } else {
+          that.question.answers.add(model);
+        }
+      }
     });
   },
 

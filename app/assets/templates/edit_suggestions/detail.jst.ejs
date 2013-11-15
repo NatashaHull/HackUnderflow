@@ -28,8 +28,8 @@
   </div>
 </div>
 
-<% /*if(!suggestion.get("accepted") &&
-     suggestion.editable.escape("user_id") == current_user.id) {*/ %>
+<% if(!suggestion.get("accepted") &&
+     suggestion.editable.escape("user_id") == current_user.id) { %>
   <div class="suggestion-forms">
     <form class="suggestion-form accept-form">
       <input type="submit" class="accept-button" value="Accept Edit">
@@ -39,4 +39,4 @@
       <input type="submit" class="reject-button" value="Reject Edit">
     </form>
   </div>
-<% /*}*/ %>
+<% } %>

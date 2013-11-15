@@ -181,7 +181,7 @@
 
 /* Lazy Edit Stuff */
 
-.question-body textarea {
+.question-body textarea, .answer-body textarea {
   margin-top: -100px;
   display: inline;
 }
