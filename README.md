@@ -12,6 +12,8 @@ This application is a clone of Stack Overflow. However, it is designed different
 
 Below is a list of advanced features I may add to this site:
 
+* FriendlyId in Backbone
+* User Authentication in Backbone
 * Tags
 * Question view counts
 * Facebook, Twitter, and other logins (i.e. OmniAuth)
@@ -20,7 +22,7 @@ Below is a list of advanced features I may add to this site:
 * Mailers
 
 ##Construction
-I started this application as a Rails app (getting all the models, controllers, views, and routes set up, along with the API layer) and then started turning it into a one page application with backbone. In order to have some sample data on this website, I used Nokogiri to scrape Stack Overflow and seeded my database with that data.
+I started this application as a Rails app (getting all the models, controllers, views, and routes set up, along with the API layer) and then started turning it into a one page application with [Backbone](https://github.com/NatashaHull/HackUndderflow#backbone-integration). In order to have some sample data on this website, I used Nokogiri to scrape Stack Overflow and seeded my database with that data.
 
 ##Users
 While I could use Devise or another authentication gem for me, this would complicate the structure of my project later on. My goal of turning this into a single page application using Backbone (including the sign up and sign in pages) lead me to the conclusion that I need more control over the `Users` and `Session` resources than using a pre-built authentication system would give me.
@@ -121,8 +123,19 @@ This led to a few associated methods for users. Assuming that I want to show a u
  
 Additionally, I was able to use this to add a `contributors` instance method to the `Answer` and `Question` models which performas a SQL query (using `find_by_sql`) to find all the users that have accepted edit suggestions for the object in question.
 
+##Backbone Integration
+I made the fairly unusual choice to start this application as a Rails multi-page app and, only after I got that working, turn it into a single page application. I had many reasons for doing this.
+
+First, I chose this project because I am interested in the architecture of websites (in case it isn't noticeable that I only talk about data structures up to this point). This meant that I had to make some fairly difficult decisions about how I wanted to implement voting, and the variety of other features present in this app. I did not want to have to make decisions about how to render things in backbone while I was making the decisions about how to get the server to respond to voting correctly, or edits (the response varies for both of these depending on a variety of factors). Building out the application in Rails, without dealing with Backbone initially, allowed me to focus on my model, database, and router concerns in isolation while creating the necessary views somewhat simply.
+
+Second, I wanted to wait until I had all the necessary features and views implemented before building out my API layer. Going in, I was unawared what each view would need in order for me to render it in Backbone, and I was still working on adding new features. By the time I built out my API layer I knew what methods each view called and what I needed to include when I rendered users, questions, answers, and everything else as json.
+
+Lastly, I wanted to get experience adding Backbone to an existing Rails application. In the process of the transition, I had one view that had partials within partials in Rails, and I had to figure out how to render the Rails view with nested partials in Backbone, which does not have partials. I ended up solving this problem by having views within views within views, each of which had an associated template. Another issue I came across was my reliance on `active_support/inflector`'s pluralize in Rails, when Backbone did not come with any sort of inflector. I solved this issue by downloading a library called `underscore.inflector` that I only discovered because of this project. Not only was this a valuable and educational experience, but it also gave me more confidence in my ability to translate between Ruby (erb) and Javascript (ejs) and to move between Rails and Backbone rendering.
+
 ##Credits
 Design: I am not a designer. As a result I downloaded [Foundation's](http://foundation.zurb.com/) stylesheets and added them to my own CSS files. Additionally, my arrows (for voting) come from this [site](http://www.facebook.com/l.php?u=http%3A%2F%2Fhedgerwow.appspot.com%2Fdemo%2Farrows&h=MAQH4BUP3).
+
+Data: I was not particularly interested in creating a lot of fake data to populate my database. I used the `faker` gem to generate user data. I then used the `nokogiri` gem to scrape approximately 75 questions, with their comments and answers, from Stack Overflow to populate my database with an initial data-set.
 
 FriendlyId: This website uses the `friendly_id` gem.
 
