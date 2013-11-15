@@ -12,7 +12,8 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
     "click .voted-up": "upvote",
     "click .arrow-down": "downvote",
     "click .voted-down": "downvote",
-    "click .edit-link": "assessEditRequest"
+    "click .edit-link": "assessEditRequest",
+    "click .not-accepted-answer": "accept"
   },
 
   render: function() {
@@ -128,6 +129,18 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
           that.question.answers.add(model);
         }
       }
+    });
+  },
+
+  accept: function() {
+    var that = this;
+    event.preventDefault();
+    console.log(that.model.acceptEdit);
+    this.model.acceptEdit(function() {
+      that.model.set("accepted", true);
+      var $success = $("<ul>");
+      $success.prepend("<li>This answer has been accepted!</li>");
+      that.$el.prepend($success);
     });
   },
 
