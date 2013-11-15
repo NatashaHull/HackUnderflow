@@ -44,6 +44,11 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
 
   renderCommentForm: function() {
     var that = this;
+    if(!HackUnderflow.currentUser ||
+      HackUnderflow.currentUser.escape("points") < 50) {
+      this._showError();
+      return;
+    }
     var commentForm = new HackUnderflow.Views.CommentForm({
       model: new HackUnderflow.Models.Comment({
         "commentable_id": that.model.get("id"),
@@ -97,14 +102,7 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
       this.replaceBodyWithForm();
       this._editing = true;
     } else {
-      if(this._message) return;
-      this._message = true;
-      if(HackUnderflow.currentUser) {
-        var message = "You don't have enough points to edit other people's answers!";
-      } else {
-        var message = "You must be logged in to do this!";
-      }
-      this.$(".question-links").prepend("<p>" + message + "</p>");
+      this._showError();
     }
   },
 
@@ -148,5 +146,16 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
   _minimumId: function() {
     var lastVote = HackUnderflow.currentUser.votes.last();
     return lastVote ? lastVote.get("id") : 0;
+  },
+
+  _showError: function() {
+    if(this._message) return;
+    this._message = true;
+    if(HackUnderflow.currentUser) {
+      var message = "You don't have enough points to edit other people's answers!";
+    } else {
+      var message = "You must be logged in to do this!";
+    }
+    this.$(".question-links").prepend("<p>" + message + "</p>");
   }
 });
