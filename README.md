@@ -14,10 +14,10 @@ Below is a list of advanced features I may add to this site:
 
 * Tags
 * Question view counts
-* User profile pics
-* Facebook, Twitter, and other logins
+* Facebook, Twitter, and other logins (i.e. OmniAuth)
 * The ability to open and close questions
 * Moderator privileges
+* Mailers
 
 ##Construction
 I started this application as a Rails app (getting all the models, controllers, views, and routes set up, along with the API layer) and then started turning it into a one page application with backbone. In order to have some sample data on this website, I used Nokogiri to scrape Stack Overflow and seeded my database with that data.
@@ -29,6 +29,8 @@ The `users` table has the following schema:
 
 * id
 * username
+* email - For Gravatars
+* slug - For FriendlyId in Rails
 * password_digest
 * session_token
 * points
@@ -120,6 +122,12 @@ This led to a few associated methods for users. Assuming that I want to show a u
 Additionally, I was able to use this to add a `contributors` instance method to the `Answer` and `Question` models which performas a SQL query (using `find_by_sql`) to find all the users that have accepted edit suggestions for the object in question.
 
 ##Credits
-Design: I am not a designer. As a result I downloaded [Foundation's](http://foundation.zurb.com/) stylesheets and added them to my own CSS files.
+Design: I am not a designer. As a result I downloaded [Foundation's](http://foundation.zurb.com/) stylesheets and added them to my own CSS files. Additionally, my arrows (for voting) come from this [site](http://www.facebook.com/l.php?u=http%3A%2F%2Fhedgerwow.appspot.com%2Fdemo%2Farrows&h=MAQH4BUP3).
 
 FriendlyId: This website uses the `friendly_id` gem.
+
+Kaminari: This website uses `kaminari` for pagination.
+
+serializeJSON: I used this library (in my javascript files) for the questions#new form in Backbone. The respository for this library can be found [here](https://github.com/marioizquierdo/jquery.serializeJSON).
+
+underscore.inflection: When I was moving my Rails views into ejs templates in backbone, I realized that I needed inflector methods which come with Rails, but for JavaScript. This library solved this issue and can be found [here](https://github.com/jeremyruppel/underscore.inflection).
