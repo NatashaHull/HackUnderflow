@@ -138,10 +138,10 @@ HackUnderflow.Views.QuestionDetailAnswer = Backbone.View.extend({
     this.model.accept(function() {
       that.model.set("accepted", true);
       that.question.set("accepted-answer", that.model);
-      that.render();
-      // var check = that.$(".not-accepted-answer");
-      // check.removeClass(".not-accepted-answer");
-      // check.addClass("accepted-answer");
+      Backbone.history.navigate(
+        "/questions/" + that.question.id,
+        { trigger: true }
+      );
     });
   },
 
