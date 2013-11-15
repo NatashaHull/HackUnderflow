@@ -88,6 +88,8 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
   _swapView: function(view) {
     if(this._prevView) {
       this._prevView.remove();
+    } else {
+      this.$rootEl.removeClass("loading");
     }
 
     this._prevView = view;
