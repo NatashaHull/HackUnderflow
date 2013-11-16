@@ -127,6 +127,7 @@ HackUnderflow.Views.QuestionDetailQuestion = Backbone.View.extend({
         if(model.get("editable_id")) {
           HackUnderflow.currentUser.pending_edit_suggestions.add(model);
           that.model.attributes = currentModel;
+          HackUnderflow.flash = "<p>Your Edit has been suggested!</p>";
         }
         that._editing = false;
         that.render();

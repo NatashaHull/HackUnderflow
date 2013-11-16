@@ -16,6 +16,7 @@ HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
     this.renderQuestion();
     this.renderAnswers();
     this.renderAnswersForm();
+    this.renderFlash();
     return this;
   },
 
@@ -67,6 +68,13 @@ HackUnderflow.Views.QuestionDetail = Backbone.View.extend({
     renderedAnswerForm = answerFormView.render().$el;
     this.$(".new-answers-form").append(renderedAnswerForm);
     this.views.push(answerFormView);
+  },
+
+  renderFlash: function() {
+    if(HackUnderflow.flash) {
+      this.$el.prepend(HackUnderflow.flash);
+      delete HackUnderflow.flash;
+    }
   },
 
   remove: function() {
