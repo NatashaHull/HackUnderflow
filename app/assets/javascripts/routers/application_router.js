@@ -37,11 +37,15 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
   },
 
   questionNew: function() {
-    var newView = new HackUnderflow.Views.QuestionNew({
-      collection: HackUnderflow.questions,
-      model: new HackUnderflow.Models.Question()
-    });
-    this._swapView(newView);
+    if(HackUnderflow.currentUser) {
+      var newView = new HackUnderflow.Views.QuestionNew({
+        collection: HackUnderflow.questions,
+        model: new HackUnderflow.Models.Question()
+      });
+      this._swapView(newView);
+    } else {
+      this.$rootEl.prepend("<p>You must be logged in for this resource!</p>");
+    }
   },
 
   usersIndex: function() {
