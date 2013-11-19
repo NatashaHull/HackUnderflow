@@ -5,6 +5,7 @@ HackUnderflow.Routers.ApplicationRouter = Backbone.Router.extend({
 
   routes: {
     "": "questionsIndex",
+    "!": "questionsIndex",
     "about": "about",
     "questions": "questionsIndex",
     "questions/new": "questionNew",
