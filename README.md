@@ -1,7 +1,7 @@
 #Hack Underflow
 
 ##App
-This application is a clone of Stack Overflow. However, it is designed differently, and will be a one page application. Below is basic overview of the features of this site:
+This application is a clone of Stack Overflow (which I created in under two weeks). However, it is designed differently, and will be a one page application. Below is basic overview of the features of this site:
 
 * [Users](https://github.com/NatashaHull/HackUndderflow#users)
 * [Questions](https://github.com/NatashaHull/HackUndderflow#questions)
@@ -131,6 +131,9 @@ First, I chose this project because I am interested in the architecture of websi
 Second, I wanted to wait until I had all the necessary features and views implemented before building out my API layer. Going in, I was unawared what each view would need in order for me to render it in Backbone, and I was still working on adding new features. By the time I built out my API layer I knew what methods each view called and what I needed to include when I rendered users, questions, answers, and everything else as json.
 
 Lastly, I wanted to get experience adding Backbone to an existing Rails application. In the process of the transition, I had one view that had partials within partials in Rails, and I had to figure out how to render the Rails view with nested partials in Backbone, which does not have partials. I ended up solving this problem by having views within views within views, each of which had an associated template. Another issue I came across was my reliance on `active_support/inflector`'s pluralize in Rails, when Backbone did not come with any sort of inflector. I solved this issue by downloading a library called `underscore.inflector` that I only discovered because of this project. Not only was this a valuable and educational experience, but it also gave me more confidence in my ability to translate between Ruby (erb) and Javascript (ejs) and to move between Rails and Backbone rendering.
+
+##Disclaimer
+This application was created in under two weeks and, during that time, I was able to get both the Rails part of this application and the Backbone.js part of this application working. That said, this code for this site could be DRY-er (a lot of code is shared between questions and answers in both Rails and Backbone.js) and could use tests. Due to time constraints, I prioritized getting the application working in Rails and in Backbone.js over both of these concerns (since the necessary changes would require creating `ActiveSupport::Concern`'s for various features and Backbone.js view superclasses for already working code). The next step in working on this application will be adding tests and then refactoring my code.
 
 ##Credits
 Design: I am not a designer. As a result I downloaded [Foundation's](http://foundation.zurb.com/) stylesheets and added them to my own CSS files. Additionally, my arrows (for voting) come from this [site](http://www.facebook.com/l.php?u=http%3A%2F%2Fhedgerwow.appspot.com%2Fdemo%2Farrows&h=MAQH4BUP3).
